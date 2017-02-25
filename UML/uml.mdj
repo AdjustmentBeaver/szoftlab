@@ -36211,7 +36211,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFadcpjK4A1m4E="
 					},
-					"name": "init",
+					"name": "sd_init",
 					"ownedElements": [
 						{
 							"_type": "UMLSequenceDiagram",
@@ -36395,11 +36395,11 @@
 													"containerExtending": false,
 													"left": -160,
 													"top": 0,
-													"width": 54,
+													"width": 75,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from init)",
+													"text": "(from sd_init)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -36597,11 +36597,11 @@
 													"containerExtending": false,
 													"left": 440,
 													"top": 0,
-													"width": 54,
+													"width": 75,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from init)",
+													"text": "(from sd_init)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -36799,11 +36799,11 @@
 													"containerExtending": false,
 													"left": -430,
 													"top": 0,
-													"width": 54,
+													"width": 75,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from init)",
+													"text": "(from sd_init)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -37338,7 +37338,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFadcpjK4A1m4E="
 					},
-					"name": "newGame",
+					"name": "sd_newGame",
 					"ownedElements": [
 						{
 							"_type": "UMLSequenceDiagram",
@@ -37522,11 +37522,11 @@
 													"containerExtending": false,
 													"left": -236,
 													"top": 0,
-													"width": 95,
+													"width": 116,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from newGame)",
+													"text": "(from sd_newGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -37724,11 +37724,11 @@
 													"containerExtending": false,
 													"left": -792,
 													"top": 0,
-													"width": 95,
+													"width": 116,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from newGame)",
+													"text": "(from sd_newGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -38290,11 +38290,11 @@
 													"containerExtending": false,
 													"left": 76,
 													"top": 0,
-													"width": 95,
+													"width": 116,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from newGame)",
+													"text": "(from sd_newGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -39174,11 +39174,11 @@
 													"containerExtending": false,
 													"left": 0,
 													"top": 0,
-													"width": 95,
+													"width": 116,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from newGame)",
+													"text": "(from sd_newGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -39484,11 +39484,11 @@
 													"containerExtending": false,
 													"left": -1068,
 													"top": 0,
-													"width": 95,
+													"width": 116,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from newGame)",
+													"text": "(from sd_newGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -41121,7 +41121,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFadcpjK4A1m4E="
 					},
-					"name": "loadGame",
+					"name": "sd_loadGame",
 					"ownedElements": [
 						{
 							"_type": "UMLSequenceDiagram",
@@ -41305,11 +41305,11 @@
 													"containerExtending": false,
 													"left": -144,
 													"top": 0,
-													"width": 96,
+													"width": 117,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from loadGame)",
+													"text": "(from sd_loadGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -41701,11 +41701,11 @@
 													"containerExtending": false,
 													"left": -176,
 													"top": 0,
-													"width": 96,
+													"width": 117,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from loadGame)",
+													"text": "(from sd_loadGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -42073,11 +42073,11 @@
 													"containerExtending": false,
 													"left": 16,
 													"top": 0,
-													"width": 96,
+													"width": 117,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from loadGame)",
+													"text": "(from sd_loadGame)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -61730,11 +61730,11 @@
 													"containerExtending": false,
 													"left": 128,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -61932,11 +61932,11 @@
 													"containerExtending": false,
 													"left": 468,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -62328,11 +62328,11 @@
 													"containerExtending": false,
 													"left": -290,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -62530,11 +62530,11 @@
 													"containerExtending": false,
 													"left": -274,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -63245,11 +63245,11 @@
 													"containerExtending": false,
 													"left": -410,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -63618,11 +63618,11 @@
 													"containerExtending": false,
 													"left": -410,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -63991,11 +63991,11 @@
 													"containerExtending": false,
 													"left": -410,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -64364,11 +64364,11 @@
 													"containerExtending": false,
 													"left": -448,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -64737,11 +64737,11 @@
 													"containerExtending": false,
 													"left": -350,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -65110,11 +65110,11 @@
 													"containerExtending": false,
 													"left": -472,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -65483,11 +65483,11 @@
 													"containerExtending": false,
 													"left": 48,
 													"top": 0,
-													"width": 104,
+													"width": 143,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from Interaction1)",
+													"text": "(from sd_commandLoop)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -66891,7 +66891,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFadcpjK4A1m4E="
 					},
-					"name": "sd_switchRail",
+					"name": "sd_toggleCommand",
 					"ownedElements": [
 						{
 							"_type": "UMLSequenceDiagram",
@@ -66899,7 +66899,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFad0/e75yqmAE="
 							},
-							"name": "sd_switchRail",
+							"name": "sd_toggleCommand",
 							"visible": true,
 							"defaultDiagram": false,
 							"ownedViews": [
@@ -66930,11 +66930,11 @@
 											"containerExtending": false,
 											"left": 76,
 											"top": 10,
-											"width": 81,
+											"width": 116,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "sd_switchRail",
+											"text": "sd_toggleCommand",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -66977,7 +66977,7 @@
 									"containerExtending": false,
 									"left": 5,
 									"top": 5,
-									"width": 596,
+									"width": 580,
 									"height": 324,
 									"autoResize": false,
 									"nameLabel": {
@@ -67053,7 +67053,7 @@
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": ":SwitchRailsCommand",
+													"text": ":ToggleCommand",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -67075,11 +67075,11 @@
 													"containerExtending": false,
 													"left": -144,
 													"top": 0,
-													"width": 117,
+													"width": 152,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from sd_switchRail)",
+													"text": "(from sd_toggleCommand)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -67471,11 +67471,11 @@
 													"containerExtending": false,
 													"left": -144,
 													"top": 0,
-													"width": 117,
+													"width": 152,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from sd_switchRail)",
+													"text": "(from sd_toggleCommand)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -68013,11 +68013,11 @@
 													"containerExtending": false,
 													"left": -224,
 													"top": 0,
-													"width": 117,
+													"width": 152,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from sd_switchRail)",
+													"text": "(from sd_toggleCommand)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -68167,7 +68167,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "4 : find(switch)",
+											"text": "4 : find(id)",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -68359,11 +68359,11 @@
 													"containerExtending": false,
 													"left": 461,
 													"top": 47,
-													"width": 97,
+													"width": 103,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "sw:Switch",
+													"text": "sw:Toggleable",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -68385,11 +68385,11 @@
 													"containerExtending": false,
 													"left": -304,
 													"top": 0,
-													"width": 117,
+													"width": 152,
 													"height": 13,
 													"autoResize": false,
 													"underline": false,
-													"text": "(from sd_switchRail)",
+													"text": "(from sd_toggleCommand)",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5,
 													"wordWrap": false
@@ -68431,7 +68431,7 @@
 											"containerExtending": false,
 											"left": 456,
 											"top": 40,
-											"width": 107,
+											"width": 113,
 											"height": 40,
 											"autoResize": false,
 											"stereotypeLabel": {
@@ -68465,7 +68465,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 510,
+											"left": 513,
 											"top": 80,
 											"width": 1,
 											"height": 207,
@@ -68483,7 +68483,7 @@
 									"containerExtending": false,
 									"left": 456,
 									"top": 40,
-									"width": 107,
+									"width": 113,
 									"height": 247,
 									"autoResize": false,
 									"stereotypeDisplay": "label",
@@ -68539,7 +68539,7 @@
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "5 : sw:Switch",
+											"text": "5 : sw:Toggleable",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -68697,19 +68697,19 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 248,
-											"top": 215,
+											"left": 266,
+											"top": 216,
 											"width": 93,
 											"height": 13,
 											"autoResize": false,
-											"alpha": -3.9795744310846457,
-											"distance": 13.45362404707371,
+											"alpha": 0.9600696912650638,
+											"distance": 12.206555615733702,
 											"hostEdge": {
 												"$ref": "AAAAAAFad23oHZ3n5LU="
 											},
 											"edgePosition": 1,
 											"underline": false,
-											"text": "6 : switchRails()",
+											"text": "6 : toggle()",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -68732,7 +68732,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 303,
+											"left": 305,
 											"top": 201,
 											"width": 0,
 											"height": 13,
@@ -68766,7 +68766,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 303,
+											"left": 305,
 											"top": 236,
 											"width": 0,
 											"height": 13,
@@ -68800,7 +68800,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 503,
+											"left": 506,
 											"top": 232,
 											"width": 14,
 											"height": 29,
@@ -68823,7 +68823,7 @@
 										"$ref": "AAAAAAFad1JuEp0K7Dk="
 									},
 									"lineStyle": 0,
-									"points": "104:232;503:232",
+									"points": "104:232;506:232",
 									"nameLabel": {
 										"$ref": "AAAAAAFad23oHZ3ofeQ="
 									},
@@ -68867,7 +68867,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 293,
+											"left": 295,
 											"top": 260,
 											"width": 19,
 											"height": 13,
@@ -68902,7 +68902,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 302,
+											"left": 304,
 											"top": 275,
 											"width": 0,
 											"height": 13,
@@ -68936,7 +68936,7 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 303,
+											"left": 305,
 											"top": 240,
 											"width": 0,
 											"height": 13,
@@ -68993,7 +68993,7 @@
 										"$ref": "AAAAAAFad211EZ3Oq+8="
 									},
 									"lineStyle": 0,
-									"points": "503:256;104:256",
+									"points": "506:256;104:256",
 									"nameLabel": {
 										"$ref": "AAAAAAFad24qnJ3+q3E="
 									},
@@ -69269,7 +69269,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFad0/e75yqmAE="
 							},
-							"name": "find(switch)",
+							"name": "find(id)",
 							"source": {
 								"$ref": "AAAAAAFad1JuD50D+TE="
 							},
@@ -69286,7 +69286,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFad0/e75yqmAE="
 							},
-							"name": "sw:Switch",
+							"name": "sw:Toggleable",
 							"source": {
 								"$ref": "AAAAAAFad2yY752Rd70="
 							},
@@ -69303,7 +69303,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFad0/e75yqmAE="
 							},
-							"name": "switchRails()",
+							"name": "toggle()",
 							"source": {
 								"$ref": "AAAAAAFad1JuD50D+TE="
 							},
@@ -69354,7 +69354,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFad0/e75yqmAE="
 							},
-							"name": ":SwitchRailsCommand",
+							"name": ":ToggleCommand",
 							"visibility": "public",
 							"represent": {
 								"$ref": "AAAAAAFad1JuD50CjjE="
@@ -69402,7 +69402,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFad0/e75yqmAE="
 							},
-							"name": "sw:Switch",
+							"name": "sw:Toggleable",
 							"visibility": "public",
 							"represent": {
 								"$ref": "AAAAAAFad211D53GCOk="
@@ -70385,6 +70385,24 @@
 						"$ref": "AAAAAAFadcpjK4A1m4E="
 					},
 					"name": "Role54",
+					"visibility": "public",
+					"isStatic": false,
+					"isLeaf": false,
+					"type": "",
+					"isReadOnly": false,
+					"isOrdered": false,
+					"isUnique": false,
+					"isDerived": false,
+					"aggregation": "none",
+					"isID": false
+				},
+				{
+					"_type": "UMLAttribute",
+					"_id": "AAAAAAFad4Ioep6us7U=",
+					"_parent": {
+						"$ref": "AAAAAAFadcpjK4A1m4E="
+					},
+					"name": "Role55",
 					"visibility": "public",
 					"isStatic": false,
 					"isLeaf": false,
