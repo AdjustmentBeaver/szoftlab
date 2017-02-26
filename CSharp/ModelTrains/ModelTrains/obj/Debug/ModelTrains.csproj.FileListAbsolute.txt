@@ -1,0 +1,6 @@
+D:\Dev\szoftlab\CSharp\ModelTrains\ModelTrains\bin\Debug\ModelTrains.exe.config
+D:\Dev\szoftlab\CSharp\ModelTrains\ModelTrains\obj\Debug\ModelTrains.csprojResolveAssemblyReference.cache
+D:\Dev\szoftlab\CSharp\ModelTrains\ModelTrains\bin\Debug\ModelTrains.exe
+D:\Dev\szoftlab\CSharp\ModelTrains\ModelTrains\bin\Debug\ModelTrains.pdb
+D:\Dev\szoftlab\CSharp\ModelTrains\ModelTrains\obj\Debug\ModelTrains.exe
+D:\Dev\szoftlab\CSharp\ModelTrains\ModelTrains\obj\Debug\ModelTrains.pdb
