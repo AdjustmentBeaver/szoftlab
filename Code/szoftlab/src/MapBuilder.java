@@ -18,7 +18,7 @@ public class MapBuilder {
         Train train = new Train(stat, trainList);
         map.addTrain(train);
         //      TrainParts
-        TrainEngine engine = new TrainEngine(train, stat, new Speed(20));
+        TrainEngine engine = new TrainEngine(train, new Speed(20));
         Speed speed = engine.getSpeed();
         train.addPart(engine);
 
