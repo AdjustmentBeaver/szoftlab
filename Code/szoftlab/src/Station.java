@@ -1,3 +1,5 @@
+import util.Color;
+
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
