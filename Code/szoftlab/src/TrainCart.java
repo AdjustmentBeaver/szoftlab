@@ -24,4 +24,10 @@ public class TrainCart extends TrainPart {
         color = new Color("empty");
         st.cartUnloaded();
     }
+
+    @Override
+    public void move() {
+        System.out.println("TrainCart.move");
+        getNextNode().accept(this);
+    }
 }

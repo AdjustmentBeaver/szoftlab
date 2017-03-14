@@ -8,10 +8,18 @@ public class TrainEngine extends TrainPart {
 
     public TrainEngine(Train t, Speed speed) {
         super(t);
+        System.out.println("TrainEngine.TrainEngine");
         this.speed = speed;
     }
 
     public Speed getSpeed() {
+        System.out.println("TrainEngine.getSpeed");
         return speed;
+    }
+
+    @Override
+    public void move() {
+        System.out.println("TrainEngine.move");
+        getNextNode().accept(this);
     }
 }
