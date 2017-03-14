@@ -3,24 +3,35 @@
  */
 public class Game {
     private SimulationTimer timer;
+    private MapManager mapManager;
+    private boolean prevRunning;
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Game trainSimulator = new Game();
+    }
+
+    public Game() {
+        timer = new SimulationTimer();
+        mapManager = new MapManager(timer, this);
     }
 
     public void startGame() {
-
+        timer.start();
     }
 
     public void stopGame() {
-
+        timer.stop();
     }
 
     public void resumeGame() {
-
+        if (prevRunning) {
+            timer.start();
+        }
     }
 
     public void newGame(String nextLevel) {
-
+        stopGame();
+        mapManager.newMap(nextLevel);
+        startGame();
     }
 }
