@@ -39,7 +39,7 @@ public class MapBuilder {
         map.addNode(tunnel1);
         SpecialPlace tunnel2 = new SpecialPlace();
         map.addNode(tunnel2);
-        Station station = new Station();
+        Station station = new Station(new Color("red"));
         map.addNode(station);
 
         node.addNeighbourNode(sw);

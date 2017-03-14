@@ -6,12 +6,14 @@ import util.Color;
 public class Station extends Node {
     private Color color;
 
-    public Station() {
+    public Station(Color color) {
         System.out.println("Station.Station");
+        this.color = color;
     }
 
     @Override
     public void accept(TrainCart tc) {
+        super.accept(tc);
         System.out.println("Station.accept(TrainCart)");
         Train t = tc.getTrain();
         Color colorToUnload = t.getColor();
