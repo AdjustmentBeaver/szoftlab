@@ -28,6 +28,7 @@ public class Node {
         if (destination == null) {
             lastTrain.explode();
         }
+        tp.setNextNode(destination);
     }
 
     public void accept(TrainEngine te) {
