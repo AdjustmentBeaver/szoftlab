@@ -7,9 +7,9 @@ public class Game {
     private boolean prevRunning;
 
     public static void main(String[] args) {
-        Game trainSimulator = new Game();
+        Game game = new Game();
 
-        trainSimulator.newGame("level1");
+        game.newGame("level1");
     }
 
     public Game() {
