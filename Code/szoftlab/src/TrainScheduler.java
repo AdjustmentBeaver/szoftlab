@@ -17,7 +17,7 @@ public class TrainScheduler implements Notifiable {
     @Override
     public void update() {
         System.out.println("TrainScheduler.update");
-        System.out.println("[?] Can we start a train?");
+        System.out.print("[?] Can we start a train?\n[>] ");
         try {
             if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y")) {
                 // find one that is not already running

@@ -39,7 +39,7 @@ public class Map {
 
     public void activateNode(Coordinate c) {
         System.out.println("Map.activateNode");
-        System.out.println("[?] What do you want to activate? [Sw]itch [T]unnel");
+        System.out.print("[?] What do you want to activate? [Sw]itch [T]unnel\n[>] ");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String input = null;
         try {

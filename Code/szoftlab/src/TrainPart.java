@@ -33,7 +33,7 @@ public abstract class TrainPart {
 
     public boolean checkCollision(TrainPart tp) {
         System.out.println("TrainPart.checkCollision");
-        System.out.println("[?] Collision happened?");
+        System.out.print("[?] Collision happened?\n[>] ");
         try {
             return new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y");
         } catch (IOException e) {

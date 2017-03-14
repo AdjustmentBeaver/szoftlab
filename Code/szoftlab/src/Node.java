@@ -57,7 +57,7 @@ public class Node {
     protected boolean checkForTrain() {
         System.out.println("Node.checkForTrain");
         // TODO: 3/14/2017 Activate szekvencia javitas (hiba felveve)
-        System.out.println("[?] Force place a train on me?");
+        System.out.print("[?] Force place a train on me?\n[>] ");
         try {
             if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y")) return true;
         } catch (IOException e) {
