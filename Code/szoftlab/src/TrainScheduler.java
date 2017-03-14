@@ -21,11 +21,13 @@ public class TrainScheduler implements Notifiable {
         try {
             if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y")) {
                 // find one that is not already running
-                if (trainList.get(trainList.size() - 1).isRunning()) {
-                    trainList.get(trainList.size() - 1).startTrain();
-                } else {
-                    System.out.println("Every train is already running");
+                for (Train t : trainList) {
+                    if (!t.isRunning()) {
+                        t.startTrain();
+                        return;
+                    }
                 }
+                System.out.println("Every train is already running");
             }
         } catch (IOException e) {
             e.printStackTrace();
