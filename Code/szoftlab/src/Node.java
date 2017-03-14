@@ -1,12 +1,11 @@
 import util.Coordinate;
-
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
 public class Node {
-    private ArrayList<Node> neighbourNodeList;
+    private List<Node> neighbourNodeList;
     private Train lastTrain;
     private Coordinate pos;
 

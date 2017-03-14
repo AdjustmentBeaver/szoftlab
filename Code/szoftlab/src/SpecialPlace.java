@@ -4,6 +4,6 @@
 public class SpecialPlace extends Node {
     @Override
     public void activate() {
-        trainOnMe = checkForTrain();
+        boolean trainOnMe = checkForTrain();
     }
 }

@@ -2,8 +2,6 @@
  * Created by Istvan Telek on 3/14/2017.
  */
 public class Switch extends Node {
-    private boolean trainOnMe;
-
     @Override
     protected Node route() {
 
@@ -11,6 +9,6 @@ public class Switch extends Node {
 
     @Override
     public void activate() {
-        trainOnMe = checkForTrain();
+        boolean trainOnMe = checkForTrain();
     }
 }
