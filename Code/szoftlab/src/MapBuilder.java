@@ -40,17 +40,23 @@ public class MapBuilder {
         station.addNeighbourNode(tunnel1);
 
         //      Trains
-        Train train = new Train(stat, trainList);
-        map.addTrain(train);
+        Train train1 = new Train(stat, trainList);
+        Train train2 = new Train(stat, trainList);
+        map.addTrain(train1);
+        map.addTrain(train2);
         //      TrainParts
-        TrainEngine engine = new TrainEngine(train, new Speed(20));
-        Speed speed = engine.getSpeed();
-        engine.setNextNode(node);
-        train.addPart(engine);
+        TrainEngine engine1 = new TrainEngine(train1, new Speed(20));
+        TrainEngine engine2 = new TrainEngine(train2, new Speed(20));
+        Speed speed = engine1.getSpeed();
+        Speed speed2 = engine2.getSpeed();
+        engine1.setNextNode(node);
+        engine2.setNextNode(station);
+        train1.addPart(engine1);
+        train2.addPart(engine2);
 
-        TrainCart cart = new TrainCart(train, stat, new Color("green"));
+        TrainCart cart = new TrainCart(train1, stat, new Color("green"));
         cart.setNextNode(node);
-        train.addPart(cart);
+        train1.addPart(cart);
 
         TrainScheduler scheduler = new TrainScheduler(trainList);
         map.addNotifiable(scheduler);
