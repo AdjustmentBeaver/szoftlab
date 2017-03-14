@@ -1,3 +1,8 @@
+import util.Color;
+import util.Speed;
+
+import java.util.List;
+
 /**
  * Created by szilard95 on 3/14/17.
  * Project: szoftlab
@@ -45,5 +50,7 @@ public class MapBuilder {
 
         TrainScheduler scheduler = new TrainScheduler(trainList);
         map.addNotifiable(scheduler);
+
+        return map;
     }
 }

@@ -21,7 +21,7 @@ public class Node {
     }
 
     protected Node route() {
-
+        return new Node();
     }
 
     public void activate() {
@@ -29,7 +29,8 @@ public class Node {
     }
 
     protected boolean checkForTrain() {
-        // TODO: 3/14/2017 Activate szekvencia javitas (hiba felveve) 
+        // TODO: 3/14/2017 Activate szekvencia javitas (hiba felveve)
+        return false;
     }
 
     public void addNeighbourNode(Node n) {

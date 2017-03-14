@@ -8,6 +8,10 @@ public class Statistics {
         this.game = game;
     }
 
+    public Statistics() {
+
+    }
+
     public void trainExploded() {
 
     }

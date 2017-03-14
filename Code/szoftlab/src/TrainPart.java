@@ -6,6 +6,7 @@ import util.Coordinate;
 public abstract class TrainPart {
     private Coordinate pos;
     private Node nextNode;
+    private Node prevNode;
     private Train train;
 
     public TrainPart(Train t) {
@@ -17,6 +18,7 @@ public abstract class TrainPart {
     }
 
     public void setNextNode(Node n) {
+        prevNode = nextNode;
         nextNode = n;
     }
 
@@ -25,14 +27,14 @@ public abstract class TrainPart {
     }
 
     public boolean checkCollision(TrainPart tp) {
-
+        return false;
     }
 
     public Node getPrevNode() {
-
+        return prevNode;
     }
 
     public Node getNextNode() {
-
+        return  nextNode;
     }
 }

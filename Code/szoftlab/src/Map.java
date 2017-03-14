@@ -1,5 +1,9 @@
+import util.Coordinate;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Created by szilard95 on 3/14/17.
@@ -23,7 +27,7 @@ public class Map {
         for (Train train : trainList) {
             timer.addSubscriber(train);
         }
-        TrainScheduler scheduler = notifiables[0];
+        Notifiable scheduler = notifiables.get(0);
         timer.addSubscriber(scheduler);
     }
 
@@ -31,9 +35,14 @@ public class Map {
         System.out.println("Map.activateNode");
         System.out.println("[?] What do you want to activate? [Sw]itch [T]unnel");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String input = in.readLine();
+        String input = null;
+        try {
+            input = in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (input.equals("T")) {
-            new Tunnel().activate();
+            new SpecialPlace().activate();
         } else {
             new Switch().activate();
         }

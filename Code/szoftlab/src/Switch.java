@@ -4,7 +4,7 @@
 public class Switch extends Node {
     @Override
     protected Node route() {
-
+        return new Node();
     }
 
     @Override

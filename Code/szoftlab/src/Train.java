@@ -8,10 +8,12 @@ public class Train implements Notifiable {
     private Statistics stat;
     private List<TrainPart> trainPartList;
     private List<Train> trainList;
+    private boolean isRunning;
 
     public Train(Statistics st, List<Train> trainList) {
         stat = st;
         this.trainList = trainList;
+        isRunning = false;
     }
 
     public void move() {
@@ -23,7 +25,7 @@ public class Train implements Notifiable {
     }
 
     public boolean isRunning() {
-
+        return isRunning;
     }
 
     public void addPart(TrainPart p) {
@@ -31,11 +33,11 @@ public class Train implements Notifiable {
     }
 
     public Color getColor() {
-
+        return new Color("");
     }
 
     public void startTrain() {
-
+        isRunning = true;
     }
 
     public void checkCollision() {
@@ -43,7 +45,7 @@ public class Train implements Notifiable {
     }
 
     public List<TrainPart> getPartList() {
-
+        return trainPartList;
     }
 
     @Override
