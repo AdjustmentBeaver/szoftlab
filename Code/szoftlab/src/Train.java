@@ -56,7 +56,7 @@ public class Train implements Notifiable {
         System.out.println("Train.checkCollision");
         for (Train other : trainList) {
             List<TrainPart> othParts = other.getPartList();
-            if (other != this) {
+            if (other != this && other.isRunning()) {
                 for (TrainPart otherPart : othParts) {
                     for (TrainPart ownPart : trainPartList) {
                         boolean collided = otherPart.checkCollision(ownPart);
