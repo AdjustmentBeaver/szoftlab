@@ -15,7 +15,7 @@ public class MapBuilder {
     public Map buildMap(Game game) {
         System.out.println("MapBuilder.buildMap");
         Map map = new Map();
-        Statistics stat = new Statistics();
+        Statistics stat = new Statistics(game);
         map.addStatistics(stat);
         List<Train> trainList = map.getTrainList();
         //  File I/O

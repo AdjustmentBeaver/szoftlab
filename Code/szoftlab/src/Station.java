@@ -8,6 +8,7 @@ public class Station extends Node {
 
     @Override
     public void accept(TrainCart tc) {
+        System.out.println("Station.accept(TrainCart)");
         Train t = tc.getTrain();
         Color colorToUnload = t.getColor();
         Color cartColor = tc.getColor();
