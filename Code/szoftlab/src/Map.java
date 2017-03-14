@@ -3,6 +3,7 @@ import util.Coordinate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +19,14 @@ public class Map {
 
 
     public Map() {
+        trainList = new ArrayList<>();
+        nodeList = new ArrayList<>();
+        notifiables = new ArrayList<>();
         System.out.println("Map.map");
     }
 
     public void subscribe(SimulationTimer timer) {
+        System.out.println("### sd_subscription ###");
         System.out.println("Map.subscibe");
         timer.deleteSubscriptions();
         for (Train train : trainList) {
@@ -29,6 +34,7 @@ public class Map {
         }
         Notifiable scheduler = notifiables.get(0);
         timer.addSubscriber(scheduler);
+        System.out.println("### END sd_subscription ###");
     }
 
     public void activateNode(Coordinate c) {

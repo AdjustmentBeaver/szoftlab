@@ -1,5 +1,6 @@
 import util.Color;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ public class Train implements Notifiable {
         stat = st;
         this.trainList = trainList;
         isRunning = false;
+        trainPartList = new ArrayList<>();
     }
 
     public void move() {

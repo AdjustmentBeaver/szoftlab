@@ -13,6 +13,7 @@ public class MapBuilder {
     }
 
     public Map buildMap(Game game) {
+        System.out.println("### sd_mapBuilding ###");
         System.out.println("MapBuilder.buildMap");
         Map map = new Map();
         Statistics stat = new Statistics(game);
@@ -31,14 +32,14 @@ public class MapBuilder {
         train.addPart(cart);
         //      Nodes
         Node node = new Node();
-        Switch sw = new Switch();
-        SpecialPlace tunnel1 = new SpecialPlace();
-        SpecialPlace tunnel2 = new SpecialPlace();
-        Station station = new Station();
         map.addNode(node);
+        Switch sw = new Switch();
         map.addNode(sw);
+        SpecialPlace tunnel1 = new SpecialPlace();
         map.addNode(tunnel1);
+        SpecialPlace tunnel2 = new SpecialPlace();
         map.addNode(tunnel2);
+        Station station = new Station();
         map.addNode(station);
 
         node.addNeighbourNode(sw);
@@ -51,6 +52,7 @@ public class MapBuilder {
         TrainScheduler scheduler = new TrainScheduler(trainList);
         map.addNotifiable(scheduler);
 
+        System.out.println("### END sd_mapBuilding ###");
         return map;
     }
 }
