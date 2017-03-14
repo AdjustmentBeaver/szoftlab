@@ -74,6 +74,7 @@ public class Train implements Notifiable {
 
     @Override
     public void update() {
+        if (!isRunning) return;
         move();
         checkCollision();
     }
