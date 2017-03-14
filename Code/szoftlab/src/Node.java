@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Istvan Telek on 3/14/2017.
  */
 public class Node {
-    private List<Node> neighbourNodeList;
+    protected List<Node> neighbourNodeList;
     private Train lastTrain;
     private Coordinate pos;
     private Node visitorComingFrom;
