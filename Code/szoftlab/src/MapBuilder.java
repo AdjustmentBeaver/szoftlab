@@ -20,16 +20,6 @@ public class MapBuilder {
         map.addStatistics(stat);
         List<Train> trainList = map.getTrainList();
         //  File I/O
-        //      Trains
-        Train train = new Train(stat, trainList);
-        map.addTrain(train);
-        //      TrainParts
-        TrainEngine engine = new TrainEngine(train, new Speed(20));
-        Speed speed = engine.getSpeed();
-        train.addPart(engine);
-
-        TrainCart cart = new TrainCart(train, stat, new Color("green"));
-        train.addPart(cart);
         //      Nodes
         Node node = new Node();
         map.addNode(node);
@@ -48,6 +38,19 @@ public class MapBuilder {
         tunnel1.addNeighbourNode(tunnel2);
         tunnel2.addNeighbourNode(tunnel1);
         station.addNeighbourNode(tunnel1);
+
+        //      Trains
+        Train train = new Train(stat, trainList);
+        map.addTrain(train);
+        //      TrainParts
+        TrainEngine engine = new TrainEngine(train, new Speed(20));
+        Speed speed = engine.getSpeed();
+        engine.setNextNode(node);
+        train.addPart(engine);
+
+        TrainCart cart = new TrainCart(train, stat, new Color("green"));
+        cart.setNextNode(node);
+        train.addPart(cart);
 
         TrainScheduler scheduler = new TrainScheduler(trainList);
         map.addNotifiable(scheduler);
