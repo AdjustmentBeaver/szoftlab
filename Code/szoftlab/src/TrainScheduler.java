@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -7,11 +10,25 @@ public class TrainScheduler implements Notifiable {
     private List<Train> trainList;
 
     public TrainScheduler(List<Train> trainList) {
+        System.out.println("TrainScheduler.TrainScheduler");
         this.trainList = trainList;
     }
 
     @Override
     public void update() {
-
+        System.out.println("TrainScheduler.update");
+        System.out.println("[?] Can we start a train?");
+        try {
+            if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y")) {
+                // find one that is not already running
+                if (trainList.get(trainList.size() - 1).isRunning()) {
+                    trainList.get(trainList.size() - 1).startTrain();
+                } else {
+                    System.out.println("Every train is already running");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
