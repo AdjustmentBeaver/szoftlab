@@ -14,6 +14,7 @@ public class SimulationTimer {
 
     public void start() {
         System.out.println("SimulationTimer.start");
+        this.step();
     }
 
     public void stop() {
