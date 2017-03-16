@@ -1,7 +1,7 @@
-import util.Coordinate;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -65,8 +65,17 @@ public class Game {
                     train.explode();
                     break;
                 case 10:
-                    Node node = new Node();
-                    node.activate();
+                    System.out.println("[?] What do you want to activate? [Sw]itch, [T]unnel");
+                    try {
+                        Node node = null;
+                        if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Sw"))
+                            node = new Switch();
+                        else
+                            node = new SpecialPlace();
+                        node.activate();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 11:
                     run = false;
