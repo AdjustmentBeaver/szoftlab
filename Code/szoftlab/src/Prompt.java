@@ -9,22 +9,30 @@ import java.io.InputStreamReader;
  */
 public class Prompt {
 
-    private static boolean doSupress = true;
+    private static boolean doSupress = false;
     private static int indentLevel = 0;
 
     public static void supressMessages(boolean doSupress) {
         Prompt.doSupress = doSupress;
     }
 
-    public static void addIndent() {
-        printMessage("->");
+    public static void addIndent(String msg) {
+        if (doSupress) {
+            return;
+        }
+        printMessage("|");
+        printMessage("|" + msg);
+        printMessage("|-->");
         indentLevel++;
     }
 
     public static void removeIndent() {
+        if (doSupress) {
+            return;
+        }
         if (indentLevel > 0) {
             indentLevel--;
-            printMessage("<-");
+            printMessage("|<--");
         }
     }
 
@@ -72,8 +80,11 @@ public class Prompt {
     }
 
     public static void printMessage(String s) {
+        if (doSupress) {
+            return;
+        }
         for (int i = 0; i < indentLevel; i++) {
-            System.out.print("\t");
+            System.out.print("|\t");
         }
         System.out.println(s);
     }
