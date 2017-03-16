@@ -1,8 +1,5 @@
 import util.Coordinate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,11 +55,7 @@ public class Node {
         System.out.println("Node.checkForTrain");
         // TODO: 3/14/2017 Activate szekvencia javitas (hiba felveve)
         System.out.print("[?] Force place a train on me?\n[>] ");
-        try {
-            if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y")) return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (Prompt.readBool()) return true;
         if (lastTrain == null) return false;
         List<TrainPart> parts = lastTrain.getPartList();
         for (TrainPart tp : parts) {

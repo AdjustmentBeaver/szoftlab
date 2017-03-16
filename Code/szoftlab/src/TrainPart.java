@@ -1,9 +1,5 @@
 import util.Coordinate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
@@ -34,12 +30,7 @@ public abstract class TrainPart {
     public boolean checkCollision(TrainPart tp) {
         System.out.println("TrainPart.checkCollision");
         System.out.print("[?] Collision happened?\n[>] ");
-        try {
-            return new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Y");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return Prompt.readBool();
     }
 
     public Node getPrevNode() {
