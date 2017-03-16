@@ -34,6 +34,7 @@ public class Game {
             System.out.println("9: Explode");
             System.out.println("10: Activate");
             System.out.println("11: Exit");
+            System.out.print("> ");
             int input = Prompt.readCommand();
             switch (input) {
                 case 1:
@@ -75,42 +76,40 @@ public class Game {
     }
 
     public Game() {
-        System.out.println("Game.Game");
-        System.out.println("### sd_init ###");
+        Prompt.printMessage("Game.Game");
+        Prompt.addIndent();
         timer = new SimulationTimer();
         mapManager = new MapManager(timer, this);
-        System.out.println("### END sd_init ###");
+        Prompt.removeIndent();
     }
 
     public void startGame() {
-        System.out.println("### sd_startGame ###");
-        System.out.println("Game.startGame");
+        Prompt.printMessage("Game.startGame");
+        Prompt.addIndent();
         timer.start();
-        System.out.println("### END sd_startGame ###");
+        Prompt.removeIndent();
     }
 
     public void stopGame() {
-        System.out.println("### sd_stopGame ###");
-        System.out.println("Game.stopGame");
+        Prompt.printMessage("Game.stopGame");
+        Prompt.addIndent();
         timer.stop();
-        System.out.println("### END sd_stopGame ###");
+        Prompt.removeIndent();
     }
 
     public void resumeGame() {
-        System.out.println("### sd_resumeGame ###");
-        System.out.println("Game.resumeGame");
+        Prompt.printMessage("Game.resumeGame");
+        Prompt.addIndent();
         if (prevRunning) {
             timer.start();
         }
-        System.out.println("### END sd_resumeGame ###");
+        Prompt.removeIndent();
     }
 
     public void newGame(String nextLevel) {
-        System.out.println("### sd_newGame ###");
-        System.out.println("Game.newGame");
+        Prompt.printMessage("Game.newGame");
         stopGame();
         mapManager.newMap(nextLevel);
         startGame();
-        System.out.println("### END sd_newGame ###");
     }
 }

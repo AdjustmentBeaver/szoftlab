@@ -8,33 +8,39 @@ public class SimulationTimer {
     List<Notifiable> subscribers;
 
     public SimulationTimer() {
-        System.out.println("SimulationTimer.SimulationTimer");
+        Prompt.printMessage("SimulationTimer.SimulationTimer");
         subscribers = new ArrayList<>();
     }
 
     public void start() {
-        System.out.println("SimulationTimer.start");
+        Prompt.printMessage("SimulationTimer.start");
         this.step();
     }
 
     public void stop() {
-        System.out.println("SimulationTimer.stop");
+        Prompt.printMessage("SimulationTimer.stop");
     }
 
     public void step() {
-        System.out.println("SimulationTimer.step");
+        Prompt.printMessage("SimulationTimer.step");
+        Prompt.addIndent();
         for (Notifiable sub : subscribers) {
             sub.update();
         }
+        Prompt.removeIndent();
     }
 
     public void addSubscriber(Notifiable sub) {
-        System.out.println("SimulationTimer.addSubscriber");
+        Prompt.printMessage("SimulationTimer.addSubscriber");
+        Prompt.addIndent();
         subscribers.add(sub);
+        Prompt.removeIndent();
     }
 
     public void deleteSubscriptions() {
-        System.out.println("SimulationTimer.deleteSubscriptions");
+        Prompt.printMessage("SimulationTimer.deleteSubscriptions");
+        Prompt.addIndent();
         subscribers.clear();
+        Prompt.removeIndent();
     }
 }
