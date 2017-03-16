@@ -1,3 +1,8 @@
+import util.Coordinate;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
@@ -8,10 +13,65 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
-        
-        game.newGame("level1");
-        
-        Prompt prompt = new Prompt(game);
+        game.loop();
+
+    }
+
+    private void loop() {
+        boolean run = true;
+        MapManager mapManager = new MapManager(timer, this);
+        Train train = new Train(new Statistics(this), new ArrayList<Train>());
+        while (run) {
+            System.out.println("Válasszon az alábbi lehetőségek közűl");
+            System.out.println("1: Start");
+            System.out.println("2: Stop");
+            System.out.println("3: New -> Subscribe");
+            System.out.println("4: Load -> Subscribe");
+            System.out.println("5: Save -> Resume");
+            System.out.println("6: Simulate -> Move, Collision Check, Explode, Visit Node");
+            System.out.println("7: Move/Visit node");
+            System.out.println("8: Collision Check");
+            System.out.println("9: Explode");
+            System.out.println("10: Activate");
+            System.out.println("11: Exit");
+            int input = Prompt.readCommand();
+            switch (input) {
+                case 1:
+                    startGame();
+                    break;
+                case 2:
+                    stopGame();
+                    break;
+                case 3:
+                    newGame("level1");
+                    break;
+                case 4:
+                    mapManager.loadMap("level1");
+                    break;
+                case 5:
+                    mapManager.saveMap("level1");
+                    break;
+                case 6:
+                    timer.step();
+                    break;
+                case 7:
+                    train.move();
+                    break;
+                case 8:
+                    train.checkCollision();
+                    break;
+                case 9:
+                    train.explode();
+                    break;
+                case 10:
+                    Node node = new Node();
+                    node.activate();
+                    break;
+                case 11:
+                    run = false;
+                    break;
+            }
+        }
     }
 
     public Game() {
