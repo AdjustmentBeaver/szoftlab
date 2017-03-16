@@ -29,7 +29,7 @@ public abstract class TrainPart {
 
     public boolean checkCollision(TrainPart tp) {
         System.out.println("TrainPart.checkCollision");
-        System.out.print("[?] Collision happened?\n[>] ");
+        System.out.print("[?] Történt ütközés?\n[>] ");
         return Prompt.readBool();
     }
 

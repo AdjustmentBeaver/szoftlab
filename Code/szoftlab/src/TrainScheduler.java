@@ -14,7 +14,7 @@ public class TrainScheduler implements Notifiable {
     @Override
     public void update() {
         System.out.println("TrainScheduler.update");
-        System.out.print("[?] Can we start a train?\n[>] ");
+        System.out.print("[?] Indulhat vonat?\n[>] ");
         if (Prompt.readBool()) {
             // find one that is not already running
             for (Train t : trainList) {
@@ -23,7 +23,6 @@ public class TrainScheduler implements Notifiable {
                     return;
                 }
             }
-            System.out.println("Every train is already running");
         }
     }
 }
