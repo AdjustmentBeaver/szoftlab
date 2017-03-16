@@ -32,7 +32,8 @@ public class Map {
         for (Train train : trainList) {
             timer.addSubscriber(train);
         }
-        Notifiable scheduler = notifiables.get(0);
+        Notifiable scheduler = null;
+        if (notifiables.size() > 0) scheduler = notifiables.get(0);
         timer.addSubscriber(scheduler);
         System.out.println("### END sd_subscription ###");
     }
