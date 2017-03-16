@@ -30,7 +30,7 @@ public class MapManager {
     public void loadMap(String mapName) {
         System.out.println("MapManager.loadMap");
         // Deserialization
-        map = new Map();
+        //map = new Map();
         map.subscribe(timer);
     }
 }
