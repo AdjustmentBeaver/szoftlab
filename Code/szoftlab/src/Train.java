@@ -60,8 +60,10 @@ public class Train implements Notifiable {
                 for (TrainPart otherPart : othParts) {
                     for (TrainPart ownPart : trainPartList) {
                         boolean collided = otherPart.checkCollision(ownPart);
-                        if (collided)
+                        if (collided) {
                             explode();
+                            return;
+                        }
                     }
                 }
             }
