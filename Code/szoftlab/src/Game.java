@@ -21,6 +21,7 @@ public class Game {
     private void loop() {
         boolean run = true;
         MapManager mapManager = new MapManager(timer, this);
+        mapManager.newMap("level1");
         Map map = new MapBuilder("testLevel").buildMap(this);
         map.subscribe(timer);
 
