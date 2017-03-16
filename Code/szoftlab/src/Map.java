@@ -19,69 +19,80 @@ public class Map {
 
 
     public Map() {
+        Prompt.printMessage("Map.map");
         trainList = new ArrayList<>();
         nodeList = new ArrayList<>();
         notifiables = new ArrayList<>();
-        System.out.println("Map.map");
     }
 
     public void subscribe(SimulationTimer timer) {
-        System.out.println("### sd_subscription ###");
-        System.out.println("Map.subscibe");
+        Prompt.printMessage("Map.subscibe");
+
+        Prompt.addIndent("timer.deleteSubscriptions()");
         timer.deleteSubscriptions();
+        Prompt.removeIndent();
+
+        Prompt.addIndent("timer.addSubscriber(train)");
         for (Train train : trainList) {
             timer.addSubscriber(train);
         }
         Notifiable scheduler = null;
         if (notifiables.size() > 0) scheduler = notifiables.get(0);
         timer.addSubscriber(scheduler);
-        System.out.println("### END sd_subscription ###");
+        Prompt.removeIndent();
     }
 
     public void activateNode(Coordinate c) {
-        System.out.println("Map.activateNode");
-        System.out.print("[?] What do you want to activate? [Sw]itch [T]unnel\n[>] ");
+        Prompt.printMessage("Map.activateNode");
+        System.out.println("[?] Mit szeretne aktiválni? [S]witch [T]unnel");
+        System.out.print("[>] ");
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String input = null;
+        String input = "";
         try {
-            input = in.readLine();
+            input = in.readLine().toLowerCase();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (input.equals("T")) {
+        if (input.equals("t")) {
+            Prompt.addIndent("tunnel.activate()");
             new SpecialPlace().activate();
-        } else {
+            Prompt.removeIndent();
+        } else if (input.equals("s")) {
+            Prompt.addIndent("switch.activate()");
             new Switch().activate();
+            Prompt.removeIndent();
+        } else {
+            System.out.println("Hibás bemenet!");
         }
     }
 
     public void addNode(Node n) {
-        System.out.println("Map.addNode");
+        Prompt.printMessage("Map.addNode");
         nodeList.add(n);
     }
 
     public void addTrain(Train t) {
-        System.out.println("Map.addTrain");
+        Prompt.printMessage("Map.addTrain");
         trainList.add(t);
     }
 
     public void addStatistics(Statistics st) {
-        System.out.println("Map.addStatistics");
+        Prompt.printMessage("Map.addStatistics");
         stat = st;
     }
 
     public void addNotifiable(Notifiable n) {
-        System.out.println("Map.addNotifiable");
+        Prompt.printMessage("Map.addNotifiable");
         notifiables.add(n);
     }
 
     public List<Node> getNodeList() {
-        System.out.println("Map.getNodeList");
+        Prompt.printMessage("Map.getNodeList");
         return nodeList;
     }
 
     public List<Train> getTrainList() {
-        System.out.println("Map.getTrainList");
+        Prompt.printMessage("Map.getTrainList");
         return trainList;
     }
 

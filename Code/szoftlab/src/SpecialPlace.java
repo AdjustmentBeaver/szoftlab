@@ -9,7 +9,6 @@ public class SpecialPlace extends Node {
 
     @Override
     public void activate() {
-        System.out.println("SpecialPlace.activate");
         boolean trainOnMe = checkForTrain();
     }
 }

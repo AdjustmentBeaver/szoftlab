@@ -8,23 +8,34 @@ public class MapManager {
     private SimulationTimer timer;
 
     public MapManager(SimulationTimer timer, Game game) {
-        System.out.println("MapManager.MapManager");
+        Prompt.printMessage("MapManager.MapManager");
         this.game = game;
         this.timer = timer;
     }
 
     public void newMap(String mapName) {
-        System.out.println("MapManager.newMap");
+        Prompt.printMessage("MapManager.newMap");
+
+        Prompt.addIndent("<<create>>");
         MapBuilder mapBuilder = new MapBuilder("newLevel");
+        Prompt.removeIndent();
+        Prompt.addIndent("mapBuilder.buildMap(game)");
         map = mapBuilder.buildMap(game);
+        Prompt.removeIndent();
+        Prompt.addIndent("map.subscribe(timer)");
         map.subscribe(timer);
+        Prompt.removeIndent();
     }
 
     public void saveMap(String mapName) {
-        System.out.println("MapManager.saveMap");
+        Prompt.printMessage("MapManager.saveMap");
+        Prompt.addIndent("game.stopGame()");
         game.stopGame();
+        Prompt.removeIndent();
         // Serialization
+        Prompt.addIndent("game.resumeGame()");
         game.resumeGame();
+        Prompt.removeIndent();
     }
 
     public void loadMap(String mapName) {

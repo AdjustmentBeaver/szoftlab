@@ -22,7 +22,7 @@ public class SimulationTimer {
 
     public void step() {
         Prompt.printMessage("SimulationTimer.step");
-        Prompt.addIndent();
+        Prompt.addIndent("");
         for (Notifiable sub : subscribers) {
             sub.update();
         }
@@ -31,14 +31,14 @@ public class SimulationTimer {
 
     public void addSubscriber(Notifiable sub) {
         Prompt.printMessage("SimulationTimer.addSubscriber");
-        Prompt.addIndent();
+        Prompt.addIndent("");
         subscribers.add(sub);
         Prompt.removeIndent();
     }
 
     public void deleteSubscriptions() {
         Prompt.printMessage("SimulationTimer.deleteSubscriptions");
-        Prompt.addIndent();
+        Prompt.addIndent("");
         subscribers.clear();
         Prompt.removeIndent();
     }

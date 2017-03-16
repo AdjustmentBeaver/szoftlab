@@ -1,3 +1,5 @@
+import util.Coordinate;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,7 +33,7 @@ public class Game {
         train2.startTrain();
 
         while (run) {
-            System.out.println("Válasszon az alábbi lehetőségek közűl");
+            System.out.println("Válasszon az alábbi lehetőségek közül: ");
             System.out.println("1: Start");
             System.out.println("2: Stop");
             System.out.println("3: New -> Subscribe");
@@ -74,17 +76,7 @@ public class Game {
                     train.explode();
                     break;
                 case 10:
-                    System.out.println("[?] What do you want to activate? [Sw]itch, [T]unnel");
-                    try {
-                        Node node = null;
-                        if (new BufferedReader(new InputStreamReader(System.in)).readLine().equals("Sw"))
-                            node = new Switch();
-                        else
-                            node = new SpecialPlace();
-                        node.activate();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    map.activateNode(new Coordinate());
                     break;
                 case 11:
                     run = false;
@@ -95,33 +87,56 @@ public class Game {
 
     public Game() {
         Prompt.printMessage("Game.Game");
-        Prompt.addIndent();
+        Prompt.addIndent("<<create>>");
+
         timer = new SimulationTimer();
+
+        Prompt.removeIndent();
+        Prompt.addIndent("<<create>>");
+
         mapManager = new MapManager(timer, this);
+
         Prompt.removeIndent();
     }
 
     public void startGame() {
         Prompt.printMessage("Game.startGame");
-        Prompt.addIndent();
+        Prompt.addIndent("timer.start()");
+        Prompt.supressMessages(true);
+
         timer.start();
+
+        Prompt.supressMessages(false);
         Prompt.removeIndent();
     }
 
     public void stopGame() {
         Prompt.printMessage("Game.stopGame");
-        Prompt.addIndent();
+        Prompt.addIndent("timer.stop()");
+        Prompt.supressMessages(true);
+
         timer.stop();
+
+        Prompt.supressMessages(false);
         Prompt.removeIndent();
     }
 
     public void resumeGame() {
         Prompt.printMessage("Game.resumeGame");
-        Prompt.addIndent();
+
+        System.out.println("[?] Futott a játék előzőleg?");
+        System.out.print("[>] ");
+        prevRunning = Prompt.readBool();
+
         if (prevRunning) {
+            Prompt.addIndent("timer.start()");
+            Prompt.supressMessages(true);
+
             timer.start();
+
+            Prompt.supressMessages(false);
+            Prompt.removeIndent();
         }
-        Prompt.removeIndent();
     }
 
     public void newGame(String nextLevel) {
