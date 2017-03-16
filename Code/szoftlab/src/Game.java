@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -10,6 +10,7 @@ public class Game {
     private SimulationTimer timer;
     private MapManager mapManager;
     private boolean prevRunning;
+
 
     public static void main(String[] args) {
         Game game = new Game();
@@ -20,7 +21,14 @@ public class Game {
     private void loop() {
         boolean run = true;
         MapManager mapManager = new MapManager(timer, this);
-        Train train = new Train(new Statistics(this), new ArrayList<Train>());
+        Map map = new MapBuilder("testLevel").buildMap(this);
+        map.subscribe(timer);
+
+        List<Train> trainList = map.getTrainList();
+        Train train = trainList.get(0);
+        Train train2 = trainList.get(1);
+        train2.startTrain();
+
         while (run) {
             System.out.println("Válasszon az alábbi lehetőségek közűl");
             System.out.println("1: Start");
