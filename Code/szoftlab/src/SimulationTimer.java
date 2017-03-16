@@ -14,7 +14,6 @@ public class SimulationTimer {
 
     public void start() {
         Prompt.printMessage("SimulationTimer.start");
-        this.step();
     }
 
     public void stop() {
