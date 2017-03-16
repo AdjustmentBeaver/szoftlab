@@ -63,6 +63,7 @@ public class Node {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (lastTrain == null) return false;
         List<TrainPart> parts = lastTrain.getPartList();
         for (TrainPart tp : parts) {
             if (tp.getNextNode() == this)
