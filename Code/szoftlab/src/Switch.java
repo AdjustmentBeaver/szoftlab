@@ -6,19 +6,19 @@ public class Switch extends Node {
 
     public Switch() {
         super();
-        System.out.println("Switch.Switch");
+        Prompt.printMessage("Switch.Switch");
         activeNode = null;
     }
 
     @Override
     protected Node route() {
-        System.out.println("Switch.route");
+        Prompt.printMessage("Switch.route");
         return activeNode;
     }
 
     @Override
     public void activate() {
-        System.out.println("Switch.activate");
+        Prompt.printMessage("Switch.activate");
         boolean trainOnMe = checkForTrain();
     }
 

@@ -14,58 +14,76 @@ public class Node {
 
 
     public Node() {
+        Prompt.printMessage("Node.Node");
         neighbourNodeList = new ArrayList<>();
     }
 
     private void accept(TrainPart tp) {
-        lastTrain = tp.getTrain();
+        Prompt.printMessage("Node.accept");
+
+        Prompt.addIndent("tp.getPrevNode()");
         visitorComingFrom = tp.getPrevNode();
-        Node destination = route();
-        if (destination == null) {
+        Prompt.removeIndent();
+
+        System.out.println("[?] Tovább tudjuk irányítani a vonatot? [Y/N]");
+        System.out.print("[>] ");
+        if (Prompt.readBool()) {
+            Prompt.addIndent("tp.getTrain()");
+            lastTrain = tp.getTrain();
+            Prompt.removeIndent();
+
+            Prompt.addIndent("t.explode()");
             lastTrain.explode();
+            Prompt.removeIndent();
         }
-        tp.setNextNode(destination);
+
+        Prompt.addIndent("tp.setNextNode(this.route())");
+        tp.setNextNode(route());
+        Prompt.removeIndent();
     }
 
     public void accept(TrainEngine te) {
-        System.out.println("Node.accept(TrainEngine)");
+        Prompt.printMessage("Node.accept(TrainEngine)");
         accept((TrainPart) te);
     }
 
     public void accept(TrainCart tc) {
-        System.out.println("Node.accept(TrainCart)");
+        Prompt.printMessage("Node.accept(TrainCart)");
         accept((TrainPart) tc);
     }
 
     protected Node route() {
-        System.out.println("Node.route");
-        Node destination = null;
-        for (Node n : neighbourNodeList) {
-            if (n != visitorComingFrom) destination = n;
-        }
-        return destination;
+        Prompt.printMessage("Node.route");
+        return this;
     }
 
     public void activate() {
-        System.out.println("Node.activate");
+        Prompt.printMessage("Node.activate");
     }
 
     protected boolean checkForTrain() {
-        System.out.println("Node.checkForTrain");
+        Prompt.printMessage("Node.checkForTrain");
         // TODO: 3/14/2017 Activate szekvencia javitas (hiba felveve)
-        System.out.print("[?] Force place a train on me?\n[>] ");
-        if (Prompt.readBool()) return true;
-        if (lastTrain == null) return false;
+        System.out.println("[?] Van a csomóponton vonat?");
+        System.out.print("[>] ");
+        return Prompt.readBool();
+
+        /* Algoritmus node ellenorzesre
+        if (lastTrain == null) {
+            return false;
+        }
         List<TrainPart> parts = lastTrain.getPartList();
         for (TrainPart tp : parts) {
-            if (tp.getNextNode() == this)
+            if (tp.getNextNode() == this) {
                 return true;
+            }
         }
         return false;
+        */
     }
 
     public void addNeighbourNode(Node n) {
-        System.out.println("Node.addNeighbourNode");
+        Prompt.printMessage("Node.addNeighbourNode");
         neighbourNodeList.add(n);
     }
 }

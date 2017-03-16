@@ -22,6 +22,7 @@ public class Game {
 
     private void loop() {
         boolean run = true;
+        Prompt.supressMessages(true);
         MapManager mapManager = new MapManager(timer, this);
         mapManager.newMap("level1");
         Map map = new MapBuilder("testLevel").buildMap(this);
@@ -29,10 +30,13 @@ public class Game {
 
         List<Train> trainList = map.getTrainList();
         Train train = trainList.get(0);
-        Train train2 = trainList.get(1);
+        Train train2 = trainList.get(0);
         train2.startTrain();
 
+        Prompt.supressMessages(false);
+
         while (run) {
+            System.out.println("---------------------------------------");
             System.out.println("Válasszon az alábbi lehetőségek közül: ");
             System.out.println("1: Start");
             System.out.println("2: Stop");
@@ -55,7 +59,9 @@ public class Game {
                     stopGame();
                     break;
                 case 3:
+                    Prompt.addIndent("game.newGame(level)");
                     newGame("level1");
+                    Prompt.removeIndent();
                     break;
                 case 4:
                     mapManager.loadMap("level1");
@@ -87,37 +93,27 @@ public class Game {
 
     public Game() {
         Prompt.printMessage("Game.Game");
-        Prompt.addIndent("<<create>>");
 
+        Prompt.addIndent("<<create>>");
         timer = new SimulationTimer();
-
         Prompt.removeIndent();
+
         Prompt.addIndent("<<create>>");
-
         mapManager = new MapManager(timer, this);
-
         Prompt.removeIndent();
     }
 
     public void startGame() {
         Prompt.printMessage("Game.startGame");
         Prompt.addIndent("timer.start()");
-        Prompt.supressMessages(true);
-
         timer.start();
-
-        Prompt.supressMessages(false);
         Prompt.removeIndent();
     }
 
     public void stopGame() {
         Prompt.printMessage("Game.stopGame");
         Prompt.addIndent("timer.stop()");
-        Prompt.supressMessages(true);
-
         timer.stop();
-
-        Prompt.supressMessages(false);
         Prompt.removeIndent();
     }
 
@@ -130,19 +126,21 @@ public class Game {
 
         if (prevRunning) {
             Prompt.addIndent("timer.start()");
-            Prompt.supressMessages(true);
-
             timer.start();
-
-            Prompt.supressMessages(false);
             Prompt.removeIndent();
         }
     }
 
     public void newGame(String nextLevel) {
         Prompt.printMessage("Game.newGame");
+
+        Prompt.addIndent("game.stopGame()");
         stopGame();
+        Prompt.removeIndent();
+
+        Prompt.addIndent("mapManager.newMap(nextLevel)");
         mapManager.newMap(nextLevel);
+        Prompt.removeIndent();
         startGame();
     }
 }

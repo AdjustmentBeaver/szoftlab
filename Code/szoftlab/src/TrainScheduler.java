@@ -7,22 +7,28 @@ public class TrainScheduler implements Notifiable {
     private List<Train> trainList;
 
     public TrainScheduler(List<Train> trainList) {
-        System.out.println("TrainScheduler.TrainScheduler");
+        Prompt.printMessage("TrainScheduler.TrainScheduler");
         this.trainList = trainList;
     }
 
     @Override
     public void update() {
-        System.out.println("TrainScheduler.update");
-        System.out.print("[?] Indulhat vonat?\n[>] ");
-        if (Prompt.readBool()) {
-            // find one that is not already running
-            for (Train t : trainList) {
-                if (!t.isRunning()) {
-                    t.startTrain();
-                    return;
-                }
-            }
+        Prompt.printMessage("TrainScheduler.update");
+
+        Prompt.addIndent("train.isRunning()");
+        if (trainList.get(0).isRunning()) {
+            return;
         }
+        Prompt.removeIndent();
+
+        System.out.println("[?] Elindulhat a vonat? [Y/N]");
+        System.out.print("[>] ");
+        if (Prompt.readBool()) {
+            Prompt.addIndent("train.startTrain()");
+            trainList.get(0).startTrain();
+            Prompt.removeIndent();
+        }
+
+
     }
 }

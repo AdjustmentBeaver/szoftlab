@@ -4,7 +4,7 @@
 public class SpecialPlace extends Node {
 
     public SpecialPlace() {
-        System.out.println("SpecialPlace.SpecialPlace");
+        Prompt.printMessage("SpecialPlace.SpecialPlace");
     }
 
     @Override

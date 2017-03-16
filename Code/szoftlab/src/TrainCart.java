@@ -9,25 +9,28 @@ public class TrainCart extends TrainPart {
 
     public TrainCart(Train t, Statistics st, Color color) {
         super(t);
-        System.out.println("TrainCart.TrainCart");
+        Prompt.printMessage("TrainCart.TrainCart");
         this.color = color;
         this.st = st;
     }
 
     public Color getColor() {
-        System.out.println("TrainCart.getColor");
+        Prompt.printMessage("TrainCart.getColor");
         return color;
     }
 
     public void unload() {
-        System.out.println("TrainCart.unload");
+        Prompt.printMessage("TrainCart.unload");
         color = new Color("empty");
         st.cartUnloaded();
     }
 
     @Override
     public void move() {
-        System.out.println("TrainCart.move");
-        if (getNextNode() != null) getNextNode().accept(this);
+        Prompt.printMessage("TrainCart.move");
+
+        Prompt.addIndent("nextNode.accept()");
+        nextNode.accept(this);
+        Prompt.removeIndent();
     }
 }

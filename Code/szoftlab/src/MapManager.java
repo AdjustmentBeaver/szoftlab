@@ -19,9 +19,11 @@ public class MapManager {
         Prompt.addIndent("<<create>>");
         MapBuilder mapBuilder = new MapBuilder("newLevel");
         Prompt.removeIndent();
+
         Prompt.addIndent("mapBuilder.buildMap(game)");
         map = mapBuilder.buildMap(game);
         Prompt.removeIndent();
+
         Prompt.addIndent("map.subscribe(timer)");
         map.subscribe(timer);
         Prompt.removeIndent();
@@ -29,9 +31,11 @@ public class MapManager {
 
     public void saveMap(String mapName) {
         Prompt.printMessage("MapManager.saveMap");
+
         Prompt.addIndent("game.stopGame()");
         game.stopGame();
         Prompt.removeIndent();
+
         // Serialization
         Prompt.addIndent("game.resumeGame()");
         game.resumeGame();
@@ -39,9 +43,11 @@ public class MapManager {
     }
 
     public void loadMap(String mapName) {
-        System.out.println("MapManager.loadMap");
+        Prompt.printMessage("MapManager.loadMap");
         // Deserialization
         //map = new Map();
+        Prompt.addIndent("map.subscribe(timer)");
         map.subscribe(timer);
+        Prompt.removeIndent();
     }
 }

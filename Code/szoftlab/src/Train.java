@@ -13,7 +13,7 @@ public class Train implements Notifiable {
     private boolean isRunning;
 
     public Train(Statistics st, List<Train> trainList) {
-        System.out.println("Train.Train");
+        Prompt.printMessage("Train.Train");
         stat = st;
         this.trainList = trainList;
         isRunning = false;
@@ -21,39 +21,45 @@ public class Train implements Notifiable {
     }
 
     public void move() {
-        System.out.println("Train.move");
+        Prompt.printMessage("Train.move");
         for (TrainPart tp : trainPartList) {
+            Prompt.addIndent("trainPart.move()");
             tp.move();
+            Prompt.removeIndent();
         }
     }
 
     public void explode() {
-        System.out.println("Train.explode");
+        Prompt.printMessage("Train.explode");
+        Prompt.addIndent("stat.trainExploded()");
         stat.trainExploded();
+        Prompt.removeIndent();
     }
 
     public boolean isRunning() {
-        System.out.println("Train.isRunning");
-        return isRunning;
+        Prompt.printMessage("Train.isRunning");
+        System.out.println("[?] Fut már a vonat? [Y/N]");
+        System.out.print("[>] ");
+        return Prompt.readBool();
     }
 
     public void addPart(TrainPart p) {
-        System.out.println("Train.addPart");
+        Prompt.printMessage("Train.addPart");
         trainPartList.add(p);
     }
 
     public Color getColor() {
-        System.out.println("Train.getColor");
+        Prompt.printMessage("Train.getColor");
         return new Color("");
     }
 
     public void startTrain() {
-        System.out.println("Train.startTrain");
+        Prompt.printMessage("Train.startTrain");
         isRunning = true;
     }
 
     public void checkCollision() {
-        System.out.println("Train.checkCollision");
+        Prompt.printMessage("Train.checkCollision");
         for (Train other : trainList) {
             List<TrainPart> othParts = other.getPartList();
             if (other != this && other.isRunning()) {

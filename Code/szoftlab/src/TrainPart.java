@@ -5,41 +5,41 @@ import util.Coordinate;
  */
 public abstract class TrainPart {
     private Coordinate pos;
-    private Node nextNode;
-    private Node prevNode;
-    private Train train;
+    protected Node nextNode;
+    protected Node prevNode;
+    protected Train train;
 
     public TrainPart(Train t) {
-        System.out.println("TrainPart.TrainPart");
+        Prompt.printMessage("TrainPart.TrainPart");
         train = t;
     }
 
     public abstract void move();
 
     public void setNextNode(Node n) {
-        System.out.println("TrainPart.setNextNode");
+        Prompt.printMessage("TrainPart.setNextNode");
         prevNode = nextNode;
         nextNode = n;
     }
 
     public Train getTrain() {
-        System.out.println("TrainPart.getTrain");
+        Prompt.printMessage("TrainPart.getTrain");
         return train;
     }
 
     public boolean checkCollision(TrainPart tp) {
-        System.out.println("TrainPart.checkCollision");
+        Prompt.printMessage("TrainPart.checkCollision");
         System.out.print("[?] Történt ütközés?\n[>] ");
         return Prompt.readBool();
     }
 
     public Node getPrevNode() {
-        System.out.println("TrainPart.getPrevNode");
+        Prompt.printMessage("TrainPart.getPrevNode");
         return prevNode;
     }
 
     public Node getNextNode() {
-        System.out.println("TrainPart.getNextNode");
+        Prompt.printMessage("TrainPart.getNextNode");
         return nextNode;
     }
 }

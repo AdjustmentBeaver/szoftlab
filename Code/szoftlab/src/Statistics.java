@@ -5,15 +5,15 @@ public class Statistics {
     private Game game;
 
     public Statistics(Game game) {
-        System.out.println("Statistics.Statistics");
+        Prompt.printMessage("Statistics.Statistics");
         this.game = game;
     }
 
     public void trainExploded() {
-        System.out.println("Statistics.trainExploded");
+        Prompt.printMessage("Statistics.trainExploded");
     }
 
     public void cartUnloaded() {
-        System.out.println("Statistics.cartUnloaded");
+        Prompt.printMessage("Statistics.cartUnloaded");
     }
 }

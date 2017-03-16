@@ -33,11 +33,13 @@ public class Map {
         Prompt.removeIndent();
 
         Prompt.addIndent("timer.addSubscriber(train)");
-        for (Train train : trainList) {
-            timer.addSubscriber(train);
-        }
+        timer.addSubscriber(trainList.get(0));
+        Prompt.removeIndent();
+
         Notifiable scheduler = null;
         if (notifiables.size() > 0) scheduler = notifiables.get(0);
+
+        Prompt.addIndent("timer.addSubscriver(scheduler)");
         timer.addSubscriber(scheduler);
         Prompt.removeIndent();
     }

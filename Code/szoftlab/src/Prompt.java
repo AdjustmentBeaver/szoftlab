@@ -30,10 +30,8 @@ public class Prompt {
         if (doSupress) {
             return;
         }
-        if (indentLevel > 0) {
-            indentLevel--;
-            printMessage("|<--");
-        }
+        indentLevel--;
+        printMessage("|<--");
     }
 
     public static int readCommand() {

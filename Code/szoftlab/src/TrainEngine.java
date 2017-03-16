@@ -8,18 +8,22 @@ public class TrainEngine extends TrainPart {
 
     public TrainEngine(Train t, Speed speed) {
         super(t);
-        System.out.println("TrainEngine.TrainEngine");
+        Prompt.printMessage("TrainEngine.TrainEngine");
         this.speed = speed;
     }
 
     public Speed getSpeed() {
-        System.out.println("TrainEngine.getSpeed");
+        Prompt.printMessage("TrainEngine.getSpeed");
         return speed;
     }
 
     @Override
     public void move() {
-        System.out.println("TrainEngine.move");
-        if (getNextNode() != null) getNextNode().accept(this);
+        Prompt.printMessage("TrainEngine.move");
+        if (getNextNode() != null) {
+            Prompt.addIndent("getNextNode().accept(this)");
+            nextNode.accept(this);
+            Prompt.removeIndent();
+        }
     }
 }
