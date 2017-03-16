@@ -30,16 +30,14 @@ public class Prompt {
 
     public static int readCommand() {
         int input = -1;
-        InputStreamReader ir = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(ir);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String inputStr = "";
         try {
-            inputStr = br.readLine();
+            inputStr = br.readLine().toLowerCase();
             input = Integer.parseInt(inputStr);
         } catch (IOException e) {
             return -1;
         } catch (NumberFormatException e) {
-            inputStr = inputStr.toLowerCase();
             switch (inputStr) {
                 case "yes":;
                 case "y":
@@ -55,6 +53,22 @@ public class Prompt {
             }
         }
         return input;
+    }
+
+    public static boolean readBool() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String inputStr = br.readLine().toLowerCase();
+            switch (inputStr) {
+                case "yes":;
+                case "y":
+                    return true;
+                default:
+                    return false;
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public static void printMessage(String s) {
