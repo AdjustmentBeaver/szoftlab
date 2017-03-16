@@ -20,6 +20,6 @@ public class TrainEngine extends TrainPart {
     @Override
     public void move() {
         System.out.println("TrainEngine.move");
-        getNextNode().accept(this);
+        if (getNextNode() != null) getNextNode().accept(this);
     }
 }

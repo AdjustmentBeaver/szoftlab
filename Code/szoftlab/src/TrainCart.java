@@ -28,6 +28,6 @@ public class TrainCart extends TrainPart {
     @Override
     public void move() {
         System.out.println("TrainCart.move");
-        getNextNode().accept(this);
+        if (getNextNode() != null) getNextNode().accept(this);
     }
 }
