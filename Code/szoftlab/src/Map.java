@@ -1,5 +1,4 @@
 import util.Coordinate;
-import util.Speed;
 
 import java.io.BufferedReader;
 import java.io.IOException;

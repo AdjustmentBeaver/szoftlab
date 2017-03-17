@@ -2,9 +2,6 @@ import util.Color;
 import util.Coordinate;
 import util.Speed;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +21,12 @@ public class Game {
 
     private void loop() {
         boolean run = true;
+        // Init magic
         Prompt.supressMessages(true);
         MapManager mapManager = new MapManager(timer, this);
         mapManager.newMap("level1");
         Map map = new MapBuilder("testLevel").buildMap(this);
         map.subscribe(timer);
-
         List<Train> trainList = new ArrayList<>();
         Statistics stat = new Statistics(this);
         Train train = new Train(stat, trainList);
@@ -39,8 +36,8 @@ public class Game {
         TrainCart tc = new TrainCart(train, stat, new Color(""));
         tc.setNextNode(station);
         train.addPart(tc);
-
         Prompt.supressMessages(false);
+        // End of init magic
 
         while (run) {
             System.out.println("---------------------------------------");
@@ -77,17 +74,7 @@ public class Game {
                     mapManager.saveMap("level1");
                     break;
                 case 6:
-                    Prompt.supressMessages(true);
-                    MapBuilder mb = new MapBuilder("level1");
-                    Map map2 = mb.buildMap(this);
-                    SimulationTimer timer2 = new SimulationTimer();
-                    map2.subscribe(timer2);
-                    List<Train> trains = map2.getTrainList();
-                    for (Train t : trains) {
-                        t.startTrain();
-                    }
-                    Prompt.supressMessages(false);
-                    timer2.step();
+                    timer.step();
                     break;
                 case 7:
                     train.move();

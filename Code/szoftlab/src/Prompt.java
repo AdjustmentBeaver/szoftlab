@@ -1,5 +1,3 @@
-import util.Coordinate;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,11 +43,11 @@ public class Prompt {
             return -1;
         } catch (NumberFormatException e) {
             switch (inputStr) {
-                case "yes":;
+                case "yes":
                 case "y":
                     input = 1;
                     break;
-                case "no":;
+                case "no":
                 case "n":
                     input = 0;
                     break;
@@ -66,7 +64,7 @@ public class Prompt {
         try {
             String inputStr = br.readLine().toLowerCase();
             switch (inputStr) {
-                case "yes":;
+                case "yes":
                 case "y":
                     return true;
                 default:
