@@ -3,6 +3,7 @@ import util.Coordinate;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,7 +71,17 @@ public class Game {
                     mapManager.saveMap("level1");
                     break;
                 case 6:
-                    timer.step();
+                    Prompt.supressMessages(true);
+                    MapBuilder mb = new MapBuilder("level1");
+                    Map map2 = mb.buildMap(this);
+                    SimulationTimer timer2 = new SimulationTimer();
+                    map2.subscribe(timer2);
+                    List<Train> trains = map2.getTrainList();
+                    for (Train t : trains) {
+                        t.startTrain();
+                    }
+                    Prompt.supressMessages(false);
+                    timer2.step();
                     break;
                 case 7:
                     train.move();
