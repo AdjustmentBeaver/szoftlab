@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find . -printf '| %P | %s | %CY-%Cm-%Cd %CH:%Cm |  |\n'
+find . -printf '| %P | %s | %TY-%Tm-%Td %TH:%TM |  |\n'
