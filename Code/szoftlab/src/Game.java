@@ -31,8 +31,6 @@ public class Game {
 
         List<Train> trainList = map.getTrainList();
         Train train = trainList.get(0);
-        Train train2 = trainList.get(0);
-        train2.startTrain();
 
         Prompt.supressMessages(false);
 
