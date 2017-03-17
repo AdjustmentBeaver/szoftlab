@@ -40,7 +40,7 @@ public class Prompt {
             inputStr = br.readLine().toLowerCase();
             input = Integer.parseInt(inputStr);
         } catch (IOException e) {
-            return -1;
+            return input;
         } catch (NumberFormatException e) {
             switch (inputStr) {
                 case "yes":

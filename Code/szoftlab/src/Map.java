@@ -55,22 +55,26 @@ public class Map {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (input.equals("t")) {
-            Prompt.addIndent("tunnel.activate()");
-            // A little bit of magic here...
-            SpecialPlace tunnel = (SpecialPlace) nodeList.get(1);
-            // End of magic
-            tunnel.activate();
-            Prompt.removeIndent();
-        } else if (input.equals("s")) {
-            Prompt.addIndent("switch.activate()");
-            // A little bit of magic here again...
-            Switch sw = (Switch) nodeList.get(0);
-            // End of magic
-            sw.activate();
-            Prompt.removeIndent();
-        } else {
-            System.out.println("Hibás bemenet!");
+        switch (input) {
+            case "t":
+                Prompt.addIndent("tunnel.activate()");
+                // A little bit of magic here...
+                SpecialPlace tunnel = (SpecialPlace) nodeList.get(1);
+                // End of magic
+                tunnel.activate();
+                Prompt.removeIndent();
+                break;
+            case "s":
+                Prompt.addIndent("switch.activate()");
+                // A little bit of magic here again...
+                Switch sw = (Switch) nodeList.get(0);
+                // End of magic
+                sw.activate();
+                Prompt.removeIndent();
+                break;
+            default:
+                System.out.println("Hibás bemenet!");
+                break;
         }
     }
 
@@ -92,11 +96,6 @@ public class Map {
     public void addNotifiable(Notifiable n) {
         Prompt.printMessage("Map.addNotifiable");
         notifiables.add(n);
-    }
-
-    public List<Node> getNodeList() {
-        Prompt.printMessage("Map.getNodeList");
-        return nodeList;
     }
 
     public List<Train> getTrainList() {
