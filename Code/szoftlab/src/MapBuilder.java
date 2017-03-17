@@ -61,7 +61,7 @@ public class MapBuilder {
         Node node = new Node();
         Prompt.removeIndent();
 
-        Prompt.addIndent("map.addNode(station)");
+        Prompt.addIndent("map.addNode(node)");
         map.addNode(node);
         Prompt.removeIndent();
 

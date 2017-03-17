@@ -22,14 +22,16 @@ public class TrainCart extends TrainPart {
     public void unload() {
         Prompt.printMessage("TrainCart.unload");
         color = new Color("empty");
+        Prompt.addIndent("st.cartUnloaded()");
         st.cartUnloaded();
+        Prompt.removeIndent();
     }
 
     @Override
     public void move() {
         Prompt.printMessage("TrainCart.move");
 
-        Prompt.addIndent("nextNode.accept()");
+        Prompt.addIndent("nextNode.accept(this)");
         nextNode.accept(this);
         Prompt.removeIndent();
     }

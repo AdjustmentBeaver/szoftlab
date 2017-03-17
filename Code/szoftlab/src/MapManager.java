@@ -45,7 +45,11 @@ public class MapManager {
     public void loadMap(String mapName) {
         Prompt.printMessage("MapManager.loadMap");
         // Deserialization
-        //map = new Map();
+        Prompt.addIndent("<<create>>");
+        Map newMap = new Map();
+        // map = newMap
+        Prompt.removeIndent();
+
         Prompt.addIndent("map.subscribe(timer)");
         map.subscribe(timer);
         Prompt.removeIndent();

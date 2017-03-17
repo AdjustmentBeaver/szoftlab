@@ -1,4 +1,5 @@
 import util.Coordinate;
+import util.Speed;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Node {
 
         System.out.println("[?] Tovább tudjuk irányítani a vonatot? [Y/N]");
         System.out.print("[>] ");
-        if (Prompt.readBool()) {
+        if (!Prompt.readBool()) {
             Prompt.addIndent("tp.getTrain()");
             lastTrain = tp.getTrain();
             Prompt.removeIndent();
@@ -63,6 +64,23 @@ public class Node {
 
     protected boolean checkForTrain() {
         Prompt.printMessage("Node.checkForTrain");
+        Prompt.addIndent("lastTrain.getpartList()");
+        // for each part in lastTrain.getPartList
+        Prompt.supressMessages(true);
+        if (lastTrain == null) {
+            // Some kind of magic if nothing visited the node yet, because the program would crash otherwise
+            Train tr = new Train(new Statistics(new Game()), new ArrayList<>());
+            tr.addPart(new TrainEngine(tr, new Speed(0)));
+            lastTrain = tr;
+            // End of magic
+        }
+        Prompt.supressMessages(false);
+        TrainPart part = lastTrain.getPartList().get(0);
+        Prompt.removeIndent();
+        // if part.getNextNode() == this
+        Prompt.addIndent("part.getNextNode()");
+        part.getNextNode();
+        Prompt.removeIndent();
         System.out.println("[?] Van a csomóponton vonat? [Y/N]");
         System.out.print("[>] ");
         return Prompt.readBool();

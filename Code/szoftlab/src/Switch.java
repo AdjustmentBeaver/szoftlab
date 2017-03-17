@@ -19,7 +19,9 @@ public class Switch extends Node {
     @Override
     public void activate() {
         Prompt.printMessage("Switch.activate");
+        Prompt.addIndent("switch.checkForTrain()");
         boolean trainOnMe = checkForTrain();
+        Prompt.removeIndent();
     }
 
     @Override

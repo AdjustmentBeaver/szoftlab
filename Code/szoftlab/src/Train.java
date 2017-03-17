@@ -62,16 +62,24 @@ public class Train implements Notifiable {
         Prompt.printMessage("Train.checkCollision");
 
         // for other in trainList
+        Train other = this;
         System.out.println("[?] A vizsgált vonatok különbözőek? [Y/N]");
         System.out.print("[>] ");
         if (Prompt.readBool()) {
             // for otherPart in other.getPartList()
+            Prompt.addIndent("other.getPartList()");
+            other.getPartList();
+            Prompt.removeIndent();
             // for ownPart in trainPartList
             TrainPart otherPart = trainPartList.get(0);
             TrainPart ownPart = trainPartList.get(0);
-            boolean collided = ownPart.checkCollision(otherPart);
+            Prompt.addIndent("otherPart.checkCollision(ownPart)");
+            boolean collided = otherPart.checkCollision(ownPart);
+            Prompt.removeIndent();
             if (collided) {
+                Prompt.addIndent("train.explode()");
                 explode();
+                Prompt.removeIndent();
             }
         }
     }
@@ -85,8 +93,12 @@ public class Train implements Notifiable {
         System.out.println("[?] Fut már a vonat?");
         System.out.print("[>] ");
         if (Prompt.readBool()) {
+            Prompt.addIndent("train.move()");
             move();
+            Prompt.removeIndent();
+            Prompt.addIndent("train.checkCollision()");
             checkCollision();
+            Prompt.removeIndent();
         }
     }
 }

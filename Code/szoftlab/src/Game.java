@@ -1,4 +1,6 @@
+import util.Color;
 import util.Coordinate;
+import util.Speed;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,8 +30,15 @@ public class Game {
         Map map = new MapBuilder("testLevel").buildMap(this);
         map.subscribe(timer);
 
-        List<Train> trainList = map.getTrainList();
-        Train train = trainList.get(0);
+        List<Train> trainList = new ArrayList<>();
+        Statistics stat = new Statistics(this);
+        Train train = new Train(stat, trainList);
+        Station station = new Station(new Color(""));
+        TrainEngine te = new TrainEngine(train, new Speed(0));
+        te.setNextNode(station);
+        TrainCart tc = new TrainCart(train, stat, new Color(""));
+        tc.setNextNode(station);
+        train.addPart(tc);
 
         Prompt.supressMessages(false);
 
@@ -148,6 +157,9 @@ public class Game {
         Prompt.addIndent("mapManager.newMap(nextLevel)");
         mapManager.newMap(nextLevel);
         Prompt.removeIndent();
+
+        Prompt.addIndent("game.startGame()");
         startGame();
+        Prompt.removeIndent();
     }
 }

@@ -9,6 +9,8 @@ public class SpecialPlace extends Node {
 
     @Override
     public void activate() {
+        Prompt.addIndent("tunnel.checkForTrain()");
         boolean trainOnMe = checkForTrain();
+        Prompt.removeIndent();
     }
 }

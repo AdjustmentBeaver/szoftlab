@@ -15,15 +15,15 @@ public class TrainScheduler implements Notifiable {
     public void update() {
         Prompt.printMessage("TrainScheduler.update");
 
-        Prompt.addIndent("train.isRunning()");
-        if (trainList.get(0).isRunning()) {
-            return;
-        }
-        Prompt.removeIndent();
-
         System.out.println("[?] Elindulhat a vonat? [Y/N]");
         System.out.print("[>] ");
         if (Prompt.readBool()) {
+            Prompt.addIndent("train.isRunning()");
+            if (trainList.get(0).isRunning()) {
+                return;
+            }
+            Prompt.removeIndent();
+
             Prompt.addIndent("train.startTrain()");
             trainList.get(0).startTrain();
             Prompt.removeIndent();

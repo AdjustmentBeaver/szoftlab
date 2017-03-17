@@ -1,4 +1,5 @@
 import util.Coordinate;
+import util.Speed;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -57,11 +58,17 @@ public class Map {
         }
         if (input.equals("t")) {
             Prompt.addIndent("tunnel.activate()");
-            new SpecialPlace().activate();
+            // A little bit of magic here...
+            SpecialPlace tunnel = (SpecialPlace) nodeList.get(1);
+            // End of magic
+            tunnel.activate();
             Prompt.removeIndent();
         } else if (input.equals("s")) {
             Prompt.addIndent("switch.activate()");
-            new Switch().activate();
+            // A little bit of magic here again...
+            Switch sw = (Switch) nodeList.get(0);
+            // End of magic
+            sw.activate();
             Prompt.removeIndent();
         } else {
             System.out.println("Hibás bemenet!");
