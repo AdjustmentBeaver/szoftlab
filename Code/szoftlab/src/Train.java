@@ -22,11 +22,11 @@ public class Train implements Notifiable {
 
     public void move() {
         Prompt.printMessage("Train.move");
-        for (TrainPart tp : trainPartList) {
-            Prompt.addIndent("trainPart.move()");
-            tp.move();
-            Prompt.removeIndent();
-        }
+        // for tp in trainPartList
+        TrainPart tp = trainPartList.get(0);
+        Prompt.addIndent("trainPart.move()");
+        tp.move();
+        Prompt.removeIndent();
     }
 
     public void explode() {
@@ -60,18 +60,18 @@ public class Train implements Notifiable {
 
     public void checkCollision() {
         Prompt.printMessage("Train.checkCollision");
-        for (Train other : trainList) {
-            List<TrainPart> othParts = other.getPartList();
-            if (other != this && other.isRunning()) {
-                for (TrainPart otherPart : othParts) {
-                    for (TrainPart ownPart : trainPartList) {
-                        boolean collided = otherPart.checkCollision(ownPart);
-                        if (collided) {
-                            explode();
-                            return;
-                        }
-                    }
-                }
+
+        // for other in trainList
+        System.out.println("[?] A vizsgált vonatok különbözőek? [Y/N]");
+        System.out.print("[>] ");
+        if (Prompt.readBool()) {
+            // for otherPart in other.getPartList()
+            // for ownPart in trainPartList
+            TrainPart otherPart = trainPartList.get(0);
+            TrainPart ownPart = trainPartList.get(0);
+            boolean collided = ownPart.checkCollision(otherPart);
+            if (collided) {
+                explode();
             }
         }
     }
@@ -82,8 +82,11 @@ public class Train implements Notifiable {
 
     @Override
     public void update() {
-        if (!isRunning) return;
-        move();
-        checkCollision();
+        System.out.println("[?] Fut már a vonat?");
+        System.out.print("[>] ");
+        if (Prompt.readBool()) {
+            move();
+            checkCollision();
+        }
     }
 }

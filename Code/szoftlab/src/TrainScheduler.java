@@ -28,7 +28,5 @@ public class TrainScheduler implements Notifiable {
             trainList.get(0).startTrain();
             Prompt.removeIndent();
         }
-
-
     }
 }

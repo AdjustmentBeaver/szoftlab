@@ -17,11 +17,11 @@ public class Station extends Node {
         Train t = tc.getTrain();
         Color colorToUnload = t.getColor();
         Color cartColor = tc.getColor();
-
-        if ((this.color == cartColor) && (this.color == colorToUnload)) {
+        System.out.println("[?] Megegyezik a vonat színe az állomáséval? [Y/N]");
+        System.out.print("[>] ");
+        if (Prompt.readBool()) {
             tc.unload();
         }
-
         super.accept(tc);
     }
 }

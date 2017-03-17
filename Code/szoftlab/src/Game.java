@@ -12,7 +12,6 @@ import java.util.List;
 public class Game {
     private SimulationTimer timer;
     private MapManager mapManager;
-    private boolean prevRunning;
 
 
     public static void main(String[] args) {
@@ -131,9 +130,8 @@ public class Game {
 
         System.out.println("[?] Futott a játék előzőleg?");
         System.out.print("[>] ");
-        prevRunning = Prompt.readBool();
 
-        if (prevRunning) {
+        if (Prompt.readBool()) {
             Prompt.addIndent("timer.start()");
             timer.start();
             Prompt.removeIndent();

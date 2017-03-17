@@ -63,23 +63,9 @@ public class Node {
 
     protected boolean checkForTrain() {
         Prompt.printMessage("Node.checkForTrain");
-        // TODO: 3/14/2017 Activate szekvencia javitas (hiba felveve)
-        System.out.println("[?] Van a csomóponton vonat?");
+        System.out.println("[?] Van a csomóponton vonat? [Y/N]");
         System.out.print("[>] ");
         return Prompt.readBool();
-
-        /* Algoritmus node ellenorzesre
-        if (lastTrain == null) {
-            return false;
-        }
-        List<TrainPart> parts = lastTrain.getPartList();
-        for (TrainPart tp : parts) {
-            if (tp.getNextNode() == this) {
-                return true;
-            }
-        }
-        return false;
-        */
     }
 
     public void addNeighbourNode(Node n) {
