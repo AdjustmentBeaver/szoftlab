@@ -8,17 +8,50 @@ import java.util.List;
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
+
+/**
+ * Inicializálja a játékhoz szükséges objektumokat.
+ * <p>
+ * Létrehozza a SimulationTimer és a MapManager objektumokat.
+ * Rajra keresztül állítható a játék állapota.
+ */
 public class Game {
     private SimulationTimer timer;
     private MapManager mapManager;
 
 
+    /**
+     * Instantiates a new Game.
+     * <p>
+     * Init szekvencia.
+     * </p>
+     */
+    public Game() {
+        Prompt.printMessage("Game.Game");
+
+        Prompt.addIndent("<<create>>");
+        timer = new SimulationTimer();
+        Prompt.removeIndent();
+
+        Prompt.addIndent("<<create>>");
+        mapManager = new MapManager(timer, this);
+        Prompt.removeIndent();
+    }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         Game game = new Game();
         game.loop();
 
     }
 
+    /**
+     * Skeleton main loop for CLI
+     */
     private void loop() {
         boolean run = true;
         // Init magic
@@ -95,18 +128,12 @@ public class Game {
         }
     }
 
-    public Game() {
-        Prompt.printMessage("Game.Game");
-
-        Prompt.addIndent("<<create>>");
-        timer = new SimulationTimer();
-        Prompt.removeIndent();
-
-        Prompt.addIndent("<<create>>");
-        mapManager = new MapManager(timer, this);
-        Prompt.removeIndent();
-    }
-
+    /**
+     * Start game.
+     * <p>
+     * Elindítja a szimulációt. A SimulationTimernek start üzenetet küld, aminek hatására elindul az időzítés.
+     * </p>
+     */
     public void startGame() {
         Prompt.printMessage("Game.startGame");
         Prompt.addIndent("timer.start()");
@@ -114,6 +141,12 @@ public class Game {
         Prompt.removeIndent();
     }
 
+    /**
+     * Stop game.
+     * <p>
+     * Megállítja a szimulációt. A SimulationTimernek stop üzenetet küld, aminek a hatására az időzítés megáll.
+     * </p>
+     */
     public void stopGame() {
         Prompt.printMessage("Game.stopGame");
         Prompt.addIndent("timer.stop()");
@@ -121,6 +154,12 @@ public class Game {
         Prompt.removeIndent();
     }
 
+    /**
+     * Resume game.
+     * <p>
+     * A játék előző állapota alapján dönt. Ha futott a játék akkor újra elindítja azt.
+     * </p>
+     */
     public void resumeGame() {
         Prompt.printMessage("Game.resumeGame");
 
@@ -134,6 +173,13 @@ public class Game {
         }
     }
 
+    /**
+     * New game.
+     * <br>
+     * Megállítja a szimulációt, majd szól a MapManagernek, hogy hozzon létre egy új pályát, végül pedig elindítja azt.
+     *
+     * @param nextLevel the next level
+     */
     public void newGame(String nextLevel) {
         Prompt.printMessage("Game.newGame");
 
