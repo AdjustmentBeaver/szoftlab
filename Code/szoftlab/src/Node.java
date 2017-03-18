@@ -7,13 +7,23 @@ import java.util.List;
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
+
+/**
+ * A TrainPartok következő úticélját határozza meg. A csomópontok gráfot alkotnak.
+ */
 public class Node {
+    /**
+     * The Neighbour node list.
+     */
     protected List<Node> neighbourNodeList;
     private Train lastTrain;
     private Coordinate pos;
     private Node visitorComingFrom;
 
 
+    /**
+     * Instantiates a new Node.
+     */
     public Node() {
         Prompt.printMessage("Node.Node");
         neighbourNodeList = new ArrayList<>();
@@ -43,25 +53,53 @@ public class Node {
         Prompt.removeIndent();
     }
 
+    /**
+     * A csomópont irányítja a TrainEnginet a következő állomás felé, ha az létezik.
+     *
+     * @param te the TrainEngine
+     */
     public void accept(TrainEngine te) {
         Prompt.printMessage("Node.accept(TrainEngine)");
         accept((TrainPart) te);
     }
 
+    /**
+     * A csomópont irányítja a TrainCartot a következő állomás felé, ha az létezik.
+     *
+     * @param tc the TrainCart
+     */
     public void accept(TrainCart tc) {
         Prompt.printMessage("Node.accept(TrainCart)");
         accept((TrainPart) tc);
     }
 
+    /**
+     * Megnézi honnan jött az aktuális TrainPart, és a másik node felé irányítja, mint ahonnan jött.
+     *
+     * @return the node
+     */
     protected Node route() {
         Prompt.printMessage("Node.route");
         return this;
     }
 
+    /**
+     * A felhaszáló ezzel tudja a node-hoz tartozó logikát aktiválni. Alapértelmezetten ugyan semmi nem történik, de a leszármazottak felüldefiniálják ezt.
+     */
     public void activate() {
         Prompt.printMessage("Node.activate");
     }
 
+    /**
+     * Ellenörzi, hogy van-e a node-on vonat jelenleg.
+     * <p>
+     * A node minden parttal történt interakciónál megjegyzi, hogy mi volt a hozzá tartozó vonat. (lastTrain)
+     * Az ellenőrzésnél lekéri a vonat partListáját, és megnézi mindre, kivétel a legelsöre, a getNextNode() függvénnyel,
+     * hogy mi a következő célja. Ha nem a node saját maga, akkor már nincs rajta a vonat.
+     * </p>s
+     *
+     * @return true ha van rajta vonat
+     */
     protected boolean checkForTrain() {
         Prompt.printMessage("Node.checkForTrain");
         Prompt.addIndent("lastTrain.getpartList()");
@@ -86,6 +124,11 @@ public class Node {
         return Prompt.readBool();
     }
 
+    /**
+     * Add neighbour node.
+     *
+     * @param n the Node
+     */
     public void addNeighbourNode(Node n) {
         Prompt.printMessage("Node.addNeighbourNode");
         neighbourNodeList.add(n);
