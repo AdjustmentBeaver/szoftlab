@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
+ * <p>
+ * A vonat felrobbantásáért felelős, ekkor triggereli Statistics osztály figyelő függvényét. Tárolja a kocsikat, mozdonyt. Mozgatja saját magát.
+ * </p>
  */
 public class Train implements Notifiable {
     private Statistics stat;
@@ -12,6 +15,12 @@ public class Train implements Notifiable {
     private List<Train> trainList;
     private boolean isRunning;
 
+    /**
+     *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
+     *
+     * @param st        A játék statisztikája.
+     * @param trainList A vonatok listája.
+     */
     public Train(Statistics st, List<Train> trainList) {
         Prompt.printMessage("Train.Train");
         stat = st;
@@ -20,6 +29,9 @@ public class Train implements Notifiable {
         trainPartList = new ArrayList<>();
     }
 
+    /**
+     * Mozgatja a Traint és minden elemét.
+     */
     public void move() {
         Prompt.printMessage("Train.move");
         // for tp in trainPartList
@@ -29,6 +41,9 @@ public class Train implements Notifiable {
         Prompt.removeIndent();
     }
 
+    /**
+     * Felrobbantja a Traint.
+     */
     public void explode() {
         Prompt.printMessage("Train.explode");
         Prompt.addIndent("stat.trainExploded()");
@@ -36,6 +51,11 @@ public class Train implements Notifiable {
         Prompt.removeIndent();
     }
 
+    /**
+     * Visszaadja, hogy a Train mozgásban van-e.
+     *
+     * @return Igaz, ha a vonat mozgásban van.
+     */
     public boolean isRunning() {
         Prompt.printMessage("Train.isRunning");
         System.out.println("[?] Fut már a vonat? [Y/N]");
@@ -43,21 +63,37 @@ public class Train implements Notifiable {
         return Prompt.readBool();
     }
 
+    /**
+     * Hozzáad egy kocsit a vonathoz.
+     *
+     * @param p A hozzáadandó kocsi.
+     */
     public void addPart(TrainPart p) {
         Prompt.printMessage("Train.addPart");
         trainPartList.add(p);
     }
 
+    /**
+     * Visszaadja az utolsó nem üres TrainPart színét.
+     *
+     * @return Az utolsó nem üres TrainPart színe.
+     */
     public Color getColor() {
         Prompt.printMessage("Train.getColor");
         return new Color("");
     }
 
+    /**
+     * Elindítja a vonatot.
+     */
     public void startTrain() {
         Prompt.printMessage("Train.startTrain");
         isRunning = true;
     }
 
+    /**
+     * Ütközés vizsgálata a vonatok között. A vonat minden TrainPart-ját összehasonlítja a az összes többi vonat TrainPart-jával. Minden szimulációs lépésben végrehajtódik.
+     */
     public void checkCollision() {
         Prompt.printMessage("Train.checkCollision");
 
@@ -84,10 +120,18 @@ public class Train implements Notifiable {
         }
     }
 
+    /**
+     * Visszaadja a Train-hez tartozó TrainPartok listáját.
+     *
+     * @return A vonathoz tartozó TrainPartok listája.
+     */
     public List<TrainPart> getPartList() {
         return trainPartList;
     }
 
+    /**
+     * A Notifiable interfész megvalósításából származik. Ezen belül történik a mozgatás (move()) és az ütközésvizsgálat (checkCollision()) műveletek hívása.
+     */
     @Override
     public void update() {
         System.out.println("[?] Fut már a vonat?");
