@@ -7,11 +7,28 @@ import java.util.List;
  * Created by szilard95 on 3/14/17.
  * Project: szoftlab
  */
+
+/**
+ * Ő végzi az IO műveleteket.
+ * <br>
+ * Létrehozza magát a pályát és feltölti a rajta lévő és a hozzá kapcsolódó elemekkel.
+ */
 public class MapBuilder {
+    /**
+     * Instantiates a new Map builder.
+     *
+     * @param mapName the map name
+     */
     public MapBuilder(String mapName) {
         Prompt.printMessage("MapBuilder.MapBuilder");
     }
 
+    /**
+     * Létrehozza a pálya működéséhez szükséges összetevőket és elvégzi a file olvasás műveletet az adatok feldolgozásával.
+     *
+     * @param game the game
+     * @return the map
+     */
     public Map buildMap(Game game) {
         Prompt.printMessage("MapBuilder.buildMap");
 
@@ -64,7 +81,6 @@ public class MapBuilder {
         Prompt.addIndent("map.addNode(node)");
         map.addNode(node);
         Prompt.removeIndent();
-
 
         Prompt.addIndent("node.addNeighbourNode(n)");
         node.addNeighbourNode(node);
