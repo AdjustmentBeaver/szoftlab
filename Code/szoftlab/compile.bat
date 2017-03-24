@@ -9,4 +9,4 @@ MD out
 MD out\production
 MD out\production\szoftlab
 
-"%JAVA_HOME%\bin\javac" -d out\production\szoftlab -sourcepath src src\Game.java
+"%JAVA_HOME%\bin\javac" -encoding utf8 -d out\production\szoftlab -sourcepath src src\Game.java
