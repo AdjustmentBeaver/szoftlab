@@ -62,6 +62,6 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-*.bat text eol=crlf
-*.mdj binary
-*.mfj binary
+**/*.bat text eol=crlf
+**/*.mdj binary
+**/*.mfj binary
