@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE level [
+        <!ELEMENT level (nodes,trains)>
+        <!ELEMENT nodes (node*)>
+        <!ELEMENT node (type, name, position, neighbours, color*)>
+        <!ELEMENT position (x,y)>
+        <!ELEMENT neighbours (neighbour_name*)>
+        <!ELEMENT trains (train*)>
+        <!ELEMENT train (trainPart*, startNode, startTime)>
+        <!ELEMENT trainPart (type, color*, speed*)>
+        <!ELEMENT type (#PCDATA)>
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT x (#PCDATA)>
+        <!ELEMENT y (#PCDATA)>
+        <!ELEMENT neighbour_name (#PCDATA)>
+        <!ELEMENT color (#PCDATA)>
+        <!ELEMENT speed (#PCDATA)>
+        <!ELEMENT startNode (#PCDATA)>
+        <!ELEMENT startTime (#PCDATA)>
+        ]>
+
+<level>
+    <nodes>
+        <node>
+            <type>node</type>
+            <name>node1</name>
+            <position>
+                <x>1</x>
+                <y>0</y>
+            </position>
+            <neighbours>
+                <neighbour_name>stationRed</neighbour_name>
+            </neighbours>
+        </node>
+        <node>
+            <type>station</type>
+            <name>stationRed</name>
+            <position>
+                <x>2</x>
+                <y>0</y>
+            </position>
+            <neighbours>
+                <neighbour_name>node1</neighbour_name>
+                <neighbour_name>node2</neighbour_name>
+            </neighbours>
+            <color>RED</color>
+        </node>
+        <node>
+            <type>node</type>
+            <name>node2</name>
+            <position>
+                <x>3</x>
+                <y>0</y>
+            </position>
+            <neighbours>
+                <neighbour_name>stationRed</neighbour_name>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train>
+            <trainPart>
+                <type>engine</type>
+                <speed>1</speed>
+            </trainPart>
+            <trainPart>
+                <type>trainCart</type>
+                <color>RED</color>
+            </trainPart>
+            <trainPart>
+                <type>trainCart</type>
+                <color>BLUE</color>
+            </trainPart>
+            <startNode>node1</startNode>
+            <startTime>0</startTime>
+        </train>
+    </trains>
+</level>
