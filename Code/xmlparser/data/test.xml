@@ -38,7 +38,7 @@
         <train start_node="nd01" start_time="0">
             <trainPart type="engine" speed="2"/>
             <trainPart type="cart" color="blue"/>
-            <trainPart type="coal_wagon"/>
+            <trainPart type="coalWagon"/>
         </train>
         <train start_node="nd01" start_time="10">
             <trainPart type="engine" speed="2"/>

@@ -15,6 +15,27 @@ import java.io.IOException;
  * A program elso parametere a betoltendo xml fajl eleresi utvonala
  */
 public class App {
+
+    /**
+     * Gets node attribute.
+     *
+     * @param n    the node
+     * @param attr the attribute to get
+     * @return the node attribute as a String
+     * @throws NullPointerException   occurs when the node is null
+     * @throws NullAttributeException occurs when the specified attribute is not found or empty
+     */
+    public static String getNodeAttribute(Node n, String attr) throws NullPointerException, NullAttributeException {
+        if (n == null) {
+            throw new NullPointerException();
+        }
+        String s = ((Element)n).getAttribute(attr);
+        if (s == null || s.equals("")) {
+            throw new NullAttributeException("Attribute is null");
+        }
+        return s;
+    }
+
     public static void main(String[] args) {
         try {
             // Betoltjuk az XML dokumentumot az elso parameterkent megadott eleresi utvonalrol
@@ -40,7 +61,9 @@ public class App {
                 // Csak a node tipusu elementek erdekelnek minket
                 if (group.getNodeType() == Node.ELEMENT_NODE) {
                     // TODO: csoport parseolas
-                    System.out.println("Group " + i + ": " + group.getNodeName());
+                    System.out.println("#######################");
+                    System.out.println("Group: " + group.getNodeName());
+                    System.out.println("#######################");
                     // Node tipusu entitasok
                     if (group.getNodeName().equals("nodes")) {
                         // Megkapjuk a listat ami a nodeokat tartalmazza
@@ -53,33 +76,12 @@ public class App {
                                 if (!node.getNodeName().equals("node")) {
                                     throw new XMLParseException("Invalid element: " + node.getNodeName());
                                 }
-                                // Node attributumok lekerese, eloszor azokat amik child nodekent vannak tarolva
-                                NodeList nodeAttrs = node.getChildNodes();
-                                for (int k = 0; k < nodeAttrs.getLength(); k++) {
-                                    Node nodeAttr = nodeAttrs.item(k);
-                                    if (nodeAttr.getNodeType() == Node.ELEMENT_NODE) {
-                                        String attrName = nodeAttr.getNodeName();
-                                        switch (attrName) {
-                                            case "position":
-                                                // TODO: save position
-                                                String xPos = ((Element) nodeAttr).getAttribute("x");
-                                                String yPos = ((Element) nodeAttr).getAttribute("y");
-                                                System.out.println("Position: (" + xPos + ";" + yPos + ")");
-                                                break;
-                                            case "neighbours":
-                                                // TODO: parse and save neighbour list
-                                                System.out.println("Neighbours");
-                                                break;
-                                            default:
-                                                throw new XMLParseException("Invalid node attribute: " + attrName);
-                                        }
-                                    }
-                                }
                                 // Node nevenek lekerese (kotelezo attributum)
-                                String nodeName = ((Element)node).getAttribute("name");
+                                String nodeName = getNodeAttribute(node, "name");
+                                System.out.println("---------------------------");
                                 System.out.println("Node name: " + nodeName);
                                 // Node tipusanak lekerese (kotelezo attributum)
-                                String nodeType = ((Element)node).getAttribute("type");
+                                String nodeType = getNodeAttribute(node, "type");
                                 switch (nodeType) {
                                     case "node":
                                         System.out.println("Node is a node");
@@ -89,17 +91,48 @@ public class App {
                                         break;
                                     case "station":
                                         System.out.println("Node is a station");
+                                        String color = getNodeAttribute(node, "color");
+                                        System.out.println("Color is: " + color);
                                         break;
-                                    case "loader_station":
+                                    case "loaderStation":
                                         System.out.println("Node is a loader station");
+                                        String loaderColor = getNodeAttribute(node, "color");
+                                        System.out.println("Color is: " + loaderColor);
                                         break;
-                                    case "special_place":
+                                    case "specialPlace":
                                         System.out.println("Node is a special place");
                                         break;
                                     default:
                                         throw new XMLParseException("Invalid node type: " + nodeType);
                                 }
-
+                                // Node attributumok lekerese, eloszor azokat amik child nodekent vannak tarolva
+                                NodeList nodeAttrs = node.getChildNodes();
+                                for (int k = 0; k < nodeAttrs.getLength(); k++) {
+                                    Node nodeAttr = nodeAttrs.item(k);
+                                    if (nodeAttr.getNodeType() == Node.ELEMENT_NODE) {
+                                        String attrName = nodeAttr.getNodeName();
+                                        switch (attrName) {
+                                            case "position":
+                                                // TODO: save position
+                                                String xPos = getNodeAttribute(nodeAttr, "x");
+                                                String yPos = getNodeAttribute(nodeAttr, "y");
+                                                System.out.println("Position: (" + xPos + ";" + yPos + ")");
+                                                break;
+                                            case "neighbours":
+                                                // TODO: parse and save neighbour list
+                                                NodeList neighbourList = nodeAttr.getChildNodes();
+                                                for (int l = 0; l < neighbourList.getLength(); l++) {
+                                                    Node neighbour = neighbourList.item(l);
+                                                    if (neighbour.getNodeType() == Node.ELEMENT_NODE) {
+                                                        System.out.println("Neighbour: " + getNodeAttribute(neighbour, "name"));
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                throw new XMLParseException("Invalid node attribute: " + attrName);
+                                        }
+                                    }
+                                }
                             }
                         }
                     // Train tipusu entitasok
@@ -108,7 +141,38 @@ public class App {
                         for (int j=0; j<trains.getLength(); ++j) {
                             Node train = trains.item(j);
                             if (train.getNodeType() == Node.ELEMENT_NODE) {
-                                System.out.println("Train " + j + ": " + train.getNodeName());
+                                if (!train.getNodeName().equals("train")) {
+                                    throw new XMLParseException("Invalid element: " + train.getNodeName());
+                                }
+                                System.out.println("---------------------------");
+                                String startNode = getNodeAttribute(train, "start_node");
+                                System.out.println("Train start node: " + startNode);
+                                String startTime = getNodeAttribute(train, "start_time");
+                                System.out.println("Train start time: " + startTime);
+                                NodeList trainParts = train.getChildNodes();
+                                for (int k = 0; k < trainParts.getLength(); k++) {
+                                    Node trainPart = trainParts.item(k);
+                                    if (trainPart.getNodeType() == Node.ELEMENT_NODE) {
+                                        String partType = getNodeAttribute(trainPart, "type");
+                                        switch (partType) {
+                                            case "engine":
+                                                System.out.println("Train part is an engine");
+                                                String speed = getNodeAttribute(trainPart, "speed");
+                                                System.out.println("Speed is " + speed);
+                                                break;
+                                            case "cart":
+                                                System.out.println("Train part is a cart");
+                                                String color = getNodeAttribute(trainPart, "color");
+                                                System.out.println("Color is " + color);
+                                                break;
+                                            case "coalWagon":
+                                                System.out.println("Train part is a coal wagon");
+                                                break;
+                                            default:
+                                                throw new XMLParseException("Invalid train part type: " + partType);
+                                        }
+                                    }
+                                }
                             }
                         }
                     } else {
