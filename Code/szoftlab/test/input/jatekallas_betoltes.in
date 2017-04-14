@@ -1,0 +1,9 @@
+new jatekallas_betoltes
+activate specialPlace1
+activate specialPlace2
+step 2
+save save1
+load save1
+listNodes
+listTrains
+step 1
