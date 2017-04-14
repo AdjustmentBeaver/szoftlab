@@ -57,4 +57,10 @@ public class TrainCart extends TrainPart {
         nextNode.accept(this);
         Prompt.removeIndent();
     }
+
+    /**
+     * Utasok felszállása a kocsira
+     */
+    public void load() {
+    }
 }
