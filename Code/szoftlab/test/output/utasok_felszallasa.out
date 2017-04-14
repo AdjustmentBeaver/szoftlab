@@ -1,0 +1,6 @@
+MAP_CREATED
+train1 stationGreen
+trainCartGreen1 UNLOAD
+train1 loaderStationGreen
+trainCartGreen1 LOAD
+train1 node2
