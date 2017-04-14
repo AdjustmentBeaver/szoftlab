@@ -12,7 +12,6 @@ public class Switch extends Node {
      */
     public Switch() {
         super();
-        Prompt.printMessage("Switch.Switch");
         activeNode = null;
     }
 
@@ -22,8 +21,13 @@ public class Switch extends Node {
      */
     @Override
     protected Node route() {
-        Prompt.printMessage("Switch.route");
-        return activeNode;
+        // Feltételezve, hogy az elemek sorban: 0:ROOT 1:KIMENET 2:KIMENET
+        // Ha Root felől jött
+        if (visitorComingFrom == neighbourNodeList.get(0))
+            return activeNode;
+        else
+            return neighbourNodeList.get(0);
+
     }
 
     /**
@@ -31,10 +35,21 @@ public class Switch extends Node {
      */
     @Override
     public void activate() {
-        Prompt.printMessage("Switch.activate");
-        Prompt.addIndent("switch.checkForTrain()");
         boolean trainOnMe = checkForTrain();
-        Prompt.removeIndent();
+
+        if (!trainOnMe){
+            // Ha a kettes az aktív
+            if (activeNode != neighbourNodeList.get(1))
+                // Aktiváljuk az egyest
+                activeNode = neighbourNodeList.get(1);
+            else if (neighbourNodeList.size() >= 3)
+                // Aktiváljuk a kettest
+                activeNode = neighbourNodeList.get(2);
+            else
+                // Ha nincs kettes, akkor vakvágány
+                activeNode = null;
+        }
+
     }
 
     /**
