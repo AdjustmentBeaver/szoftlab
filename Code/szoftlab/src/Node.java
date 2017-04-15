@@ -16,8 +16,20 @@ public class Node {
      * The Neighbour node list.
      */
     protected List<Node> neighbourNodeList;
+
+    /**
+     * A csomóponttal utoljára kapcsolatba lépett vonat.
+     */
     private Train lastTrain;
+
+    /**
+     * A csomópont helyzetét adja meg.
+     */
     private Coordinate pos;
+
+    /**
+     * Melyik szomszédos csomópont felől érkezett a látogató
+     */
     protected Node visitorComingFrom;
 
 
@@ -80,7 +92,6 @@ public class Node {
      * A felhaszáló ezzel tudja a node-hoz tartozó logikát aktiválni. Alapértelmezetten ugyan semmi nem történik, de a leszármazottak felüldefiniálják ezt.
      */
     public void activate() {
-        Prompt.printMessage("Node.activate");
     }
 
     /**
