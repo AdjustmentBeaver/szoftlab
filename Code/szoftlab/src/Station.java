@@ -7,6 +7,10 @@ import util.Color;
  * </p>
  */
 public class Station extends Node {
+
+    /**
+     * Az állomás színe
+     */
     private Color color;
 
     /**
