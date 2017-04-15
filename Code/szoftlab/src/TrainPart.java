@@ -7,19 +7,31 @@ import util.Coordinate;
  * </p>
  */
 public abstract class TrainPart {
+
+    /**
+     * A TrainPart pozíciója
+     */
     private Coordinate pos;
+
     /**
      * A következő csomópont ami felé halad.
      */
     protected Node nextNode;
+
     /**
      * Az a csomópont amit előzőleg elhagyott.
      */
     protected Node prevNode;
+
     /**
      * A vonat amihez tartozik.
      */
     protected Train train;
+
+    /**
+     * Üres-e a TrainPart
+     */
+    protected boolean isEmpty;
 
     /**
      * Konstruktor. Paraméterül kapja, melyik vonatkoz tartozik.
@@ -27,8 +39,8 @@ public abstract class TrainPart {
      * @param t A vonat, amihez tartozik.
      */
     public TrainPart(Train t) {
-        Prompt.printMessage("TrainPart.TrainPart");
         train = t;
+        isEmpty = true;
     }
 
     /**
@@ -42,7 +54,6 @@ public abstract class TrainPart {
      * @param n A következő csomópont
      */
     public void setNextNode(Node n) {
-        Prompt.printMessage("TrainPart.setNextNode");
         prevNode = nextNode;
         nextNode = n;
     }
@@ -53,7 +64,6 @@ public abstract class TrainPart {
      * @return A vonat, amihez a TrainPart tartozik.
      */
     public Train getTrain() {
-        Prompt.printMessage("TrainPart.getTrain");
         return train;
     }
 
@@ -76,7 +86,6 @@ public abstract class TrainPart {
      * @return Az előző csomópont.
      */
     public Node getPrevNode() {
-        Prompt.printMessage("TrainPart.getPrevNode");
         return prevNode;
     }
 
@@ -86,7 +95,14 @@ public abstract class TrainPart {
      * @return A következő csomópont.
      */
     public Node getNextNode() {
-        Prompt.printMessage("TrainPart.getNextNode");
         return nextNode;
+    }
+
+    /**
+     * Visszaadja, hogy a kocsi üres-e.
+     * @return Üres-e a kocsi.
+     */
+    public boolean isEmpty(){
+        return isEmpty;
     }
 }
