@@ -5,7 +5,16 @@
  * </p>
  */
 public class Switch extends Node {
+
+    /**
+     * A váltó aktív iránya
+     */
     private Node activeNode;
+
+    /**
+     * A váltó gyökércsomópontja, ahonnan az elágazás indul.
+     */
+    private Node rootNode;
 
     /**
      * Konstruktor, létrehozza a Switchet.
@@ -21,12 +30,11 @@ public class Switch extends Node {
      */
     @Override
     protected Node route() {
-        // Feltételezve, hogy az elemek sorban: 0:ROOT 1:KIMENET 2:KIMENET
         // Ha Root felől jött
-        if (visitorComingFrom == neighbourNodeList.get(0))
+        if (visitorComingFrom == rootNode)
             return activeNode;
         else
-            return neighbourNodeList.get(0);
+            return rootNode;
 
     }
 
@@ -39,7 +47,7 @@ public class Switch extends Node {
 
         if (!trainOnMe){
             // Ha a kettes az aktív
-            if (activeNode != neighbourNodeList.get(1))
+            if (activeNode == neighbourNodeList.get(2))
                 // Aktiváljuk az egyest
                 activeNode = neighbourNodeList.get(1);
             else if (neighbourNodeList.size() >= 3)
@@ -58,6 +66,8 @@ public class Switch extends Node {
      */
     @Override
     public void addNeighbourNode(Node n) {
+        // Az első csomópont a gyökércsomópont
+        if (neighbourNodeList.size() == 0) rootNode = n;
         super.addNeighbourNode(n);
         activeNode = n;
     }
