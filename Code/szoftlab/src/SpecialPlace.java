@@ -8,9 +8,19 @@ import java.util.List;
  */
 public class SpecialPlace extends Node{
 
+    /**
+     * Maximálisan felépíthető alagútszájak száma
+     */
     private static final int MAX_NUM_SPECIALPLACE = 2;
 
+    /**
+     * Az összes SpecialPlace-et tartalmazó lista.
+     */
     List<SpecialPlace> spList;
+
+    /**
+     * Fel van-e építve a csomópont
+     */
     boolean isConstructed;
 
     /**
@@ -34,9 +44,12 @@ public class SpecialPlace extends Node{
         }
     }
 
+    /**
+     * Ha van másik felépített alagútszáj oda irányítja a vonatot, különben vakvágány
+     * @return A következő csomópont
+     */
     @Override
     protected Node route() {
-        // Ha van másik felépített alagútszáj
         for(SpecialPlace sp: spList){
             if (sp.isConstructed && sp != this)
                 return sp;
@@ -44,6 +57,10 @@ public class SpecialPlace extends Node{
         return null;
     }
 
+    /**
+     * Megadja, hogy felépíthető-e a alagútszáj a pályán
+     * @return Igaz, ha felépíthető
+     */
     private boolean canConstruct(){
         int numOfConstructed = 0;
         for(SpecialPlace sp: spList)
