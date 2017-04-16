@@ -15,6 +15,8 @@ import java.io.InputStreamReader;
 public class Game {
     private SimulationTimer timer;
     private MapManager mapManager;
+    private boolean wasRunning = false;
+    private boolean simRunning = false;
 
     /**
      * Instantiates a new Game.
@@ -63,10 +65,14 @@ public class Game {
                     newGame(cmd[1]);
                     break;
                 case "load":
+                    stopGame();
                     mapManager.loadMap(cmd[1]);
+                    startGame();
                     break;
                 case "save":
+                    stopGame();
                     mapManager.saveMap(cmd[1]);
+                    resumeGame();
                     break;
                 case "stop":
                     stopGame();
@@ -75,24 +81,27 @@ public class Game {
                     startGame();
                     break;
                 case "exit":
-                    running=false;
+                    stopGame();
+                    running = false;
                     break;
                 case "step":
                     try {
-                        for (int i = 0 ; i < Integer.parseInt(cmd[1]); i++)
+                        for (int i = 0; i < Integer.parseInt(cmd[1]); i++)
                             timer.step();
 
-                    } catch (NumberFormatException e){
-                        System.out.println("ERROR");
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error number of step must be number");
                         break;
                     }
                     break;
                 case "activate":
-                    System.out.println("Gonna activate");
+                    timer.addEvent("activate " + cmd[1] + " " + cmd[2]);
                     break;
                 case "listNodes":
+                    timer.addEvent("listNodes");
                     break;
                 case "listTrains":
+                    timer.addEvent("listTrains");
                     break;
                 default:
                     System.out.println("KYS");
@@ -108,7 +117,9 @@ public class Game {
      * </p>
      */
     public void startGame() {
+        wasRunning = simRunning;
         timer.start();
+        simRunning = true;
     }
 
     /**
@@ -118,7 +129,9 @@ public class Game {
      * </p>
      */
     public void stopGame() {
+        wasRunning = simRunning;
         timer.stop();
+        simRunning = false;
     }
 
     /**
@@ -128,6 +141,7 @@ public class Game {
      * </p>
      */
     public void resumeGame() {
+        if (wasRunning)
         timer.start();
     }
 
