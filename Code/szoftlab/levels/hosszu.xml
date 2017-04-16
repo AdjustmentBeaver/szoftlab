@@ -39,8 +39,8 @@
     </nodes>
     <trains>
         <train start_node="node1" start_time="0">
-            <trainPart type="engine"/>
-            <trainPart type="cart"/>
+            <trainPart type="engine"speed="1"/>
+            <trainPart type="cart" color="green"/>
             <trainPart type="coalWagon"/>
         </train>
     </trains>

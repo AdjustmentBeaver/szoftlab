@@ -17,8 +17,7 @@
             </neighbours>
         </node>
         <node type="loaderStation" name="loaderStationGreen" color="green">
-            <position x="3" y="0">
-            </position>
+            <position x="3" y="0"/>
             <neighbours>
                 <neighbour name="stationGreen"/>
                 <neighbour name="node2"/>

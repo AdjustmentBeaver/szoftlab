@@ -10,8 +10,7 @@
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="2" y="0">
-            </position>
+            <position x="2" y="0"/>
             <neighbours>
                 <neighbour name="node1"/>
                 <neighbour name="switch1"/>
