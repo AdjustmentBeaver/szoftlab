@@ -12,11 +12,6 @@ import java.util.List;
 public class Train implements Notifiable {
 
     /**
-     *   Statisztikát kezelő objektum.
-     */
-    private Statistics stat;
-
-    /**
      *  Tartalmazza, hogy milyen egységekből áll a vonat.
      */
     private List<TrainPart> trainPartList;
@@ -34,11 +29,9 @@ public class Train implements Notifiable {
     /**
      *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
      *
-     * @param st        A játék statisztikája.
      * @param trainList A vonatok listája.
      */
-    public Train(Statistics st, List<Train> trainList) {
-        stat = st;
+    public Train(List<Train> trainList) {
         this.trainList = trainList;
         isRunning = false;
         trainPartList = new ArrayList<>();
@@ -57,7 +50,7 @@ public class Train implements Notifiable {
      * Felrobbantja a Traint.
      */
     public void explode() {
-        stat.trainExploded();
+        //stat.trainExploded();
     }
 
     /**

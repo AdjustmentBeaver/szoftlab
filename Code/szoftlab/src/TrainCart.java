@@ -13,22 +13,16 @@ public class TrainCart extends TrainPart {
      */
     private Color color;
 
-    /**
-     * Statisztika a játékról.
-     */
-    private Statistics st;
 
     /**
      * Konstruktor, a Statistics osztályt ismeri, itt kapja meg. Beállításra kerül még, hogy melyik vonathoz tartozik.
      *
      * @param t     A vonat amihez tartozik.
-     * @param st    Játék statisztikája.
      * @param color A TrainCart színe.
      */
-    public TrainCart(Train t, Statistics st, Color color) {
+    public TrainCart(Train t, Color color) {
         super(t);
         this.color = color;
-        this.st = st;
     }
 
     /**
@@ -45,7 +39,7 @@ public class TrainCart extends TrainPart {
      */
     public void unload() {
         isEmpty = true;
-        st.cartUnloaded();
+        //st.cartUnloaded();
     }
 
     /**
