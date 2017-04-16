@@ -1,5 +1,6 @@
 import util.Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * A vonat felrobbantásáért felelős, ekkor triggereli Statistics osztály figyelő függvényét. Tárolja a kocsikat, mozdonyt. Mozgatja saját magát.
  * </p>
  */
-public class Train implements Notifiable {
+public class Train implements Notifiable, Serializable {
     private Statistics stat;
     private List<TrainPart> trainPartList;
     private List<Train> trainList;

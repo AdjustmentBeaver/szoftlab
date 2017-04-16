@@ -1,6 +1,7 @@
 import util.Coordinate;
 import util.Speed;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * A TrainPartok következő úticélját határozza meg. A csomópontok gráfot alkotnak.
  */
-public class Node {
+public class Node implements Serializable {
     /**
      * The Neighbour node list.
      */
