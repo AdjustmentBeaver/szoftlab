@@ -11,14 +11,16 @@ public class TrainScheduler implements Notifiable, Serializable {
 
     private List<Train> trainList;
 
+    private int time;
+
     /**
      * Konstruktor, megkapja a vonatlistát.
      *
      * @param trainList Vonatok listája, innen keres vonatot, amit tud indítani.
      */
     public TrainScheduler(List<Train> trainList) {
-        Prompt.printMessage("TrainScheduler.TrainScheduler");
         this.trainList = trainList;
+        time = 0;
     }
 
     /**
@@ -26,20 +28,11 @@ public class TrainScheduler implements Notifiable, Serializable {
      */
     @Override
     public void update() {
-        Prompt.printMessage("TrainScheduler.update");
-
-        System.out.println("[?] Elindulhat a vonat? [Y/N]");
-        System.out.print("[>] ");
-        if (Prompt.readBool()) {
-            Prompt.addIndent("train.isRunning()");
-            if (trainList.get(0).isRunning()) {
-                return;
+        for (Train t: trainList) {
+            if (!t.isRunning() && t.getStartTime() <= time) {
+                t.startTrain();
             }
-            Prompt.removeIndent();
-
-            Prompt.addIndent("train.startTrain()");
-            trainList.get(0).startTrain();
-            Prompt.removeIndent();
         }
+        time++;
     }
 }

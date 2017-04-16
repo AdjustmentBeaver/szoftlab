@@ -114,7 +114,7 @@ public class Train implements Notifiable, Serializable {
      */
     public void checkCollision() {
         // Az összes vonatra nézzük
-        for (Train otherTrain: trainList){
+        for (Train otherTrain: trainList) {
             // Ha nem mi vagyunk
             if (otherTrain != this) {
                 // Másik vonat TrainPartjainak lekérdezése
@@ -152,5 +152,13 @@ public class Train implements Notifiable, Serializable {
             // Ütközésvizsgálat
             checkCollision();
         }
+    }
+
+    /**
+     * A vonat inditasi idejet lekerdezo fuggveny
+     * @return a vonat inditasi ideje
+     */
+    public int getStartTime() {
+        return startTime;
     }
 }
