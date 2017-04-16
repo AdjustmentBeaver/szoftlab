@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Koordinata tipus, egy pozicio tarolasara.
  */
-public class Coordinate {
+public class Coordinate implements Serializable{
     private int x;
     private int y;
 

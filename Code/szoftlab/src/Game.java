@@ -38,6 +38,9 @@ public class Game {
      */
     private void loop() {
         // Input thread, getting CLI lines, starting simulation thread etc.
+        newGame("levels/palya_betoltese.xml");
+        mapManager.saveMap("sav1");
+        mapManager.loadMap("sav1");
     }
 
     /**

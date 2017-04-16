@@ -44,10 +44,6 @@ public class Node implements Serializable {
         this.pos = pos;
     }
 
-    public Coordinate getPos() {
-        return pos;
-    }
-
     private void accept(TrainPart tp) {
         visitorComingFrom = tp.getPrevNode();
         lastTrain = tp.getTrain();
