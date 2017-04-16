@@ -1,0 +1,10 @@
+MAP_CREATED
+specialPlace1 CONSTRUCTED
+specialPlace2 CONSTRUCTED
+train1 specialPlace1
+train1 specialPlace2
+MAP_SAVED
+MAP_LOADED
+node1, specialPlace1, specialPlace2, node2
+train1
+train1 node 2
