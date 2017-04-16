@@ -72,6 +72,15 @@ public class Node {
     }
 
     /**
+     * A csomópont irányítja a TrainCoalWagont a következő állomás felé, ha az létezik.
+     *
+     * @param tw the TrainCoalWagon
+     */
+    public void accept(TrainCoalWagon tw) {
+        accept((TrainPart) tw);
+    }
+
+    /**
      * Megnézi honnan jött az aktuális TrainPart, és a másik node felé irányítja, mint ahonnan jött.
      *
      * @return the node
