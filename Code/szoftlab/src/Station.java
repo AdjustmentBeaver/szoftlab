@@ -1,4 +1,5 @@
 import util.Color;
+import util.Coordinate;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -16,10 +17,11 @@ public class Station extends Node {
     /**
      * Konstruktor, beállítható az Station színe.
      *
+     * @param pos A Station pozíciója.
      * @param color Az Station színe.
      */
-    public Station(Color color) {
-        super();
+    public Station(Coordinate pos, Color color) {
+        super(pos);
         this.color = color;
     }
 

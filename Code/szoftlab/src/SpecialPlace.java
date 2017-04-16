@@ -1,3 +1,5 @@
+import util.Coordinate;
+
 import java.util.List;
 
 /**
@@ -26,8 +28,8 @@ public class SpecialPlace extends Node{
     /**
      * Konstruktor. Létrehozza a SpecialPlacet.
      */
-    public SpecialPlace(List<SpecialPlace> spList) {
-        super();
+    public SpecialPlace(Coordinate pos, List<SpecialPlace> spList) {
+        super(pos);
         this.spList = spList;
         isConstructed = false;
     }

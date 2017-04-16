@@ -1,3 +1,5 @@
+import util.Coordinate;
+
 /**
  * Created by Istvan Telek on 3/14/2017.
  * <p>
@@ -19,8 +21,8 @@ public class Switch extends Node {
     /**
      * Konstruktor, létrehozza a Switchet.
      */
-    public Switch() {
-        super();
+    public Switch(Coordinate pos) {
+        super(pos);
         activeNode = null;
     }
 

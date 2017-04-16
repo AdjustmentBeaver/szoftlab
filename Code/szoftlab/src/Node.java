@@ -34,10 +34,13 @@ public class Node {
 
 
     /**
-     * Instantiates a new Node.
+     * Konstruktor
+     *
+     * @param pos a node pozicioja
      */
-    public Node() {
+    public Node(Coordinate pos) {
         neighbourNodeList = new ArrayList<>();
+        this.pos = pos;
     }
 
     private void accept(TrainPart tp) {

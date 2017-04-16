@@ -1,4 +1,5 @@
 import util.Color;
+import util.Coordinate;
 
 /**
  * Created by András on 14/04/2017.
@@ -13,8 +14,8 @@ public class LoaderStation extends Node{
      */
     private Color color;
 
-    public LoaderStation(Color color) {
-        super();
+    public LoaderStation(Coordinate pos, Color color) {
+        super(pos);
         this.color =  color;
     }
 
