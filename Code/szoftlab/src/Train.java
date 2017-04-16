@@ -1,4 +1,5 @@
 import util.Color;
+import util.Coordinate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -109,7 +110,12 @@ public class Train implements Notifiable, Serializable {
      */
     public void startTrain() {
         isRunning = true;
-        // TODO: helyezzuk el a megfelelo pozicioba, a trainpartokat
+        Coordinate startcord= new  Coordinate(startNode.getPos().getX()-1,startNode.getPos().getY()-1);
+        for (TrainPart T:trainPartList) {
+            T.setNextNode(startNode);
+            T.setPos(startcord);
+            startcord=new  Coordinate(startcord.getX()-1,startcord.getY()-1);
+        }
     }
 
     /**
