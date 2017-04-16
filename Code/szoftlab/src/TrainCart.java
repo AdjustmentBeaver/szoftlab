@@ -15,11 +15,6 @@ public class TrainCart extends TrainPart {
     private Color color;
 
     /**
-     *
-     */
-    private Coordinate direction;
-
-    /**
      * Konstruktor, a Statistics osztályt ismeri, itt kapja meg. Beállításra kerül még, hogy melyik vonathoz tartozik.
      *
      * @param t     A vonat amihez tartozik.
@@ -52,18 +47,11 @@ public class TrainCart extends TrainPart {
      */
     @Override
     public void move() {
-        // Irány beállítása - akkor is működjön ha az első csomópontnál van
-        Coordinate nextNodePosition = nextNode.getPos();
-        direction = new Coordinate( nextNodePosition.getX() - getPos().getX(),
-                                    nextNodePosition.getY() - getPos().getY());
-        direction.normalize();
+        super.move();
 
-        // Új pozíció beállítása
-        setPos(new Coordinate(getPos().getX() + direction.getX(), getPos().getY() + direction.getY()));
-
-        // Jelenleg körös megvalósítás
-        int R = 2;
-        if (Math.sqrt(Math.pow(getPos().getX(),2) + Math.pow(getPos().getY(),2)) < R){
+        // Ha közel ér a csomóponthoz
+        double length = new Coordinate(nextNode.getPos().getX() - getPos().getX(),nextNode.getPos().getY() - getPos().getY()).getLength();
+        if (length < ACTIVATE_RADIUS){
             nextNode.accept(this);
         }
     }

@@ -1,3 +1,4 @@
+import util.Coordinate;
 import util.Speed;
 
 /**
@@ -37,7 +38,11 @@ public class TrainEngine extends TrainPart {
      */
     @Override
     public void move() {
-        if (getNextNode() != null) {
+        super.move();
+
+        // Ha közel ér a csomóponthoz
+        double length = new Coordinate(nextNode.getPos().getX() - getPos().getX(),nextNode.getPos().getY() - getPos().getY()).getLength();
+        if (length < ACTIVATE_RADIUS){
             nextNode.accept(this);
         }
     }
