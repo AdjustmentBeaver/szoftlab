@@ -1,5 +1,6 @@
 import util.Coordinate;
 
+
 /**
  * Created by Istvan Telek on 3/14/2017.
  * <p>
@@ -44,6 +45,22 @@ public abstract class TrainPart {
     }
 
     /**
+     * pos értéke kérdezhető le vele
+     * @return a pos aktuális éréke
+     */
+    public Coordinate getPos() {
+        return pos;
+    }
+
+    /**
+     * Új értéket ad a posnak
+     * @param pos   beállítani kívánt érték, Coordinate típusú
+     */
+    public void setPos(Coordinate pos) {
+        this.pos = pos;
+    }
+
+    /**
      * Mozgatja a TrainPartot. Absztrakt, a leszármazottak valósítják meg..
      */
     public abstract void move();
@@ -74,10 +91,10 @@ public abstract class TrainPart {
      * @return Igaz, ha történt ütközés.
      */
     public boolean checkCollision(TrainPart tp) {
-        Prompt.printMessage("TrainPart.checkCollision");
-        System.out.println("[?] Történt ütközés? [Y/N]");
-        System.out.print("[>] ");
-        return Prompt.readBool();
+        double  xcomp= (tp.getPos().getX()-this.getPos().getX())*(tp.getPos().getX()-this.getPos().getX());
+        double ycomp =(tp.getPos().getY()-this.getPos().getY())*(tp.getPos().getY()-this.getPos().getY());
+
+        return Math.sqrt(xcomp+ycomp)<=1;
     }
 
     /**
