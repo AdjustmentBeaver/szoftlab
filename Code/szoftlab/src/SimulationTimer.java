@@ -18,7 +18,6 @@ public class SimulationTimer {
      * Instantiates a new Simulation timer.
      */
     public SimulationTimer() {
-        Prompt.printMessage("SimulationTimer.SimulationTimer");
         subscribers = new ArrayList<>();
     }
 
@@ -26,25 +25,21 @@ public class SimulationTimer {
      * Start.
      */
     public void start() {
-        Prompt.printMessage("SimulationTimer.start");
+
     }
 
     /**
      * Stop.
      */
     public void stop() {
-        Prompt.printMessage("SimulationTimer.stop");
     }
 
     /**
      * Lefuttat egy szimulációs lépést.
      */
     public void step() {
-        Prompt.printMessage("SimulationTimer.step");
         for (Notifiable sub : subscribers) {
-            Prompt.addIndent("sub.update()");
             sub.update();
-            Prompt.removeIndent();
         }
     }
 
@@ -57,7 +52,6 @@ public class SimulationTimer {
      * @param sub the subscriber
      */
     public void addSubscriber(Notifiable sub) {
-        Prompt.printMessage("SimulationTimer.addSubscriber");
         subscribers.add(sub);
     }
 
@@ -65,7 +59,6 @@ public class SimulationTimer {
      * Delete subscriptions.
      */
     public void deleteSubscriptions() {
-        Prompt.printMessage("SimulationTimer.deleteSubscriptions");
         subscribers.clear();
     }
 }
