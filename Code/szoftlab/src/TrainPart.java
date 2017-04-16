@@ -1,3 +1,4 @@
+import util.BoundingBox;
 import util.Coordinate;
 
 import java.io.Serializable;
@@ -13,6 +14,16 @@ public abstract class TrainPart implements Serializable {
      * A TrainPart pozíciója
      */
     private Coordinate pos;
+
+    /**
+     *  BoundingBox az ütközésvizsgálathoz
+     */
+    private BoundingBox boundingBox;
+
+    /**
+     * Irány, amiben a vonat halad
+     */
+    private Coordinate direction;
 
     /**
      * A következő csomópont ami felé halad.
@@ -33,6 +44,11 @@ public abstract class TrainPart implements Serializable {
      * Üres-e a TrainPart
      */
     protected boolean isEmpty;
+
+    /**
+     * Megadja milyen sugarú körben triggelelődik a csomópont, aminek a közelébe ért a TrainPart
+     */
+    protected final double ACTIVATE_RADIUS = 0.2;
 
     /**
      * Konstruktor. Paraméterül kapja, melyik vonatkoz tartozik.
@@ -63,7 +79,19 @@ public abstract class TrainPart implements Serializable {
     /**
      * Mozgatja a TrainPartot. Absztrakt, a leszármazottak valósítják meg..
      */
-    public abstract void move();
+    public void move(){
+        // Irány beállítása - akkor is működjön ha az első csomópontnál van
+        Coordinate nextNodePosition = nextNode.getPos();
+        direction = new Coordinate( nextNodePosition.getX() - pos.getX(),
+                                    nextNodePosition.getY() - pos.getY());
+        direction.normalize();
+
+        // Új pozíció beállítása
+        setPos(new Coordinate(pos.getX() + direction.getX(), pos.getY() + direction.getY()));
+
+        // BoundingBox frissítés
+        boundingBox = new BoundingBox(pos, direction);
+    }
 
     /**
      * Beállítja a kapott Node-ot az adott kocsi következő céljának.
@@ -91,10 +119,7 @@ public abstract class TrainPart implements Serializable {
      * @return Igaz, ha történt ütközés.
      */
     public boolean checkCollision(TrainPart tp) {
-        double  xcomp= (tp.getPos().getX()-this.getPos().getX())*(tp.getPos().getX()-this.getPos().getX());
-        double ycomp =(tp.getPos().getY()-this.getPos().getY())*(tp.getPos().getY()-this.getPos().getY());
-
-        return Math.sqrt(xcomp+ycomp)<=1;
+        return boundingBox.isCollided(tp.getBoundingBox());
     }
 
     /**
@@ -121,5 +146,9 @@ public abstract class TrainPart implements Serializable {
      */
     public boolean isEmpty(){
         return isEmpty;
+    }
+
+    public BoundingBox getBoundingBox() {
+        return boundingBox;
     }
 }
