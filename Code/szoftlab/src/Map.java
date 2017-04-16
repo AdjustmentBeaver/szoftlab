@@ -1,8 +1,6 @@
 import util.Coordinate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +13,7 @@ import java.util.List;
  * A pálya tartalmazza a mindenkori játékállást. <br>
  * A pályán találhatóak meg a vonatok és a csomópontok, illetve a pálya adminisztrációjához szükséges objektumok (Statistics, TrainScheduler).
  */
-public class Map {
+public class Map implements Serializable {
 
     private List<Node> nodeList;
     private List<Train> trainList;
@@ -61,7 +59,7 @@ public class Map {
      * @param c the Coordinate
      */
     public void activateNode(Coordinate c) {
-        for (Node n:nodeList) {
+        for (Node n : nodeList) {
             if (n.getPos() == c) {
                 n.activate();
                 break;

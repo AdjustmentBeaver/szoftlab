@@ -3,6 +3,8 @@
  * Project: szoftlab
  */
 
+import java.io.*;
+
 /**
  * A pályák kezeléséért felelős. <br>
  * Képes menteni egy játékállást, betölteni egy korábban lementettet, vagy újat, és kezeli az ezzel járó
@@ -21,7 +23,6 @@ public class MapManager {
      * @param game  the game
      */
     public MapManager(SimulationTimer timer, Game game) {
-        Prompt.printMessage("MapManager.MapManager");
         this.game = game;
         this.timer = timer;
     }
@@ -32,19 +33,9 @@ public class MapManager {
      * @param mapName the map name
      */
     public void newMap(String mapName) {
-        Prompt.printMessage("MapManager.newMap");
-
-        Prompt.addIndent("<<create>>");
-        MapBuilder mapBuilder = new MapBuilder("newLevel");
-        Prompt.removeIndent();
-
-        Prompt.addIndent("mapBuilder.buildMap(game)");
+        MapBuilder mapBuilder = new MapBuilder(mapName);
         map = mapBuilder.buildMap(game);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("map.subscribe(timer)");
         map.subscribe(timer);
-        Prompt.removeIndent();
     }
 
     /**
@@ -53,16 +44,16 @@ public class MapManager {
      * @param mapName the map name
      */
     public void saveMap(String mapName) {
-        Prompt.printMessage("MapManager.saveMap");
-
-        Prompt.addIndent("game.stopGame()");
         game.stopGame();
-        Prompt.removeIndent();
-
         // Serialization
-        Prompt.addIndent("game.resumeGame()");
+        try {
+            ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(mapName));
+            ser.writeObject(map);
+            ser.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         game.resumeGame();
-        Prompt.removeIndent();
     }
 
     /**
@@ -71,15 +62,15 @@ public class MapManager {
      * @param mapName the map name
      */
     public void loadMap(String mapName) {
-        Prompt.printMessage("MapManager.loadMap");
         // Deserialization
-        Prompt.addIndent("<<create>>");
-        Map newMap = new Map();
+        try {
+            ObjectInputStream ser = new ObjectInputStream(new FileInputStream(mapName));
+            map = (Map) ser.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
         // map = newMap
-        Prompt.removeIndent();
-
-        Prompt.addIndent("map.subscribe(timer)");
         map.subscribe(timer);
-        Prompt.removeIndent();
     }
 }
