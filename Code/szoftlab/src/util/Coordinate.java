@@ -50,7 +50,7 @@ public class Coordinate implements Serializable{
      * Visszaadja a vektor hosszát
      * @return Vektor hossza
      */
-    private double getLength(){
+    public double getLength(){
         return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
 
