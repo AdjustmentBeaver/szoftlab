@@ -1,5 +1,6 @@
 import util.Coordinate;
 
+import java.io.Serializable;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -7,8 +8,7 @@ import util.Coordinate;
  * Absztrakt bázisosztály vonatelemekhez. A vonatok TrainPartokból állnak, a vonatok mozgatása a TrainPartok mozgatására vezethetö vissza, ezért minden TrainPart mozgatja saját magát. Mozgatáskor érheti el a célpontjául szolgáló adott állomást, és visitor minta szerint meglátogatja, azaz triggereli a node-okat ha elért hozzájuk.
  * </p>
  */
-public abstract class TrainPart {
-
+public abstract class TrainPart implements Serializable {
     /**
      * A TrainPart pozíciója
      */

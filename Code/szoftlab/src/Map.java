@@ -1,8 +1,6 @@
 import util.Coordinate;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,19 +13,17 @@ import java.util.List;
  * A pálya tartalmazza a mindenkori játékállást. <br>
  * A pályán találhatóak meg a vonatok és a csomópontok, illetve a pálya adminisztrációjához szükséges objektumok (Statistics, TrainScheduler).
  */
-public class Map {
+public class Map implements Serializable {
 
     private List<Node> nodeList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
 //    private Statistics stat;
 
-
     /**
      * Instantiates a new Map.
      */
     public Map() {
-        Prompt.printMessage("Map.map");
         trainList = new ArrayList<>();
         nodeList = new ArrayList<>();
         notifiables = new ArrayList<>();
@@ -42,22 +38,15 @@ public class Map {
      * @param timer the timer
      */
     public void subscribe(SimulationTimer timer) {
-        Prompt.printMessage("Map.subscibe");
-
-        Prompt.addIndent("timer.deleteSubscriptions()");
         timer.deleteSubscriptions();
-        Prompt.removeIndent();
-
-        Prompt.addIndent("timer.addSubscriber(train)");
-        timer.addSubscriber(trainList.get(0));
-        Prompt.removeIndent();
-
+        // Vonatok feliratkoztatása
+        for (Train t : trainList) {
+            timer.addSubscriber(t);
+        }
+        // Sceduler feliratkoztatása
         Notifiable scheduler = null;
         if (notifiables.size() > 0) scheduler = notifiables.get(0);
-
-        Prompt.addIndent("timer.addSubscriver(scheduler)");
         timer.addSubscriber(scheduler);
-        Prompt.removeIndent();
     }
 
     /**
@@ -70,36 +59,11 @@ public class Map {
      * @param c the Coordinate
      */
     public void activateNode(Coordinate c) {
-        Prompt.printMessage("Map.activateNode");
-        System.out.println("[?] Mit szeretne aktiválni? [S]witch [T]unnel");
-        System.out.print("[>] ");
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String input = "";
-        try {
-            input = in.readLine().toLowerCase();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        switch (input) {
-            case "t":
-                Prompt.addIndent("tunnel.activate()");
-                // A little bit of magic here...
-                SpecialPlace tunnel = (SpecialPlace) nodeList.get(1);
-                // End of magic
-                tunnel.activate();
-                Prompt.removeIndent();
+        for (Node n : nodeList) {
+            if (n.getPos() == c) {
+                n.activate();
                 break;
-            case "s":
-                Prompt.addIndent("switch.activate()");
-                // A little bit of magic here again...
-                Switch sw = (Switch) nodeList.get(0);
-                // End of magic
-                sw.activate();
-                Prompt.removeIndent();
-                break;
-            default:
-                System.out.println("Hibás bemenet!");
-                break;
+            }
         }
     }
 
@@ -112,7 +76,6 @@ public class Map {
      * @param n the Node
      */
     public void addNode(Node n) {
-        Prompt.printMessage("Map.addNode");
         nodeList.add(n);
     }
 
@@ -125,7 +88,6 @@ public class Map {
      * @param t the Train
      */
     public void addTrain(Train t) {
-        Prompt.printMessage("Map.addTrain");
         trainList.add(t);
     }
 
@@ -151,7 +113,6 @@ public class Map {
      * @param n the Notifiable
      */
     public void addNotifiable(Notifiable n) {
-        Prompt.printMessage("Map.addNotifiable");
         notifiables.add(n);
     }
 
@@ -161,7 +122,6 @@ public class Map {
      * @return the train list
      */
     public List<Train> getTrainList() {
-        Prompt.printMessage("Map.getTrainList");
         return trainList;
     }
 

@@ -1,5 +1,7 @@
 package util;
 
+import java.io.Serializable;
+
 /**
  * Koordinata tipus, egy pozicio tarolasara.
  */

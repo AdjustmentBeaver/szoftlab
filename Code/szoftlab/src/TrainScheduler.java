@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -6,7 +7,7 @@ import java.util.List;
  * Vonatok indításának ütemezéséért felelős osztály. A SimulationTimer triggereli, ekkor ha szükséges indítja a következő vonatot.
  * </p>
  */
-public class TrainScheduler implements Notifiable {
+public class TrainScheduler implements Notifiable, Serializable {
 
     private List<Train> trainList;
 
