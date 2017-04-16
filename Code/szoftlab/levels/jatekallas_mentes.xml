@@ -1,56 +1,24 @@
 <?xml version="1.0"?>
-<!DOCTYPE level [
-        <!ELEMENT level (nodes,trains)>
-        <!ELEMENT nodes (node*)>
-        <!ELEMENT node (type, name, position, neighbours, color*)>
-        <!ELEMENT position (x,y)>
-        <!ELEMENT neighbours (neighbour_name*)>
-        <!ELEMENT trains (train*)>
-        <!ELEMENT train (trainPart*, startNode, startTime)>
-        <!ELEMENT trainPart (type, color*, speed*)>
-        <!ELEMENT type (#PCDATA)>
-        <!ELEMENT name (#PCDATA)>
-        <!ELEMENT x (#PCDATA)>
-        <!ELEMENT y (#PCDATA)>
-        <!ELEMENT neighbour_name (#PCDATA)>
-        <!ELEMENT color (#PCDATA)>
-        <!ELEMENT speed (#PCDATA)>
-        <!ELEMENT startNode (#PCDATA)>
-        <!ELEMENT startTime (#PCDATA)>
-        ]>
-
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
 <level>
     <nodes>
-        <node>
-            <type>node</type>
-            <name>node1</name>
-            <position>
-                <x>0</x>
-                <y>0</y>
-            </position>
+        <node type="node" name="node1">
+            <position x="0" y="0"/>
             <neighbours>
-                <neighbour_name>node2</neighbour_name>
+                <neighbour name="node2"/>
             </neighbours>
         </node>
-        <node>
-            <type>node</type>
-            <name>node2</name>
-            <position>
-                <x>1</x>
-                <y>0</y>
-            </position>
+        <node type="node" name="node2">
+            <position x="1" y="0"/>
             <neighbours>
-                <neighbour_name>node1</neighbour_name>
+                <neighbour name="node1"/>
             </neighbours>
         </node>
     </nodes>
     <trains>
-        <train>
-            <trainPart>
-                <type>engine</type>
-            </trainPart>
-            <startNode>node1</startNode>
-            <startTime>0</startTime>
+        <train start_node="node1" start_time="0">
+            <trainPart type="engine"/>
         </train>
     </trains>
 </level>
