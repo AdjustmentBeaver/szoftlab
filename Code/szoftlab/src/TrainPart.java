@@ -48,7 +48,7 @@ public abstract class TrainPart implements Serializable {
     /**
      * Megadja milyen sugarú körben triggelelődik a csomópont, aminek a közelébe ért a TrainPart
      */
-    protected final double ACTIVATE_RADIUS = 0.2;
+    protected double activateRadius;
 
     /**
      * Konstruktor. Paraméterül kapja, melyik vonatkoz tartozik.
@@ -58,6 +58,7 @@ public abstract class TrainPart implements Serializable {
     public TrainPart(Train t) {
         train = t;
         isEmpty = true;
+        activateRadius =  train.getSpeed().getSpeedAsDouble() / 2 + 0.01;
     }
 
     /**
@@ -89,8 +90,9 @@ public abstract class TrainPart implements Serializable {
      * Mozgatja a TrainPartot. Absztrakt, a leszármazottak valósítják meg..
      */
     public void move(){
+        double speed = train.getSpeed().getSpeedAsDouble();
         // Új pozíció beállítása
-        setPos(new Coordinate(pos.getX() + direction.getX(), pos.getY() + direction.getY()));
+        setPos(new Coordinate((pos.getX() + direction.getX()) * speed, (pos.getY() + direction.getY()) * speed));
     }
 
     /**

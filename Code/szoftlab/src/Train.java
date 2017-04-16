@@ -1,5 +1,6 @@
 import util.Color;
 import util.Coordinate;
+import util.Speed;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -173,8 +174,16 @@ public class Train implements Notifiable, Serializable {
         return startTime;
     }
 
+    /**
+     * Visszaadja, hogy a vonat felrobbant-e
+     * @return Igaz, ha a vonat felrobbant
+     */
     public boolean isExploded() {
         return exploded;
+    }
+
+    public Speed getSpeed(){
+        return ((TrainEngine) getPartList().get(0)).getSpeed();
     }
 
     @Override

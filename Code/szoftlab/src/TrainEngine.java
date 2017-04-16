@@ -41,8 +41,10 @@ public class TrainEngine extends TrainPart {
         super.move();
 
         // Ha közel ér a csomóponthoz
-        double length = new Coordinate(nextNode.getPos().getX() - getPos().getX(),nextNode.getPos().getY() - getPos().getY()).getLength();
-        if (length < ACTIVATE_RADIUS){
+        double length = new Coordinate(nextNode.getPos().getX() - getPos().getX(),
+                                        nextNode.getPos().getY() - getPos().getY())
+                                        .getLength();
+        if (length < activateRadius){
             nextNode.accept(this);
         }
     }
