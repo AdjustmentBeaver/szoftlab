@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
+<level>
+    <nodes>
+        <node type="switch" name="sw01">
+            <position x="12" y="10"/>
+            <neighbours>
+                <neighbour name="sw02"/>
+                <neighbour name="nd01"/>
+                <neighbour name="nd02"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw02">
+            <position x="1" y="6"/>
+            <neighbours>
+                <neighbour name="sw01"/>
+                <neighbour name="nd01"/>
+                <neighbour name="nd02"/>
+            </neighbours>
+        </node>
+        <node type="node" name="nd01">
+            <position x="6" y="15"/>
+            <neighbours>
+                <neighbour name="sw01"/>
+                <neighbour name="sw02"/>
+            </neighbours>
+        </node>
+        <node type="node" name="nd02">
+            <position x="8" y="10"/>
+            <neighbours>
+                <neighbour name="sw01"/>
+                <neighbour name="sw02"/>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train start_node="nd01" start_time="0">
+            <trainPart type="engine" speed="2"/>
+            <trainPart type="cart" color="blue"/>
+            <trainPart type="coalWagon"/>
+        </train>
+        <train start_node="nd01" start_time="10">
+            <trainPart type="engine" speed="2"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="cart" color="blue"/>
+        </train>
+    </trains>
+</level>

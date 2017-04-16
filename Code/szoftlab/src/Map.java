@@ -18,7 +18,7 @@ public class Map implements Serializable {
     private List<Node> nodeList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
-    private Statistics stat;
+//    private Statistics stat;
 
     /**
      * Instantiates a new Map.
@@ -91,17 +91,18 @@ public class Map implements Serializable {
         trainList.add(t);
     }
 
-    /**
-     * Add statistics.
-     * <p>
-     * Statisztika hozzáadása a pályához.
-     * </p>
-     *
-     * @param st the Statistics
-     */
-    public void addStatistics(Statistics st) {
-        stat = st;
-    }
+//    /**
+//     * Add statistics.
+//     * <p>
+//     * Statisztika hozzáadása a pályához.
+//     * </p>
+//     *
+//     * @param st the Statistics
+//     */
+//    public void addStatistics(Statistics st) {
+//        Prompt.printMessage("Map.addStatistics");
+//        stat = st;
+//    }
 
     /**
      * Add notifiable.

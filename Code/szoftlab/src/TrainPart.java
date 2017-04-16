@@ -9,19 +9,30 @@ import java.io.Serializable;
  * </p>
  */
 public abstract class TrainPart implements Serializable {
+    /**
+     * A TrainPart pozíciója
+     */
     private Coordinate pos;
+
     /**
      * A következő csomópont ami felé halad.
      */
     protected Node nextNode;
+
     /**
      * Az a csomópont amit előzőleg elhagyott.
      */
     protected Node prevNode;
+
     /**
      * A vonat amihez tartozik.
      */
     protected Train train;
+
+    /**
+     * Üres-e a TrainPart
+     */
+    protected boolean isEmpty;
 
     /**
      * Konstruktor. Paraméterül kapja, melyik vonatkoz tartozik.
@@ -29,8 +40,24 @@ public abstract class TrainPart implements Serializable {
      * @param t A vonat, amihez tartozik.
      */
     public TrainPart(Train t) {
-        Prompt.printMessage("TrainPart.TrainPart");
         train = t;
+        isEmpty = true;
+    }
+
+    /**
+     * pos értéke kérdezhető le vele
+     * @return a pos aktuális éréke
+     */
+    public Coordinate getPos() {
+        return pos;
+    }
+
+    /**
+     * Új értéket ad a posnak
+     * @param pos   beállítani kívánt érték, Coordinate típusú
+     */
+    public void setPos(Coordinate pos) {
+        this.pos = pos;
     }
 
     /**
@@ -44,7 +71,6 @@ public abstract class TrainPart implements Serializable {
      * @param n A következő csomópont
      */
     public void setNextNode(Node n) {
-        Prompt.printMessage("TrainPart.setNextNode");
         prevNode = nextNode;
         nextNode = n;
     }
@@ -55,7 +81,6 @@ public abstract class TrainPart implements Serializable {
      * @return A vonat, amihez a TrainPart tartozik.
      */
     public Train getTrain() {
-        Prompt.printMessage("TrainPart.getTrain");
         return train;
     }
 
@@ -66,10 +91,10 @@ public abstract class TrainPart implements Serializable {
      * @return Igaz, ha történt ütközés.
      */
     public boolean checkCollision(TrainPart tp) {
-        Prompt.printMessage("TrainPart.checkCollision");
-        System.out.println("[?] Történt ütközés? [Y/N]");
-        System.out.print("[>] ");
-        return Prompt.readBool();
+        double  xcomp= (tp.getPos().getX()-this.getPos().getX())*(tp.getPos().getX()-this.getPos().getX());
+        double ycomp =(tp.getPos().getY()-this.getPos().getY())*(tp.getPos().getY()-this.getPos().getY());
+
+        return Math.sqrt(xcomp+ycomp)<=1;
     }
 
     /**
@@ -78,7 +103,6 @@ public abstract class TrainPart implements Serializable {
      * @return Az előző csomópont.
      */
     public Node getPrevNode() {
-        Prompt.printMessage("TrainPart.getPrevNode");
         return prevNode;
     }
 
@@ -88,7 +112,14 @@ public abstract class TrainPart implements Serializable {
      * @return A következő csomópont.
      */
     public Node getNextNode() {
-        Prompt.printMessage("TrainPart.getNextNode");
         return nextNode;
+    }
+
+    /**
+     * Visszaadja, hogy a kocsi üres-e.
+     * @return Üres-e a kocsi.
+     */
+    public boolean isEmpty(){
+        return isEmpty;
     }
 }

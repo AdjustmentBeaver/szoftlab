@@ -11,20 +11,27 @@ import java.util.List;
  * </p>
  */
 public class Train implements Notifiable, Serializable {
-    private Statistics stat;
+    /**
+     *  Tartalmazza, hogy milyen egységekből áll a vonat.
+     */
     private List<TrainPart> trainPartList;
+
+    /**
+     *  Vonatok listája, ütközésvizsgálathoz.
+     */
     private List<Train> trainList;
+
+    /**
+     * A vonat a pályán van-e.
+     */
     private boolean isRunning;
 
     /**
      *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
      *
-     * @param st        A játék statisztikája.
      * @param trainList A vonatok listája.
      */
-    public Train(Statistics st, List<Train> trainList) {
-        Prompt.printMessage("Train.Train");
-        stat = st;
+    public Train(List<Train> trainList) {
         this.trainList = trainList;
         isRunning = false;
         trainPartList = new ArrayList<>();
@@ -34,22 +41,16 @@ public class Train implements Notifiable, Serializable {
      * Mozgatja a Traint és minden elemét.
      */
     public void move() {
-        Prompt.printMessage("Train.move");
-        // for tp in trainPartList
-        TrainPart tp = trainPartList.get(0);
-        Prompt.addIndent("trainPart.move()");
-        tp.move();
-        Prompt.removeIndent();
+        for (TrainPart tp : trainPartList){
+            tp.move();
+        }
     }
 
     /**
      * Felrobbantja a Traint.
      */
     public void explode() {
-        Prompt.printMessage("Train.explode");
-        Prompt.addIndent("stat.trainExploded()");
-        stat.trainExploded();
-        Prompt.removeIndent();
+        //stat.trainExploded();
     }
 
     /**
@@ -58,10 +59,7 @@ public class Train implements Notifiable, Serializable {
      * @return Igaz, ha a vonat mozgásban van.
      */
     public boolean isRunning() {
-        Prompt.printMessage("Train.isRunning");
-        System.out.println("[?] Fut már a vonat? [Y/N]");
-        System.out.print("[>] ");
-        return Prompt.readBool();
+        return isRunning;
     }
 
     /**
@@ -70,7 +68,6 @@ public class Train implements Notifiable, Serializable {
      * @param p A hozzáadandó kocsi.
      */
     public void addPart(TrainPart p) {
-        Prompt.printMessage("Train.addPart");
         trainPartList.add(p);
     }
 
@@ -80,7 +77,14 @@ public class Train implements Notifiable, Serializable {
      * @return Az utolsó nem üres TrainPart színe.
      */
     public Color getColor() {
-        Prompt.printMessage("Train.getColor");
+        int tpIndex = 0;
+        while (tpIndex < trainPartList.size() && !trainPartList.get(tpIndex).isEmpty())
+            tpIndex++;
+
+        // Ha volt nem üres kocsi - az Engine és a Coalwagon "üresek" ezért nem választódhatnak ki. csak TrainCart
+        if (tpIndex < trainPartList.size())
+            return ((TrainCart) trainPartList.get(tpIndex)).getColor();
+
         return new Color("");
     }
 
@@ -88,7 +92,6 @@ public class Train implements Notifiable, Serializable {
      * Elindítja a vonatot.
      */
     public void startTrain() {
-        Prompt.printMessage("Train.startTrain");
         isRunning = true;
     }
 
@@ -96,27 +99,20 @@ public class Train implements Notifiable, Serializable {
      * Ütközés vizsgálata a vonatok között. A vonat minden TrainPart-ját összehasonlítja a az összes többi vonat TrainPart-jával. Minden szimulációs lépésben végrehajtódik.
      */
     public void checkCollision() {
-        Prompt.printMessage("Train.checkCollision");
+        // Az összes vonatra nézzük
+        for (Train otherTrain: trainList){
+            // Ha nem mi vagyunk
+            if (otherTrain != this) {
+                // Másik vonat TrainPartjainak lekérdezése
+                ArrayList<TrainPart> otherTrainPartList = (ArrayList<TrainPart>) otherTrain.getPartList();
 
-        // for other in trainList
-        Train other = this;
-        System.out.println("[?] A vizsgált vonatok különbözőek? [Y/N]");
-        System.out.print("[>] ");
-        if (Prompt.readBool()) {
-            // for otherPart in other.getPartList()
-            Prompt.addIndent("other.getPartList()");
-            other.getPartList();
-            Prompt.removeIndent();
-            // for ownPart in trainPartList
-            TrainPart otherPart = trainPartList.get(0);
-            TrainPart ownPart = trainPartList.get(0);
-            Prompt.addIndent("otherPart.checkCollision(ownPart)");
-            boolean collided = otherPart.checkCollision(ownPart);
-            Prompt.removeIndent();
-            if (collided) {
-                Prompt.addIndent("train.explode()");
-                explode();
-                Prompt.removeIndent();
+                // Saját TrainPartok összehasonlítása a másik vonat TrainPartjaival
+                for (TrainPart otherTp: otherTrainPartList) {
+                    for (TrainPart myPart: trainPartList) {
+                        if (myPart.checkCollision(otherTp))
+                            explode();
+                    }
+                }
             }
         }
     }
@@ -135,15 +131,12 @@ public class Train implements Notifiable, Serializable {
      */
     @Override
     public void update() {
-        System.out.println("[?] Fut már a vonat?");
-        System.out.print("[>] ");
-        if (Prompt.readBool()) {
-            Prompt.addIndent("train.move()");
+        // Ha fut a vonat
+        if (isRunning) {
+            // Mozgatás
             move();
-            Prompt.removeIndent();
-            Prompt.addIndent("train.checkCollision()");
+            // Ütközésvizsgálat
             checkCollision();
-            Prompt.removeIndent();
         }
     }
 }

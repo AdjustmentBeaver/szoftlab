@@ -17,16 +17,30 @@ public class Node implements Serializable {
      * The Neighbour node list.
      */
     protected List<Node> neighbourNodeList;
-    private Train lastTrain;
-    private Coordinate pos;
-    private Node visitorComingFrom;
 
     /**
-     * Instantiates a new Node.
+     * A csomóponttal utoljára kapcsolatba lépett vonat.
      */
-    public Node() {
-        Prompt.printMessage("Node.Node");
+    private Train lastTrain;
+
+    /**
+     * A csomópont helyzetét adja meg.
+     */
+    private Coordinate pos;
+
+    /**
+     * Melyik szomszédos csomópont felől érkezett a látogató
+     */
+    protected Node visitorComingFrom;
+
+    /**
+     * Konstruktor
+     *
+     * @param pos a node pozicioja
+     */
+    public Node(Coordinate pos) {
         neighbourNodeList = new ArrayList<>();
+        this.pos = pos;
     }
 
     public Coordinate getPos() {
@@ -34,27 +48,16 @@ public class Node implements Serializable {
     }
 
     private void accept(TrainPart tp) {
-        Prompt.printMessage("Node.accept");
-
-        Prompt.addIndent("tp.getPrevNode()");
         visitorComingFrom = tp.getPrevNode();
-        Prompt.removeIndent();
+        lastTrain = tp.getTrain();
 
-        System.out.println("[?] Tovább tudjuk irányítani a vonatot? [Y/N]");
-        System.out.print("[>] ");
-        if (!Prompt.readBool()) {
-            Prompt.addIndent("tp.getTrain()");
-            lastTrain = tp.getTrain();
-            Prompt.removeIndent();
+        Node nextNode = route();
 
-            Prompt.addIndent("t.explode()");
+        if (nextNode != null) {
+            tp.setNextNode(nextNode);
+        } else {
             lastTrain.explode();
-            Prompt.removeIndent();
         }
-
-        Prompt.addIndent("tp.setNextNode(this.route())");
-        tp.setNextNode(route());
-        Prompt.removeIndent();
     }
 
     /**
@@ -63,7 +66,6 @@ public class Node implements Serializable {
      * @param te the TrainEngine
      */
     public void accept(TrainEngine te) {
-        Prompt.printMessage("Node.accept(TrainEngine)");
         accept((TrainPart) te);
     }
 
@@ -73,8 +75,16 @@ public class Node implements Serializable {
      * @param tc the TrainCart
      */
     public void accept(TrainCart tc) {
-        Prompt.printMessage("Node.accept(TrainCart)");
         accept((TrainPart) tc);
+    }
+
+    /**
+     * A csomópont irányítja a TrainCoalWagont a következő állomás felé, ha az létezik.
+     *
+     * @param tw the TrainCoalWagon
+     */
+    public void accept(TrainCoalWagon tw) {
+        accept((TrainPart) tw);
     }
 
     /**
@@ -83,15 +93,21 @@ public class Node implements Serializable {
      * @return the node
      */
     protected Node route() {
-        Prompt.printMessage("Node.route");
-        return this;
+        // Ha nincs következő csomopont (Vakvágány)
+        if (neighbourNodeList.size() >= 2)
+            return null;
+
+        // Ha nem az egyik, akkor a másik. 2 lehetőség van csak. SpecialPlacenek felül kell definiálnia
+        if (visitorComingFrom == neighbourNodeList.get(0)){
+            return neighbourNodeList.get(1);
+        }
+        return neighbourNodeList.get(0);
     }
 
     /**
      * A felhaszáló ezzel tudja a node-hoz tartozó logikát aktiválni. Alapértelmezetten ugyan semmi nem történik, de a leszármazottak felüldefiniálják ezt.
      */
     public void activate() {
-        Prompt.printMessage("Node.activate");
     }
 
     /**
@@ -105,27 +121,15 @@ public class Node implements Serializable {
      * @return true ha van rajta vonat
      */
     protected boolean checkForTrain() {
-        Prompt.printMessage("Node.checkForTrain");
-        Prompt.addIndent("lastTrain.getpartList()");
-        // for each part in lastTrain.getPartList
-        Prompt.supressMessages(true);
-        if (lastTrain == null) {
-            // Some kind of magic if nothing visited the node yet, because the program would crash otherwise
-            Train tr = new Train(new Statistics(new Game()), new ArrayList<>());
-            tr.addPart(new TrainEngine(tr, new Speed(0)));
-            lastTrain = tr;
-            // End of magic
+        // Ha volt már rajta vonat
+        if (lastTrain != null){
+            for(TrainPart tp: lastTrain.getPartList()){
+                if (tp.getNextNode() == this) {
+                    return true;
+                }
+            }
         }
-        Prompt.supressMessages(false);
-        TrainPart part = lastTrain.getPartList().get(0);
-        Prompt.removeIndent();
-        // if part.getNextNode() == this
-        Prompt.addIndent("part.getNextNode()");
-        part.getNextNode();
-        Prompt.removeIndent();
-        System.out.println("[?] Van a csomóponton vonat? [Y/N]");
-        System.out.print("[>] ");
-        return Prompt.readBool();
+        return false;
     }
 
     /**
@@ -134,7 +138,6 @@ public class Node implements Serializable {
      * @param n the Node
      */
     public void addNeighbourNode(Node n) {
-        Prompt.printMessage("Node.addNeighbourNode");
         neighbourNodeList.add(n);
     }
 }

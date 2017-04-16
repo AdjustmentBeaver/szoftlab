@@ -1,0 +1,5 @@
+MAP_CREATED
+switch1 node4
+train node2
+train switch1
+train node4

@@ -34,7 +34,7 @@ public class MapManager {
      */
     public void newMap(String mapName) {
         MapBuilder mapBuilder = new MapBuilder(mapName);
-        map = mapBuilder.buildMap(game);
+        map = mapBuilder.buildMap();
         map.subscribe(timer);
     }
 

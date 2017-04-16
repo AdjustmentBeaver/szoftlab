@@ -1,0 +1,6 @@
+MAP_CREATED
+specialPlace1 CONSTRUCTED
+specialPlace2 CONSTRUCTED
+train1 node2
+train1 specialPlace1
+train1 specialPlace2

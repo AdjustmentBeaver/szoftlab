@@ -20,7 +20,6 @@ public class TrainEngine extends TrainPart {
      */
     public TrainEngine(Train t, Speed speed) {
         super(t);
-        Prompt.printMessage("TrainEngine.TrainEngine");
         this.speed = speed;
     }
 
@@ -30,7 +29,6 @@ public class TrainEngine extends TrainPart {
      * @return A TrainEngine sebessége
      */
     public Speed getSpeed() {
-        Prompt.printMessage("TrainEngine.getSpeed");
         return speed;
     }
 
@@ -39,11 +37,8 @@ public class TrainEngine extends TrainPart {
      */
     @Override
     public void move() {
-        Prompt.printMessage("TrainEngine.move");
         if (getNextNode() != null) {
-            Prompt.addIndent("getNextNode().accept(this)");
             nextNode.accept(this);
-            Prompt.removeIndent();
         }
     }
 }
