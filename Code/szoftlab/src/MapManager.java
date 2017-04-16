@@ -39,7 +39,7 @@ public class MapManager {
         Prompt.removeIndent();
 
         Prompt.addIndent("mapBuilder.buildMap(game)");
-        map = mapBuilder.buildMap(game);
+        map = mapBuilder.buildMap();
         Prompt.removeIndent();
 
         Prompt.addIndent("map.subscribe(timer)");

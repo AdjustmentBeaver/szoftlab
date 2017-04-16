@@ -58,12 +58,12 @@ public class Game {
         Prompt.supressMessages(true);
         MapManager mapManager = new MapManager(timer, this);
         mapManager.newMap("level1");
-        Map map = new MapBuilder("testLevel").buildMap(this);
+        Map map = new MapBuilder("testLevel").buildMap();
         map.subscribe(timer);
         List<Train> trainList = new ArrayList<>();
-//        Statistics stat = new Statistics(this);
+        // Statistics stat = new Statistics(this);
         Train train = new Train( trainList);
-        Station station = new Station(new Color(""));
+        Station station = new Station(new Coordinate(0,0), new Color(""));
         TrainEngine te = new TrainEngine(train, new Speed(0));
         te.setNextNode(station);
         TrainCart tc = new TrainCart(train,  new Color(""));
@@ -119,7 +119,7 @@ public class Game {
                     train.explode();
                     break;
                 case 10:
-                    map.activateNode(new Coordinate());
+                    map.activateNode(new Coordinate(0, 0));
                     break;
                 case 11:
                     run = false;
