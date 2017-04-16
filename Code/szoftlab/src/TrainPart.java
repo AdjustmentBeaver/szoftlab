@@ -58,7 +58,10 @@ public abstract class TrainPart implements Serializable {
     public TrainPart(Train t) {
         train = t;
         isEmpty = true;
-        activateRadius =  train.getSpeed().getSpeedAsDouble() / 2 + 0.01;
+    }
+
+    public void setActivateRadius(double activateRadius) {
+        this.activateRadius = activateRadius;
     }
 
     /**

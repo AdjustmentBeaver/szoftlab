@@ -115,6 +115,7 @@ public class Train implements Notifiable, Serializable {
         for (TrainPart T:trainPartList) {
             T.setNextNode(startNode);
             T.setPos(startcord);
+            T.setActivateRadius(((TrainEngine)trainPartList.get(0)).getSpeed().getSpeedAsDouble() / 2.0 + 0.01);
             startcord=new  Coordinate(startcord.getX()-1,startcord.getY()-1);
         }
     }
