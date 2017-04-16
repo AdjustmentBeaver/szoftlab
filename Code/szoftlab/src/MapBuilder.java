@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class MapBuilder {
     private String mapName;
+    private Game game;
     /**
      * Létrehoz egy új Map buildert.
      *
@@ -24,6 +25,7 @@ public class MapBuilder {
      */
     public MapBuilder(String mapName) {
         this.mapName = mapName;
+        this.game = null;
     }
 
     /**
@@ -33,6 +35,10 @@ public class MapBuilder {
      */
     public Map buildMap() {
         try {
+            if (game == null) {
+                throw new NullPointerException("Game is null");
+            }
+
             // Betoltjuk az XML dokumentumot az elso parameterkent megadott eleresi utvonalrol
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(true);
@@ -50,7 +56,7 @@ public class MapBuilder {
                 throw new XMLParseException("Wrong root node name: " + level.getNodeName());
             }
 
-            Map map = new Map();
+            Map map = new Map(game);
 
             List<Train> trainList = map.getTrainList();
 
@@ -245,5 +251,9 @@ public class MapBuilder {
             throw new NullAttributeException("Attribute is null: " + attr);
         }
         return s;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

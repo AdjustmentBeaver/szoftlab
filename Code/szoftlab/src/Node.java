@@ -26,7 +26,7 @@ public class Node implements Serializable {
     /**
      * A csomópont helyzetét adja meg.
      */
-    private Coordinate pos;
+    protected Coordinate pos;
     public Coordinate getPos() {return pos;}
 
     /**
@@ -139,5 +139,10 @@ public class Node implements Serializable {
      */
     public void addNeighbourNode(Node n) {
         neighbourNodeList.add(n);
+    }
+
+    @Override
+    public String toString() {
+        return "type=node " + "pos=" + pos;
     }
 }

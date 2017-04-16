@@ -46,4 +46,9 @@ public class LoaderStation extends Node{
 
         super.accept(tc);
     }
+
+    @Override
+    public String toString() {
+        return "type=loaderStation pos=" + pos + " color=" + color + " hasPassengers=" + hasPassengers;
+    }
 }

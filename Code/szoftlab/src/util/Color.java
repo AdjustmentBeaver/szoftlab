@@ -12,4 +12,8 @@ public class Color implements Serializable {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return color;
+    }
 }

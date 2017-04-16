@@ -14,6 +14,9 @@ public class SimulationTimer {
      */
     List<Notifiable> subscribers;
 
+    /**
+     * Az esemenysor
+     */
     List<String> events;
 
     /**
@@ -40,14 +43,17 @@ public class SimulationTimer {
     /**
      * Lefuttat egy szimulációs lépést.
      */
-    public void step() {
+    public void step(int stepNum) {
         for (String event: events) {
             for (Notifiable sub: subscribers) {
                 sub.update(event);
             }
         }
-        for (Notifiable sub : subscribers) {
-            sub.update(null);
+        events.clear();
+        for (int i = 0; i < stepNum; i++) {
+            for (Notifiable sub : subscribers) {
+                sub.update(null);
+            }
         }
     }
 
@@ -70,6 +76,10 @@ public class SimulationTimer {
         subscribers.clear();
     }
 
+    /**
+     *
+     * @param event
+     */
     public void addEvent(String event) {
         events.add(event);
     }

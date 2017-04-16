@@ -53,4 +53,13 @@ public class Coordinate implements Serializable{
     private double getLength(){
         return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
+
+    public double getDistanceTo(Coordinate p) {
+        return Math.sqrt(Math.pow(x-p.getX(),2) + Math.pow(y-p.getY(),2));
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
 }

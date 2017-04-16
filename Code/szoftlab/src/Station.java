@@ -40,4 +40,9 @@ public class Station extends Node {
         }
         super.accept(tc);
     }
+
+    @Override
+    public String toString() {
+        return "type=station " + "pos=" + pos + " color=" + color;
+    }
 }

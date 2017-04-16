@@ -73,4 +73,9 @@ public class Switch extends Node {
         super.addNeighbourNode(n);
         activeNode = n;
     }
+
+    @Override
+    public String toString() {
+        return "type=switch " + "pos=" + pos;
+    }
 }

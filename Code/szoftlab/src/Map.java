@@ -18,15 +18,18 @@ public class Map implements Serializable, Notifiable {
     private List<Node> nodeList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
+    private Game game;
 //    private Statistics stat;
 
     /**
      * Instantiates a new Map.
+     * @param game A Game osztály, ami a játékot vezérli
      */
-    public Map() {
+    public Map(Game game) {
         trainList = new ArrayList<>();
         nodeList = new ArrayList<>();
         notifiables = new ArrayList<>();
+        this.game = game;
     }
 
     /**
@@ -92,19 +95,6 @@ public class Map implements Serializable, Notifiable {
         trainList.add(t);
     }
 
-//    /**
-//     * Add statistics.
-//     * <p>
-//     * Statisztika hozzáadása a pályához.
-//     * </p>
-//     *
-//     * @param st the Statistics
-//     */
-//    public void addStatistics(Statistics st) {
-//        Prompt.printMessage("Map.addStatistics");
-//        stat = st;
-//    }
-
     /**
      * Add notifiable.
      * <p>
@@ -128,6 +118,51 @@ public class Map implements Serializable, Notifiable {
 
     @Override
     public void update(String event) {
-
+        // Check collision and empty
+        if (event == null) {
+            boolean trainExploded = false;
+            boolean cartsEmpty = true;
+            for (Train t: trainList) {
+                if (t.isExploded()) {
+                    trainExploded = true;
+                }
+                if (t.getColor() != null) {
+                    cartsEmpty = false;
+                }
+            }
+            if (trainExploded) {
+                game.lost();
+            } else if (cartsEmpty) {
+                game.won();
+            }
+        } else {
+            String evt[] = event.split(" ");
+            if (evt.length == 0) {
+                return;
+            }
+            int i;
+            switch (evt[0]) {
+                case "activate":
+                    Coordinate pos = new Coordinate(Integer.parseInt(evt[1]), Integer.parseInt(evt[2]));
+                    for (Node n: nodeList) {
+                        if (n.getPos().getDistanceTo(pos) < 0.5) {
+                            n.activate();
+                        }
+                    }
+                    break;
+                case "listNodes":
+                    i = 0;
+                    for (Node n: nodeList) {
+                        System.out.println("Node (" + i++ + ") " + n.toString());
+                    }
+                    break;
+                case "listTrains":
+                    i = 0;
+                    for (Train t: trainList) {
+                        System.out.println("Train (" + i++ + ") " + t.toString());
+                    }
+                    break;
+            }
+        }
     }
 }

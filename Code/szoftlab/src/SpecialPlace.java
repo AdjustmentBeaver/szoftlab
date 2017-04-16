@@ -74,4 +74,9 @@ public class SpecialPlace extends Node{
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "type=specialPlace " + "pos=" + pos + " isConstructed=" + isConstructed;
+    }
 }

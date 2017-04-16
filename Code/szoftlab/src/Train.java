@@ -27,17 +27,19 @@ public class Train implements Notifiable, Serializable {
     private boolean isRunning;
 
     /**
-     * A vonat inditasi ideje
-     */
-    private int startTime;
-
-    /**
      * A vonat inditasi helye
      */
     private Node startNode;
 
     /**
-     *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
+     * A vonat inditasi ideje
+     */
+    private int startTime;
+
+    private boolean exploded;
+
+    /**
+     *  Konstruktor. Beállítja a trainList attribútumot.
      *
      * @param trainList A vonatok listája.
      */
@@ -47,6 +49,7 @@ public class Train implements Notifiable, Serializable {
         trainPartList = new ArrayList<>();
         this.startNode = startNode;
         this.startTime = startTime;
+        exploded = false;
     }
 
     /**
@@ -62,7 +65,7 @@ public class Train implements Notifiable, Serializable {
      * Felrobbantja a Traint.
      */
     public void explode() {
-        //stat.trainExploded();
+        exploded = true;
     }
 
     /**
@@ -89,7 +92,7 @@ public class Train implements Notifiable, Serializable {
      * @return Az utolsó nem üres TrainPart színe.
      */
     public Color getColor() {
-        int tpIndex = 0;
+        int tpIndex = 1;
         while (tpIndex < trainPartList.size() && !trainPartList.get(tpIndex).isEmpty())
             tpIndex++;
 
@@ -162,5 +165,14 @@ public class Train implements Notifiable, Serializable {
      */
     public int getStartTime() {
         return startTime;
+    }
+
+    public boolean isExploded() {
+        return exploded;
+    }
+
+    @Override
+    public String toString() {
+        return "isRunning = " + isRunning + " startTime = " + startTime + " exploded = " + exploded;
     }
 }

@@ -86,9 +86,7 @@ public class Game {
                     break;
                 case "step":
                     try {
-                        for (int i = 0; i < Integer.parseInt(cmd[1]); i++)
-                            timer.step();
-
+                        timer.step(Integer.parseInt(cmd[1]));
                     } catch (NumberFormatException e) {
                         System.out.println("Error number of step must be number");
                         break;
@@ -107,6 +105,7 @@ public class Game {
                     System.out.println("KYS");
                     break;
             }
+            timer.step(0);
         }
     }
 
@@ -156,5 +155,19 @@ public class Game {
         stopGame();
         mapManager.newMap(nextLevel);
         startGame();
+    }
+
+    /**
+     * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
+     */
+    public void won() {
+
+    }
+
+    /**
+     * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
+     */
+    public void lost() {
+
     }
 }
