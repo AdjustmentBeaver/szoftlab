@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Koordinata tipus, egy pozicio tarolasara.
  */
 public class Coordinate implements Serializable{
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     /**
      * Konstruktor, ket dimenzios koordinata.
@@ -15,7 +15,7 @@ public class Coordinate implements Serializable{
      * @param x az x tengelyen levo pozicio
      * @param y az y tengelyen levo pozicio
      */
-    public Coordinate(int x, int y) {
+    public Coordinate(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -25,7 +25,7 @@ public class Coordinate implements Serializable{
      *
      * @return az x tengelyen levo pozicio
      */
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -34,7 +34,7 @@ public class Coordinate implements Serializable{
      *
      * @return az y tengelyen levo pozicio
      */
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -50,7 +50,7 @@ public class Coordinate implements Serializable{
      * Visszaadja a vektor hosszát
      * @return Vektor hossza
      */
-    private int getLength(){
-        return (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    private double getLength(){
+        return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
 }
