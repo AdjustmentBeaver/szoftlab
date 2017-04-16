@@ -14,21 +14,34 @@ public class LoaderStation extends Node{
      */
     private Color color;
 
+    /**
+     * Vannak-e utasok az állomson
+     */
+    boolean hasPassengers;
+
+    /**
+     * Konstruktor.
+     * @param pos Az állomás helye
+     * @param color Az állomás színe
+     */
+
     public LoaderStation(Coordinate pos, Color color) {
         super(pos);
         this.color =  color;
+        hasPassengers = true;
     }
 
     /**
      * Megivizsgálja, hogy az állomáshoz ért kocsi színe a megegyezik az állomáséval és, hogy
-     * a vonaton ez az első üres kocsi.
+     * a felszállhatnak-e utasok az állomásról.
      * @param tc Az állomáshoz érő TrainCart
      */
     @Override
     public void accept(TrainCart tc) {
         Color cartColor = tc.getColor();
-        if (color == cartColor){
+        if (hasPassengers && color == cartColor == tc.isEmpty()){
             tc.load();
+            hasPassengers = false;
         }
 
         super.accept(tc);
