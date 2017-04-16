@@ -35,7 +35,7 @@ public class Station extends Node {
         Train t = tc.getTrain();
         Color colorToUnload = t.getColor();
         Color cartColor = tc.getColor();
-        if (color == cartColor && color == colorToUnload){
+        if (color.toString().equals(cartColor) && color.toString().equals(colorToUnload)){
             tc.unload();
         }
         super.accept(tc);

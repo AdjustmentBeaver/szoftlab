@@ -39,7 +39,7 @@ public class LoaderStation extends Node{
     @Override
     public void accept(TrainCart tc) {
         Color cartColor = tc.getColor();
-        if (hasPassengers && color == cartColor == tc.isEmpty()){
+        if (hasPassengers && color.toString().equals(cartColor) && tc.isEmpty()){
             tc.load();
             hasPassengers = false;
         }
