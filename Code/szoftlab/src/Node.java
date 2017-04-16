@@ -107,7 +107,7 @@ public class Node {
         Prompt.supressMessages(true);
         if (lastTrain == null) {
             // Some kind of magic if nothing visited the node yet, because the program would crash otherwise
-            Train tr = new Train(new Statistics(new Game()), new ArrayList<>());
+            Train tr = new Train(new ArrayList<>());
             tr.addPart(new TrainEngine(tr, new Speed(0)));
             lastTrain = tr;
             // End of magic

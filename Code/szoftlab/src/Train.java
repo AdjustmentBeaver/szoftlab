@@ -10,7 +10,7 @@ import java.util.List;
  * </p>
  */
 public class Train implements Notifiable {
-    private Statistics stat;
+    //private Statistics stat;
     private List<TrainPart> trainPartList;
     private List<Train> trainList;
     private boolean isRunning;
@@ -18,12 +18,11 @@ public class Train implements Notifiable {
     /**
      *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
      *
-     * @param st        A játék statisztikája.
      * @param trainList A vonatok listája.
      */
-    public Train(Statistics st, List<Train> trainList) {
+    public Train(List<Train> trainList) {
         Prompt.printMessage("Train.Train");
-        stat = st;
+        //stat = st;
         this.trainList = trainList;
         isRunning = false;
         trainPartList = new ArrayList<>();
@@ -47,7 +46,7 @@ public class Train implements Notifiable {
     public void explode() {
         Prompt.printMessage("Train.explode");
         Prompt.addIndent("stat.trainExploded()");
-        stat.trainExploded();
+//        stat.trainExploded();
         Prompt.removeIndent();
     }
 

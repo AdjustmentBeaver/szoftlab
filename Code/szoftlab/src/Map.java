@@ -20,7 +20,7 @@ public class Map {
     private List<Node> nodeList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
-    private Statistics stat;
+//    private Statistics stat;
 
 
     /**
@@ -129,18 +129,18 @@ public class Map {
         trainList.add(t);
     }
 
-    /**
-     * Add statistics.
-     * <p>
-     * Statisztika hozzáadása a pályához.
-     * </p>
-     *
-     * @param st the Statistics
-     */
-    public void addStatistics(Statistics st) {
-        Prompt.printMessage("Map.addStatistics");
-        stat = st;
-    }
+//    /**
+//     * Add statistics.
+//     * <p>
+//     * Statisztika hozzáadása a pályához.
+//     * </p>
+//     *
+//     * @param st the Statistics
+//     */
+//    public void addStatistics(Statistics st) {
+//        Prompt.printMessage("Map.addStatistics");
+//        stat = st;
+//    }
 
     /**
      * Add notifiable.
