@@ -20,13 +20,16 @@ public class Node {
     private Coordinate pos;
     private Node visitorComingFrom;
 
-
     /**
      * Instantiates a new Node.
      */
     public Node() {
         Prompt.printMessage("Node.Node");
         neighbourNodeList = new ArrayList<>();
+    }
+
+    public Coordinate getPos() {
+        return pos;
     }
 
     private void accept(TrainPart tp) {
