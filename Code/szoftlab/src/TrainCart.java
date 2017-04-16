@@ -1,4 +1,5 @@
 import util.Color;
+import util.Coordinate;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -13,6 +14,10 @@ public class TrainCart extends TrainPart {
      */
     private Color color;
 
+    /**
+     *
+     */
+    private Coordinate direction;
 
     /**
      * Konstruktor, a Statistics osztályt ismeri, itt kapja meg. Beállításra kerül még, hogy melyik vonathoz tartozik.
@@ -47,11 +52,20 @@ public class TrainCart extends TrainPart {
      */
     @Override
     public void move() {
-        Prompt.printMessage("TrainCart.move");
+        // Irány beállítása - akkor is működjön ha az első csomópontnál van
+        Coordinate nextNodePosition = nextNode.getPos();
+        direction = new Coordinate( nextNodePosition.getX() - getPos().getX(),
+                                    nextNodePosition.getY() - getPos().getY());
+        direction.normalize();
 
-        Prompt.addIndent("nextNode.accept(this)");
-        nextNode.accept(this);
-        Prompt.removeIndent();
+        // Új pozíció beállítása
+        setPos(new Coordinate(getPos().getX() + direction.getX(), getPos().getY() + direction.getY()));
+
+        // Jelenleg körös megvalósítás
+        int R = 2;
+        if (Math.sqrt(Math.pow(getPos().getX(),2) + Math.pow(getPos().getY(),2)) < R){
+            nextNode.accept(this);
+        }
     }
 
     /**
