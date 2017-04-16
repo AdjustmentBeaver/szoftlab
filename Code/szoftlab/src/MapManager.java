@@ -24,6 +24,7 @@ public class MapManager {
      */
     public MapManager(SimulationTimer timer, Game game) {
         this.game = game;
+        this.map = null;
         this.timer = timer;
     }
 
@@ -53,7 +54,7 @@ public class MapManager {
             ser.writeObject(map);
             ser.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Unable to save level: " + e.getMessage());
         }
         game.resumeGame();
     }
@@ -68,11 +69,28 @@ public class MapManager {
         try {
             ObjectInputStream ser = new ObjectInputStream(new FileInputStream(mapName));
             map = (Map) ser.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if (map == null) {
+                System.err.println("Unable to load level: Map is null.");
+                return;
+            }
+            // map = newMap
+            map.subscribe(timer);
+        } catch (StreamCorruptedException e) {
+            System.err.println("Unable to load level " + mapName + ": data file is corrupted.");
+            System.err.println(e.getMessage());
+            return;
+        } catch (ClassNotFoundException e) {
+            System.err.println("Unable to load level " + mapName + ": class not found.");
+            System.err.println(e.getMessage());
+            return;
+        }  catch (InvalidClassException e) {
+            System.err.println("Unable to load level " + mapName + ": class is invalid.");
+            System.err.println(e.getMessage());
+            return;
+        } catch (IOException e) {
+            System.err.println("Unable to load level " + mapName + ": I/O error.");
+            System.err.println(e.getMessage());
             return;
         }
-        // map = newMap
-        map.subscribe(timer);
     }
 }
