@@ -7,6 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -52,13 +53,15 @@ public class MapBuilder {
 
             Map map = new Map();
 
-            Statistics stat = new Statistics(game);
-
-            map.addStatistics(stat);
-
             List<Train> trainList = map.getTrainList();
 
             List<SpecialPlace> spNeighbours = new ArrayList<>();
+            // A nodeok listaja, neveikkel azonositva
+            HashMap<String, Node> nodeList = new HashMap<>();
+            // A nodeok szomszedainak listai, minden nodeot a neveivel azonositva
+            // Azert kell ez a modszer, mert beolvasas kozben nem tudjuk egybol a szomszedokat hozzaadni, ha meg nem
+            // olvastunk be minden szomszedot, a feldolgozast a vegen fogjuk elvegezni
+            HashMap<String, ArrayList<String>> nodeNeighbours = new HashMap<>();
 
             // Entitas csoportok (nodes, trains)
             NodeList groups = level.getChildNodes();
@@ -83,32 +86,8 @@ public class MapBuilder {
                                 String nodeName = getNodeAttribute(node, "name");
                                 // Node tipusanak lekerese (kotelezo attributum)
                                 String nodeType = getNodeAttribute(node, "type");
-                                switch (nodeType) {
-                                    case "node":
-                                        Node nd = new Node();
-                                        map.addNode(nd);
-                                        break;
-                                    case "switch":
-                                        Switch sw = new Switch();
-                                        map.addNode(sw);
-                                        break;
-                                    case "station":
-                                        String color = getNodeAttribute(node, "color");
-                                        Station station = new Station(new Color(color));
-                                        map.addNode(station);
-                                        break;
-                                    case "loaderStation":
-                                        String loaderColor = getNodeAttribute(node, "color");
-                                        LoaderStation loaderStation = new LoaderStation(new Color(loaderColor));
-                                        map.addNode(loaderStation);
-                                        break;
-                                    case "specialPlace":
-                                        SpecialPlace tunnel = new SpecialPlace(spNeighbours);
-                                        map.addNode(tunnel);
-                                        break;
-                                    default:
-                                        throw new XMLParseException("Invalid node type: " + nodeType);
-                                }
+                                // Node pozicioja
+                                Coordinate pos = null;
                                 // Node attributumok lekerese, eloszor azokat amik child nodekent vannak tarolva
                                 NodeList nodeAttrs = node.getChildNodes();
                                 for (int k = 0; k < nodeAttrs.getLength(); k++) {
@@ -117,16 +96,22 @@ public class MapBuilder {
                                         String attrName = nodeAttr.getNodeName();
                                         switch (attrName) {
                                             case "position":
-                                                // TODO: save position
                                                 String xPos = getNodeAttribute(nodeAttr, "x");
                                                 String yPos = getNodeAttribute(nodeAttr, "y");
+                                                pos = new Coordinate(Integer.parseInt(xPos), Integer.parseInt(yPos));
                                                 break;
                                             case "neighbours":
                                                 NodeList neighbourList = nodeAttr.getChildNodes();
+                                                // Csinalunk egy uj listat a szomszedok neveivel
+                                                ArrayList<String> nbList = new ArrayList<>();
+                                                nodeNeighbours.put(nodeName, nbList);
+                                                // Minden egyes szomszedot hozzaadunk a listahoz
                                                 for (int l = 0; l < neighbourList.getLength(); l++) {
                                                     org.w3c.dom.Node neighbour = neighbourList.item(l);
+                                                    // Csak a Node tipusuak erdekelnek
                                                     if (neighbour.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                                                        // TODO: parse and save neighbour list
+                                                        // Hozzaadjuk a listahoz, hogy mi a szomszed neve
+                                                        nbList.add(neighbour.getNodeValue());
                                                     }
                                                 }
                                                 break;
@@ -134,6 +119,37 @@ public class MapBuilder {
                                                 throw new XMLParseException("Invalid node attribute: " + attrName);
                                         }
                                     }
+                                }
+                                switch (nodeType) {
+                                    case "node":
+                                        Node nd = new Node(pos);
+                                        map.addNode(nd);
+                                        nodeList.put(nodeName, nd);
+                                        break;
+                                    case "switch":
+                                        Switch sw = new Switch(pos);
+                                        map.addNode(sw);
+                                        nodeList.put(nodeName, sw);
+                                        break;
+                                    case "station":
+                                        String color = getNodeAttribute(node, "color");
+                                        Station station = new Station(pos, new Color(color));
+                                        map.addNode(station);
+                                        nodeList.put(nodeName, station);
+                                        break;
+                                    case "loaderStation":
+                                        String loaderColor = getNodeAttribute(node, "color");
+                                        LoaderStation loaderStation = new LoaderStation(pos, new Color(loaderColor));
+                                        map.addNode(loaderStation);
+                                        nodeList.put(nodeName, loaderStation);
+                                        break;
+                                    case "specialPlace":
+                                        SpecialPlace tunnel = new SpecialPlace(pos, spNeighbours);
+                                        map.addNode(tunnel);
+                                        nodeList.put(nodeName, tunnel);
+                                        break;
+                                    default:
+                                        throw new XMLParseException("Invalid node type: " + nodeType);
                                 }
                             }
                         }
@@ -147,11 +163,13 @@ public class MapBuilder {
                                     throw new XMLParseException("Invalid element: " + train.getNodeName());
                                 }
 
-                                Train tr = new Train(stat, trainList);
+                                Train tr = new Train(trainList);
                                 map.addTrain(tr);
 
                                 String startNode = getNodeAttribute(train, "start_node");
+                                // TODO: a kezdo node beallitasa
                                 String startTime = getNodeAttribute(train, "start_time");
+                                // TODO: a kezdo ido beallitasa
                                 NodeList trainParts = train.getChildNodes();
                                 for (int k = 0; k < trainParts.getLength(); k++) {
                                     org.w3c.dom.Node trainPart = trainParts.item(k);
@@ -165,7 +183,7 @@ public class MapBuilder {
                                                 break;
                                             case "cart":
                                                 String color = getNodeAttribute(trainPart, "color");
-                                                TrainCart cart = new TrainCart(tr, stat, new Color(color));
+                                                TrainCart cart = new TrainCart(tr, new Color(color));
                                                 tr.addPart(cart);
                                                 break;
                                             case "coalWagon":
@@ -185,12 +203,28 @@ public class MapBuilder {
                 }
             }
 
+            // A train schedulert letrehozzuk, es atadjuk neki a vonatok listajat
             TrainScheduler scheduler = new TrainScheduler(trainList);
-
             map.addNotifiable(scheduler);
 
+            // Feldolgozzuk a szomszedsagi listat
+            for (java.util.Map.Entry<String, ArrayList<String>> ndList: nodeNeighbours.entrySet()) {
+                // Az aktualis node kell, amit a node listabol tudunk kivenni
+                Node actNode = nodeList.get(ndList.getKey());
+                // Feldolgozzuk a szomszedokat
+                for (String nbName: ndList.getValue()) {
+                    // Ha a szomszed nincs a listaban, akkor NullPointerException
+                    if (!nodeList.containsKey(nbName)) {
+                        throw new NullPointerException();
+                    }
+                    // Ha van, akkor odaadjuk neki a szomszedot
+                    actNode.addNeighbourNode(nodeList.get(nbName));
+                }
+            }
+
             return map;
-        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException e) {
+            // TODO: hibakezeles
             e.printStackTrace();
         }
         return null;
