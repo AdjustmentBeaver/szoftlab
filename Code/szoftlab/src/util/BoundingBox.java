@@ -32,14 +32,18 @@ public class BoundingBox {
         setPos(middle,direction);
     }
 
+    public BoundingBox(){
+        points = new ArrayList<>();
+    };
+
     /**
      * Beállítja az aktuális középpontot és irányt, majd ezek segítségével kiszámolja az alakzat csúcspontjait
      * @param mid középpont
      * @param dir irány
      */
     public void setPos(Coordinate mid,Coordinate dir) {
-        this.middle = middle;
-        this.direction = direction;
+        this.middle = mid;
+        this.direction = dir;
         this.direction.normalize();
         points.add(0,new Coordinate(middle.getX()+direction.getX()-direction.getY()*0.5,middle.getY()+direction.getY()+direction.getX()*0.5));
         points.add(1,new Coordinate(middle.getX()+direction.getX()+direction.getY()*0.5,middle.getY()+direction.getY()-direction.getX()*0.5));
@@ -47,6 +51,17 @@ public class BoundingBox {
         points.add(3,new Coordinate(middle.getX()-direction.getX()+direction.getY()*0.5,middle.getY()-direction.getY()-direction.getX()*0.5));
 
     }
+
+    /**
+     * Pontok manuális hozzáadásához.
+     * A sorrend megadása számít. Óramutató járásával megegyező vagy ellentétes irányba kell. Átlósan nem lesz jó!
+     * @param point Hozzáadandó pont.
+     */
+    public void addPoint(Coordinate point) {
+        if (points.size() < 4)
+            points.add(point);
+    }
+
 
     /**
      * Visszaadja a BoundingBox pontjait
@@ -119,7 +134,7 @@ public class BoundingBox {
             if (scalar > Bmax) Bmax = scalar;
         }
 
-        if (Bmin <= Amin || Bmax >= Amax)
+        if (Bmin <= Amax && Bmax >= Amin)
             return true;
 
         return false;
