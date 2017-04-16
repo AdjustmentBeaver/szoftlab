@@ -220,9 +220,9 @@ public class MapBuilder {
             }
 
             return map;
-        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException | NumberFormatException e) {
-            // TODO: hibakezeles
-            e.printStackTrace();
+        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException | NumberFormatException | NullAttributeException e) {
+            System.err.println("Error while parsing level: " + mapName);
+            System.err.println(e.getMessage());
         }
         return null;
     }
@@ -242,7 +242,7 @@ public class MapBuilder {
         }
         String s = ((Element)n).getAttribute(attr);
         if (s == null || s.equals("")) {
-            throw new NullAttributeException("Attribute is null");
+            throw new NullAttributeException("Attribute is null: " + attr);
         }
         return s;
     }
