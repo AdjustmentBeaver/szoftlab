@@ -74,23 +74,23 @@ public abstract class TrainPart implements Serializable {
      */
     public void setPos(Coordinate pos) {
         this.pos = pos;
+
+        // Irány beállítása
+        Coordinate nextNodePosition = nextNode.getPos();
+        direction = new Coordinate( nextNodePosition.getX() - pos.getX(),
+                nextNodePosition.getY() - pos.getY());
+        direction.normalize();
+
+        // BoundingBox frissítés
+        boundingBox = new BoundingBox(this.pos, direction);
     }
 
     /**
      * Mozgatja a TrainPartot. Absztrakt, a leszármazottak valósítják meg..
      */
     public void move(){
-        // Irány beállítása - akkor is működjön ha az első csomópontnál van
-        Coordinate nextNodePosition = nextNode.getPos();
-        direction = new Coordinate( nextNodePosition.getX() - pos.getX(),
-                                    nextNodePosition.getY() - pos.getY());
-        direction.normalize();
-
         // Új pozíció beállítása
         setPos(new Coordinate(pos.getX() + direction.getX(), pos.getY() + direction.getY()));
-
-        // BoundingBox frissítés
-        boundingBox = new BoundingBox(pos, direction);
     }
 
     /**
