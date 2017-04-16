@@ -26,6 +26,7 @@ public class Node {
      * A csomópont helyzetét adja meg.
      */
     private Coordinate pos;
+    public Coordinate getPos() {return pos;}
 
     /**
      * Melyik szomszédos csomópont felől érkezett a látogató
@@ -90,14 +91,17 @@ public class Node {
      */
     protected Node route() {
         // Ha nincs következő csomopont (Vakvágány)
-        if (neighbourNodeList.size() >= 2)
-            return null;
-
+        if (neighbourNodeList.size() == 1)
+            if(neighbourNodeList.get(0) == visitorComingFrom)
+                return null;
+            else return neighbourNodeList.get(0);
+        
         // Ha nem az egyik, akkor a másik. 2 lehetőség van csak. SpecialPlacenek felül kell definiálnia
         if (visitorComingFrom == neighbourNodeList.get(0)){
             return neighbourNodeList.get(1);
         }
         return neighbourNodeList.get(0);
+        
     }
 
     /**

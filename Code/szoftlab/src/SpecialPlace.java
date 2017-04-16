@@ -18,12 +18,12 @@ public class SpecialPlace extends Node{
     /**
      * Az összes SpecialPlace-et tartalmazó lista.
      */
-    List<SpecialPlace> spList;
+    public List<SpecialPlace> spList;
 
     /**
      * Fel van-e építve a csomópont
      */
-    boolean isConstructed;
+    public boolean isConstructed;
 
     /**
      * Konstruktor. Létrehozza a SpecialPlacet.
