@@ -62,16 +62,28 @@ public class Game {
             cmd = in.split(" ");
             switch (cmd[0]) {
                 case "new":
-                    newGame(cmd[1]);
+                    try {
+                        newGame(cmd[1]);
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        System.err.println("format: new <mapName>");
+                    }
                     break;
                 case "load":
                     stopGame();
-                    mapManager.loadMap(cmd[1]);
+                    try {
+                        mapManager.loadMap(cmd[1]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("format: save <mapName>");
+                    }
                     startGame();
                     break;
                 case "save":
                     stopGame();
-                    mapManager.saveMap(cmd[1]);
+                    try {
+                        mapManager.saveMap(cmd[1]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("format: save <mapName>");
+                    }
                     resumeGame();
                     break;
                 case "stop":
@@ -87,13 +99,16 @@ public class Game {
                 case "step":
                     try {
                         timer.step(Integer.parseInt(cmd[1]));
-                    } catch (NumberFormatException e) {
-                        System.out.println("Error number of step must be number");
-                        break;
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Error number of step must be number");
                     }
                     break;
                 case "activate":
-                    timer.addEvent("activate " + cmd[1] + " " + cmd[2]);
+                    try {
+                        timer.addEvent("activate " + cmd[1] + " " + cmd[2]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("format: activate <x> <y>");
+                    }
                     break;
                 case "listNodes":
                     timer.addEvent("listNodes");
@@ -141,7 +156,7 @@ public class Game {
      */
     public void resumeGame() {
         if (wasRunning)
-        timer.start();
+            timer.start();
     }
 
     /**
