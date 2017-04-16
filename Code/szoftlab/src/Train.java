@@ -189,6 +189,11 @@ public class Train implements Notifiable, Serializable {
 
     @Override
     public String toString() {
-        return "isRunning = " + isRunning + " startTime = " + startTime + " exploded = " + exploded;
+        StringBuilder s = new StringBuilder("isRunning = " + isRunning + " startTime = " + startTime + " exploded = " + exploded + " pos = " + trainPartList.get(0).getPos() + "\n");
+        for (int i = 0; i < trainPartList.size(); i++) {
+            TrainPart part = trainPartList.get(i);
+            s.append("\t [").append(i).append("] ").append(part).append("\n");
+        }
+        return s.toString();
     }
 }

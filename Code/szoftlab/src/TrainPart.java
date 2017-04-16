@@ -156,4 +156,9 @@ public abstract class TrainPart implements Serializable {
     public BoundingBox getBoundingBox() {
         return boundingBox;
     }
+
+    @Override
+    public String toString() {
+        return "pos = "+pos+" next = ["+nextNode+"] empty = "+isEmpty;
+    }
 }
