@@ -1,79 +1,33 @@
 <?xml version="1.0"?>
-<!DOCTYPE level [
-        <!ELEMENT level (nodes,trains)>
-        <!ELEMENT nodes (node*)>
-        <!ELEMENT node (type, name, position, neighbours, color*)>
-        <!ELEMENT position (x,y)>
-        <!ELEMENT neighbours (neighbour_name*)>
-        <!ELEMENT trains (train*)>
-        <!ELEMENT train (trainPart*, startNode, startTime)>
-        <!ELEMENT trainPart (type, color*, speed*)>
-        <!ELEMENT type (#PCDATA)>
-        <!ELEMENT name (#PCDATA)>
-        <!ELEMENT x (#PCDATA)>
-        <!ELEMENT y (#PCDATA)>
-        <!ELEMENT neighbour_name (#PCDATA)>
-        <!ELEMENT color (#PCDATA)>
-        <!ELEMENT speed (#PCDATA)>
-        <!ELEMENT startNode (#PCDATA)>
-        <!ELEMENT startTime (#PCDATA)>
-        ]>
-
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
 <level>
     <nodes>
-        <node>
-            <type>node</type>
-            <name>node1</name>
-            <position>
-                <x>1</x>
-                <y>0</y>
-            </position>
+        <node type="node" name="node1">
+            <position x="1" y="0"/>
             <neighbours>
-                <neighbour_name>stationRed</neighbour_name>
+                <neighbour name="stationRed"/>
             </neighbours>
         </node>
-        <node>
-            <type>station</type>
-            <name>stationRed</name>
-            <position>
-                <x>2</x>
-                <y>0</y>
-            </position>
+        <node type="station" name="stationRed" color="red">
+            <position x="2" y="0"/>
             <neighbours>
-                <neighbour_name>node1</neighbour_name>
-                <neighbour_name>stationGreen</neighbour_name>
+                <neighbour name="node1"/>
+                <neighbour name="stationGreen"/>
             </neighbours>
-            <color>RED</color>
         </node>
-        <node>
-            <type>station</type>
-            <name>stationGreen</name>
-            <position>
-                <x>2</x>
-                <y>0</y>
-            </position>
+        <node type="station" name="stationGreen" color="green">
+            <position x="2" y="0"/>
             <neighbours>
-                <neighbour_name>stationRed</neighbour_name>
+                <neighbour name="stationRed"/>
             </neighbours>
-            <color>GREEN</color>
         </node>
     </nodes>
     <trains>
-        <train>
-            <trainPart>
-                <type>engine</type>
-                <speed>1</speed>
-            </trainPart>
-            <trainPart>
-                <type>trainCart</type>
-                <color>RED</color>
-            </trainPart>
-            <trainPart>
-                <type>trainCart</type>
-                <color>GREEN</color>
-            </trainPart>
-            <startNode>node1</startNode>
-            <startTime>0</startTime>
+        <train start_node="node1" start_time="0">
+            <trainPart type="engine" speed="1"/>
+            <trainPart type="cart" color="red"/>
+            <trainPart type="cart" color="green"/>
         </train>
     </trains>
 </level>
