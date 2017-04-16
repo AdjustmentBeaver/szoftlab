@@ -27,12 +27,14 @@ public class TrainScheduler implements Notifiable, Serializable {
      * Notifiable interfész megvalósítása, itt történik a vonatindítási logika.
      */
     @Override
-    public void update() {
-        for (Train t: trainList) {
-            if (!t.isRunning() && t.getStartTime() <= time) {
-                t.startTrain();
+    public void update(String event) {
+        if (event == null) {
+            for (Train t : trainList) {
+                if (!t.isRunning() && t.getStartTime() <= time) {
+                    t.startTrain();
+                }
             }
+            time++;
         }
-        time++;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * A pálya tartalmazza a mindenkori játékállást. <br>
  * A pályán találhatóak meg a vonatok és a csomópontok, illetve a pálya adminisztrációjához szükséges objektumok (Statistics, TrainScheduler).
  */
-public class Map implements Serializable {
+public class Map implements Serializable, Notifiable {
 
     private List<Node> nodeList;
     private List<Train> trainList;
@@ -47,6 +47,7 @@ public class Map implements Serializable {
         Notifiable scheduler = null;
         if (notifiables.size() > 0) scheduler = notifiables.get(0);
         timer.addSubscriber(scheduler);
+        timer.addSubscriber(this);
     }
 
     /**
@@ -125,4 +126,8 @@ public class Map implements Serializable {
         return trainList;
     }
 
+    @Override
+    public void update(String event) {
+
+    }
 }

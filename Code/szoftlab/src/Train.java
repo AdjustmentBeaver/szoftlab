@@ -144,13 +144,15 @@ public class Train implements Notifiable, Serializable {
      * A Notifiable interfész megvalósításából származik. Ezen belül történik a mozgatás (move()) és az ütközésvizsgálat (checkCollision()) műveletek hívása.
      */
     @Override
-    public void update() {
-        // Ha fut a vonat
-        if (isRunning) {
-            // Mozgatás
-            move();
-            // Ütközésvizsgálat
-            checkCollision();
+    public void update(String event) {
+        if (event == null) {
+            // Ha fut a vonat
+            if (isRunning) {
+                // Mozgatás
+                move();
+                // Ütközésvizsgálat
+                checkCollision();
+            }
         }
     }
 

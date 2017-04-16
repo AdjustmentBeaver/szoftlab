@@ -14,11 +14,14 @@ public class SimulationTimer {
      */
     List<Notifiable> subscribers;
 
+    List<String> events;
+
     /**
      * Instantiates a new Simulation timer.
      */
     public SimulationTimer() {
         subscribers = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     /**
@@ -38,8 +41,13 @@ public class SimulationTimer {
      * Lefuttat egy szimulációs lépést.
      */
     public void step() {
+        for (String event: events) {
+            for (Notifiable sub: subscribers) {
+                sub.update(event);
+            }
+        }
         for (Notifiable sub : subscribers) {
-            sub.update();
+            sub.update(null);
         }
     }
 
@@ -60,5 +68,9 @@ public class SimulationTimer {
      */
     public void deleteSubscriptions() {
         subscribers.clear();
+    }
+
+    public void addEvent(String event) {
+        events.add(event);
     }
 }
