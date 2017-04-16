@@ -21,7 +21,6 @@ public class TrainCoalWagon extends TrainPart {
     public void move() {
         if (getNextNode() != null) {
             nextNode.accept(this);
-            Prompt.removeIndent();
         }
     }
 }
