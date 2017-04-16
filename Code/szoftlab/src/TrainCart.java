@@ -8,7 +8,14 @@ import util.Color;
  */
 public class TrainCart extends TrainPart {
 
+    /**
+     * Kocsi színe
+     */
     private Color color;
+
+    /**
+     * Statisztika a játékról.
+     */
     private Statistics st;
 
     /**
@@ -20,7 +27,6 @@ public class TrainCart extends TrainPart {
      */
     public TrainCart(Train t, Statistics st, Color color) {
         super(t);
-        Prompt.printMessage("TrainCart.TrainCart");
         this.color = color;
         this.st = st;
     }
@@ -31,7 +37,6 @@ public class TrainCart extends TrainPart {
      * @return A TrainCart színe.
      */
     public Color getColor() {
-        Prompt.printMessage("TrainCart.getColor");
         return color;
     }
 
@@ -39,11 +44,8 @@ public class TrainCart extends TrainPart {
      * Kiüríti a kocsit. Beállítja semleges színűre és triggereli a Statistics osztály ürítéseket számláló függvényét.
      */
     public void unload() {
-        Prompt.printMessage("TrainCart.unload");
-        color = new Color("empty");
-        Prompt.addIndent("st.cartUnloaded()");
+        isEmpty = true;
         st.cartUnloaded();
-        Prompt.removeIndent();
     }
 
     /**
@@ -56,5 +58,12 @@ public class TrainCart extends TrainPart {
         Prompt.addIndent("nextNode.accept(this)");
         nextNode.accept(this);
         Prompt.removeIndent();
+    }
+
+    /**
+     * Utasok felszállása a kocsira
+     */
+    public void load() {
+        isEmpty = false;
     }
 }

@@ -7,6 +7,10 @@ import util.Color;
  * </p>
  */
 public class Station extends Node {
+
+    /**
+     * Az állomás színe
+     */
     private Color color;
 
     /**
@@ -15,7 +19,7 @@ public class Station extends Node {
      * @param color Az Station színe.
      */
     public Station(Color color) {
-        Prompt.printMessage("Station.Station");
+        super();
         this.color = color;
     }
 
@@ -26,22 +30,11 @@ public class Station extends Node {
      */
     @Override
     public void accept(TrainCart tc) {
-        Prompt.printMessage("Station.accept(TrainCart)");
-        Prompt.addIndent("tc.getTrain()");
         Train t = tc.getTrain();
-        Prompt.removeIndent();
-        Prompt.addIndent("t.getColor()");
         Color colorToUnload = t.getColor();
-        Prompt.removeIndent();
-        Prompt.addIndent("tc.getColor()");
         Color cartColor = tc.getColor();
-        Prompt.removeIndent();
-        System.out.println("[?] Megegyezik a vonat színe az állomáséval? [Y/N]");
-        System.out.print("[>] ");
-        if (Prompt.readBool()) {
-            Prompt.addIndent("tc.unload()");
+        if (color == cartColor && color == colorToUnload){
             tc.unload();
-            Prompt.removeIndent();
         }
         super.accept(tc);
     }
