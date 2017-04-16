@@ -21,7 +21,7 @@ public class SpecialPlace extends Node{
     public List<SpecialPlace> spList;
 
     /**
-     * Fel van-e építve a csomópont
+     * Fel van-e építve az alagútszáj
      */
     public boolean isConstructed;
 

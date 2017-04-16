@@ -21,7 +21,7 @@ public abstract class TrainPart implements Serializable {
     private BoundingBox boundingBox;
 
     /**
-     * Irány, amiben a vonat halad
+     * Irány, amiben a kocsi halad
      */
     private Coordinate direction;
 
@@ -60,6 +60,10 @@ public abstract class TrainPart implements Serializable {
         isEmpty = true;
     }
 
+    /**
+     * Beállíja a csomópontokhoz érés sugarát (Ilyen sugarú körben aktiválódik a csomópont)
+     * @param activateRadius A sugár nagysága
+     */
     public void setActivateRadius(double activateRadius) {
         this.activateRadius = activateRadius;
     }
@@ -73,7 +77,7 @@ public abstract class TrainPart implements Serializable {
     }
 
     /**
-     * Új értéket ad a posnak
+     * Beállítja a kocsi pozícióját
      * @param pos   beállítani kívánt érték, Coordinate típusú
      */
     public void setPos(Coordinate pos) {
@@ -153,6 +157,10 @@ public abstract class TrainPart implements Serializable {
         return isEmpty;
     }
 
+    /**
+     * Visszaadja a kocsi BoundigBoxát
+     * @return A kocsi BoundingBoxa
+     */
     public BoundingBox getBoundingBox() {
         return boundingBox;
     }

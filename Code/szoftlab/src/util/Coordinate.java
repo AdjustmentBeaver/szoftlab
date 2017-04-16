@@ -42,7 +42,7 @@ public class Coordinate implements Serializable{
      * Normalizálja a vektort
      */
     public void normalize(){
-        x *= (1 /  getLength());
+        x *= (1 / getLength());
         y *= (1 / getLength());
     }
 
@@ -54,6 +54,11 @@ public class Coordinate implements Serializable{
         return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
     }
 
+    /**
+     * Megadja egy pont távolságát egy másik ponthoz viszonyítva
+     * @param p A pont amihez viszonyítunk
+     * @return Távolság a ponttól
+     */
     public double getDistanceTo(Coordinate p) {
         return Math.sqrt(Math.pow(x-p.getX(),2) + Math.pow(y-p.getY(),2));
     }

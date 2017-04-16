@@ -33,10 +33,6 @@ public class BoundingBox {
         setPos(middle,direction);
     }
 
-    public BoundingBox(){
-        points = new ArrayList<>();
-    };
-
     /**
      * Beállítja az aktuális középpontot és irányt, majd ezek segítségével kiszámolja az alakzat csúcspontjait
      * @param mid középpont
@@ -50,19 +46,7 @@ public class BoundingBox {
         points.add(1,new Coordinate(middle.getX()+direction.getX()*0.5+direction.getY()*0.5*0.5,middle.getY()+direction.getY()*0.5-direction.getX()*0.5*0.5));
         points.add(2,new Coordinate(middle.getX()-direction.getX()*0.5-direction.getY()*0.5*0.5,middle.getY()-direction.getY()*0.5+direction.getX()*0.5*0.5));
         points.add(3,new Coordinate(middle.getX()-direction.getX()*0.5+direction.getY()*0.5*0.5,middle.getY()-direction.getY()*0.5-direction.getX()*0.5*0.5));
-
     }
-
-    /**
-     * Pontok manuális hozzáadásához.
-     * A sorrend megadása számít. Óramutató járásával megegyező vagy ellentétes irányba kell. Átlósan nem lesz jó!
-     * @param point Hozzáadandó pont.
-     */
-    public void addPoint(Coordinate point) {
-        if (points.size() < 4)
-            points.add(point);
-    }
-
 
     /**
      * Visszaadja a BoundingBox pontjait
@@ -141,6 +125,12 @@ public class BoundingBox {
         return false;
     }
 
+    /**
+     * Mehatározza egy pont vetületét egy tengelyre (irányra)
+     * @param point A pont amit vetítünk
+     * @param axis A tengely (irnány) amire vetítünk
+     * @return A tengelyen elfoglalt hely - Skalár szám
+     */
     private double getScalarForCollision(Coordinate point, Coordinate axis){
         double projConst = (point.getX() * axis.getX() + point.getY() * axis.getY())/(Math.pow(axis.getX(),2) + Math.pow(axis.getY(),2));
         double pointScalar = projConst * Math.pow(point.getX(),2) + projConst * Math.pow(point.getY(),2);
