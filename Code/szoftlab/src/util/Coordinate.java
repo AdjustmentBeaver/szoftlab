@@ -37,4 +37,20 @@ public class Coordinate implements Serializable{
     public int getY() {
         return y;
     }
+
+    /**
+     * Normalizálja a vektort
+     */
+    public void normalize(){
+        x *= (1 /  getLength());
+        y *= (1 / getLength());
+    }
+
+    /**
+     * Visszaadja a vektor hosszát
+     * @return Vektor hossza
+     */
+    private int getLength(){
+        return (int) Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    }
 }
