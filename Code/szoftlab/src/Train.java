@@ -27,14 +27,26 @@ public class Train implements Notifiable {
     private boolean isRunning;
 
     /**
+     * A vonat inditasi ideje
+     */
+    private int startTime;
+
+    /**
+     * A vonat inditasi helye
+     */
+    private Node startNode;
+
+    /**
      *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
      *
      * @param trainList A vonatok listája.
      */
-    public Train(List<Train> trainList) {
+    public Train(List<Train> trainList, Node startNode, int startTime) {
         this.trainList = trainList;
         isRunning = false;
         trainPartList = new ArrayList<>();
+        this.startNode = startNode;
+        this.startTime = startTime;
     }
 
     /**
@@ -85,7 +97,8 @@ public class Train implements Notifiable {
         if (tpIndex < trainPartList.size())
             return ((TrainCart) trainPartList.get(tpIndex)).getColor();
 
-        return new Color("");
+        // nullt ad vissza "ures" szin helyett
+        return null;
     }
 
     /**
@@ -93,6 +106,7 @@ public class Train implements Notifiable {
      */
     public void startTrain() {
         isRunning = true;
+        // TODO: helyezzuk el a megfelelo pozicioba, a trainpartokat
     }
 
     /**

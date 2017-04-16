@@ -109,7 +109,7 @@ public class MapBuilder {
                                                     // Csak a Node tipusuak erdekelnek
                                                     if (neighbour.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
                                                         // Hozzaadjuk a listahoz, hogy mi a szomszed neve
-                                                        nbList.add(neighbour.getNodeValue());
+                                                        nbList.add(getNodeAttribute(neighbour, "name"));
                                                     }
                                                 }
                                                 break;
@@ -160,14 +160,13 @@ public class MapBuilder {
                                 if (!train.getNodeName().equals("train")) {
                                     throw new XMLParseException("Invalid element: " + train.getNodeName());
                                 }
-
-                                Train tr = new Train(trainList);
-                                map.addTrain(tr);
-
                                 String startNode = getNodeAttribute(train, "start_node");
-                                // TODO: a kezdo node beallitasa
+                                if (!nodeList.containsKey(startNode)) {
+                                    throw new NullPointerException("Invalid start node: " + startNode);
+                                }
                                 String startTime = getNodeAttribute(train, "start_time");
-                                // TODO: a kezdo ido beallitasa
+                                Train tr = new Train(trainList, nodeList.get(startNode), Integer.parseInt(startTime));
+                                map.addTrain(tr);
                                 NodeList trainParts = train.getChildNodes();
                                 for (int k = 0; k < trainParts.getLength(); k++) {
                                     org.w3c.dom.Node trainPart = trainParts.item(k);
@@ -213,7 +212,7 @@ public class MapBuilder {
                 for (String nbName: ndList.getValue()) {
                     // Ha a szomszed nincs a listaban, akkor NullPointerException
                     if (!nodeList.containsKey(nbName)) {
-                        throw new NullPointerException();
+                        throw new NullPointerException("Invalid neighbour: " + nbName);
                     }
                     // Ha van, akkor odaadjuk neki a szomszedot
                     actNode.addNeighbourNode(nodeList.get(nbName));
@@ -221,7 +220,7 @@ public class MapBuilder {
             }
 
             return map;
-        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException | NumberFormatException e) {
             // TODO: hibakezeles
             e.printStackTrace();
         }
