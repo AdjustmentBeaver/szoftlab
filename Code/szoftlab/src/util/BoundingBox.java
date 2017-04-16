@@ -29,6 +29,7 @@ public class BoundingBox {
      * @param direction irányvektor
      */
     public BoundingBox(Coordinate middle,Coordinate direction){
+        points = new ArrayList<>();
         setPos(middle,direction);
     }
 
@@ -45,10 +46,10 @@ public class BoundingBox {
         this.middle = mid;
         this.direction = dir;
         this.direction.normalize();
-        points.add(0,new Coordinate(middle.getX()+direction.getX()-direction.getY()*0.5,middle.getY()+direction.getY()+direction.getX()*0.5));
-        points.add(1,new Coordinate(middle.getX()+direction.getX()+direction.getY()*0.5,middle.getY()+direction.getY()-direction.getX()*0.5));
-        points.add(2,new Coordinate(middle.getX()-direction.getX()-direction.getY()*0.5,middle.getY()-direction.getY()+direction.getX()*0.5));
-        points.add(3,new Coordinate(middle.getX()-direction.getX()+direction.getY()*0.5,middle.getY()-direction.getY()-direction.getX()*0.5));
+        points.add(0,new Coordinate(middle.getX()+direction.getX()*0.5-direction.getY()*0.5*0.5,middle.getY()+direction.getY()*0.5+direction.getX()*0.5*0.5));
+        points.add(1,new Coordinate(middle.getX()+direction.getX()*0.5+direction.getY()*0.5*0.5,middle.getY()+direction.getY()*0.5-direction.getX()*0.5*0.5));
+        points.add(2,new Coordinate(middle.getX()-direction.getX()*0.5-direction.getY()*0.5*0.5,middle.getY()-direction.getY()*0.5+direction.getX()*0.5*0.5));
+        points.add(3,new Coordinate(middle.getX()-direction.getX()*0.5+direction.getY()*0.5*0.5,middle.getY()-direction.getY()*0.5-direction.getX()*0.5*0.5));
 
     }
 
