@@ -29,10 +29,9 @@ public class MapBuilder {
     /**
      * Létrehozza a pálya működéséhez szükséges összetevőket, és elvégzi a file olvasás műveletet az adatok feldolgozásával.
      *
-     * @param game a Game példány amihez csatoljuk
      * @return a betöltött pálya
      */
-    public Map buildMap(Game game) {
+    public Map buildMap() {
         try {
             // Betoltjuk az XML dokumentumot az elso parameterkent megadott eleresi utvonalrol
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -69,7 +68,6 @@ public class MapBuilder {
                 org.w3c.dom.Node group = groups.item(i);
                 // Csak a node tipusu elementek erdekelnek minket
                 if (group.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                    // TODO: csoport parseolas
                     // Node tipusu entitasok
                     if (group.getNodeName().equals("nodes")) {
                         // Megkapjuk a listat ami a nodeokat tartalmazza
