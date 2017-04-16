@@ -2,6 +2,10 @@
  * Created by Istvan Telek on 3/14/2017.
  */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * Inicializálja a játékhoz szükséges objektumokat.
  * <p>
@@ -38,9 +42,63 @@ public class Game {
      */
     private void loop() {
         // Input thread, getting CLI lines, starting simulation thread etc.
-        newGame("levels/palya_betoltese.xml");
-        mapManager.saveMap("sav1");
-        mapManager.loadMap("sav1");
+        boolean running = true;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        while (running) {
+            String in = null;
+            String[] cmd = null;
+            try {
+                in = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (in == null) {
+                running = false;
+                break;
+            }
+            cmd = in.split(" ");
+            switch (cmd[0]) {
+                case "new":
+                    newGame(cmd[1]);
+                    break;
+                case "load":
+                    mapManager.loadMap(cmd[1]);
+                    break;
+                case "save":
+                    mapManager.saveMap(cmd[1]);
+                    break;
+                case "stop":
+                    stopGame();
+                    break;
+                case "start":
+                    startGame();
+                    break;
+                case "exit":
+                    running=false;
+                    break;
+                case "step":
+                    try {
+                        for (int i = 0 ; i < Integer.parseInt(cmd[1]); i++)
+                            timer.step();
+
+                    } catch (NumberFormatException e){
+                        System.out.println("ERROR");
+                        break;
+                    }
+                    break;
+                case "activate":
+                    System.out.println("Gonna activate");
+                    break;
+                case "listNodes":
+                    break;
+                case "listTrains":
+                    break;
+                default:
+                    System.out.println("KYS");
+                    break;
+            }
+        }
     }
 
     /**
