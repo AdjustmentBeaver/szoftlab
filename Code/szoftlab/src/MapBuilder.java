@@ -1,12 +1,13 @@
-import util.Color;
-import util.Speed;
-
+import util.*;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+import javax.management.modelmbean.XMLParseException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by szilard95 on 3/14/17.
- * Project: szoftlab
- */
 
 /**
  * Ő végzi az IO műveleteket.
@@ -14,123 +15,204 @@ import java.util.List;
  * Létrehozza magát a pályát és feltölti a rajta lévő és a hozzá kapcsolódó elemekkel.
  */
 public class MapBuilder {
+    private String mapName;
     /**
-     * Instantiates a new Map builder.
+     * Létrehoz egy új Map buildert.
      *
-     * @param mapName the map name
+     * @param mapName a pálya elérési útvonala
      */
     public MapBuilder(String mapName) {
-        Prompt.printMessage("MapBuilder.MapBuilder");
+        this.mapName = mapName;
     }
 
     /**
-     * Létrehozza a pálya működéséhez szükséges összetevőket és elvégzi a file olvasás műveletet az adatok feldolgozásával.
+     * Létrehozza a pálya működéséhez szükséges összetevőket, és elvégzi a file olvasás műveletet az adatok feldolgozásával.
      *
-     * @param game the game
-     * @return the map
+     * @param game a Game példány amihez csatoljuk
+     * @return a betöltött pálya
      */
     public Map buildMap(Game game) {
-        Prompt.printMessage("MapBuilder.buildMap");
+        try {
+            // Betoltjuk az XML dokumentumot az elso parameterkent megadott eleresi utvonalrol
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setValidating(true);
+            factory.setNamespaceAware(true);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(mapName);
 
-        Prompt.addIndent("<<create>>");
-        Map map = new Map();
-        Prompt.removeIndent();
+            // Normalizaljuk a dokumentumot
+            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+            document.getDocumentElement().normalize();
 
-        Prompt.addIndent("<<create>>");
-        Statistics stat = new Statistics(game);
-        Prompt.removeIndent();
+            // Root node, a mi esetunkben level
+            org.w3c.dom.Node level = document.getDocumentElement();
+            if (!level.getNodeName().equals("level")) {
+                throw new XMLParseException("Wrong root node name: " + level.getNodeName());
+            }
 
-        Prompt.addIndent("map.addStatistics(stat)");
-        map.addStatistics(stat);
-        Prompt.removeIndent();
+            Map map = new Map();
 
-        Prompt.addIndent("map.getTrainList()");
-        List<Train> trainList = map.getTrainList();
-        Prompt.removeIndent();
+            Statistics stat = new Statistics(game);
 
-        // Először a node-okat olvassuk be, mert a trainPart-oknak oda kell adni a kezdő node-okat
-        // Ez a szekvencián nem szerepel (lemaradt a setNextNode a trainPart-oknál)
-        Prompt.addIndent("<<create>>");
-        Switch sw = new Switch();
-        Prompt.removeIndent();
+            map.addStatistics(stat);
 
-        Prompt.addIndent("map.addNode(sw)");
-        map.addNode(sw);
-        Prompt.removeIndent();
+            List<Train> trainList = map.getTrainList();
 
-        Prompt.addIndent("<<create>>");
-        SpecialPlace tunnel = new SpecialPlace();
-        Prompt.removeIndent();
+            List<SpecialPlace> spNeighbours = new ArrayList<>();
 
-        Prompt.addIndent("map.addNode(tunnel)");
-        map.addNode(tunnel);
-        Prompt.removeIndent();
+            // Entitas csoportok (nodes, trains)
+            NodeList groups = level.getChildNodes();
+            for (int i=0; i<groups.getLength(); ++i) {
+                org.w3c.dom.Node group = groups.item(i);
+                // Csak a node tipusu elementek erdekelnek minket
+                if (group.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                    // TODO: csoport parseolas
+                    // Node tipusu entitasok
+                    if (group.getNodeName().equals("nodes")) {
+                        // Megkapjuk a listat ami a nodeokat tartalmazza
+                        NodeList nodes = group.getChildNodes();
+                        for (int j=0; j<nodes.getLength(); ++j) {
+                            org.w3c.dom.Node node = nodes.item(j);
+                            // Csak a node tipusu elementek kellenek
+                            if (node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                // Nezzuk meg, hogy jo-e a tipusa
+                                if (!node.getNodeName().equals("node")) {
+                                    throw new XMLParseException("Invalid element: " + node.getNodeName());
+                                }
+                                // Node nevenek lekerese (kotelezo attributum)
+                                String nodeName = getNodeAttribute(node, "name");
+                                // Node tipusanak lekerese (kotelezo attributum)
+                                String nodeType = getNodeAttribute(node, "type");
+                                switch (nodeType) {
+                                    case "node":
+                                        Node nd = new Node();
+                                        map.addNode(nd);
+                                        break;
+                                    case "switch":
+                                        Switch sw = new Switch();
+                                        map.addNode(sw);
+                                        break;
+                                    case "station":
+                                        String color = getNodeAttribute(node, "color");
+                                        Station station = new Station(new Color(color));
+                                        map.addNode(station);
+                                        break;
+                                    case "loaderStation":
+                                        String loaderColor = getNodeAttribute(node, "color");
+                                        LoaderStation loaderStation = new LoaderStation(new Color(loaderColor));
+                                        map.addNode(loaderStation);
+                                        break;
+                                    case "specialPlace":
+                                        SpecialPlace tunnel = new SpecialPlace(spNeighbours);
+                                        map.addNode(tunnel);
+                                        break;
+                                    default:
+                                        throw new XMLParseException("Invalid node type: " + nodeType);
+                                }
+                                // Node attributumok lekerese, eloszor azokat amik child nodekent vannak tarolva
+                                NodeList nodeAttrs = node.getChildNodes();
+                                for (int k = 0; k < nodeAttrs.getLength(); k++) {
+                                    org.w3c.dom.Node nodeAttr = nodeAttrs.item(k);
+                                    if (nodeAttr.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                        String attrName = nodeAttr.getNodeName();
+                                        switch (attrName) {
+                                            case "position":
+                                                // TODO: save position
+                                                String xPos = getNodeAttribute(nodeAttr, "x");
+                                                String yPos = getNodeAttribute(nodeAttr, "y");
+                                                break;
+                                            case "neighbours":
+                                                NodeList neighbourList = nodeAttr.getChildNodes();
+                                                for (int l = 0; l < neighbourList.getLength(); l++) {
+                                                    org.w3c.dom.Node neighbour = neighbourList.item(l);
+                                                    if (neighbour.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                                        // TODO: parse and save neighbour list
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                throw new XMLParseException("Invalid node attribute: " + attrName);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        // Train tipusu entitasok
+                    } else if (group.getNodeName().equals("trains")) {
+                        NodeList trains = group.getChildNodes();
+                        for (int j=0; j<trains.getLength(); ++j) {
+                            org.w3c.dom.Node train = trains.item(j);
+                            if (train.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                if (!train.getNodeName().equals("train")) {
+                                    throw new XMLParseException("Invalid element: " + train.getNodeName());
+                                }
 
-        Prompt.addIndent("<<create>>");
-        Station station = new Station(new Color("red"));
-        Prompt.removeIndent();
+                                Train tr = new Train(stat, trainList);
+                                map.addTrain(tr);
 
-        Prompt.addIndent("map.addNode(station)");
-        map.addNode(station);
-        Prompt.removeIndent();
+                                String startNode = getNodeAttribute(train, "start_node");
+                                String startTime = getNodeAttribute(train, "start_time");
+                                NodeList trainParts = train.getChildNodes();
+                                for (int k = 0; k < trainParts.getLength(); k++) {
+                                    org.w3c.dom.Node trainPart = trainParts.item(k);
+                                    if (trainPart.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
+                                        String partType = getNodeAttribute(trainPart, "type");
+                                        switch (partType) {
+                                            case "engine":
+                                                String speed = getNodeAttribute(trainPart, "speed");
+                                                TrainEngine engine = new TrainEngine(tr, new Speed(Integer.parseInt(speed)));
+                                                tr.addPart(engine);
+                                                break;
+                                            case "cart":
+                                                String color = getNodeAttribute(trainPart, "color");
+                                                TrainCart cart = new TrainCart(tr, stat, new Color(color));
+                                                tr.addPart(cart);
+                                                break;
+                                            case "coalWagon":
+                                                TrainCoalWagon wagon = new TrainCoalWagon(tr);
+                                                tr.addPart(wagon);
+                                                break;
+                                            default:
+                                                throw new XMLParseException("Invalid train part type: " + partType);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        throw new XMLParseException("Invalid group type:" + group.getNodeName());
+                    }
+                }
+            }
 
-        Prompt.addIndent("<<create>>");
-        Node node = new Node();
-        Prompt.removeIndent();
+            TrainScheduler scheduler = new TrainScheduler(trainList);
 
-        Prompt.addIndent("map.addNode(node)");
-        map.addNode(node);
-        Prompt.removeIndent();
+            map.addNotifiable(scheduler);
 
-        Prompt.addIndent("node.addNeighbourNode(n)");
-        node.addNeighbourNode(node);
-        Prompt.removeIndent();
+            return map;
+        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-        // Trainek létrehozása
-        Prompt.addIndent("<<create>>");
-        Train train = new Train(stat, trainList);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("map.addTrain(train)");
-        map.addTrain(train);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("<<create>>");
-        TrainCart cart = new TrainCart(train, stat, new Color("green"));
-        Prompt.removeIndent();
-
-        Prompt.addIndent("cart.setNextNode(node)");
-        cart.setNextNode(node);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("train.addPart(cart)");
-        train.addPart(cart);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("<<create>>");
-        TrainEngine engine = new TrainEngine(train, new Speed(20));
-        Prompt.removeIndent();
-
-        Prompt.addIndent("engine.getSpeed()");
-        Speed speed = engine.getSpeed();
-        Prompt.removeIndent();
-
-        Prompt.addIndent("engine.setNextNode(node)");
-        engine.setNextNode(node);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("train.addPart(engine)");
-        train.addPart(engine);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("<<create>>");
-        TrainScheduler scheduler = new TrainScheduler(trainList);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("map.addNotifiable(scheduler)");
-        map.addNotifiable(scheduler);
-        Prompt.removeIndent();
-
-        return map;
+    /**
+     * Gets node attribute.
+     *
+     * @param n    the node
+     * @param attr the attribute to get
+     * @return the node attribute as a String
+     * @throws NullPointerException   occurs when the node is null
+     * @throws NullAttributeException occurs when the specified attribute is not found or empty
+     */
+    private static String getNodeAttribute(org.w3c.dom.Node n, String attr) throws NullPointerException, NullAttributeException {
+        if (n == null) {
+            throw new NullPointerException();
+        }
+        String s = ((Element)n).getAttribute(attr);
+        if (s == null || s.equals("")) {
+            throw new NullAttributeException("Attribute is null");
+        }
+        return s;
     }
 }
