@@ -5,6 +5,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 
 /**
  * Inicializálja a játékhoz szükséges objektumokat.
@@ -12,9 +13,9 @@ import java.io.InputStreamReader;
  * Létrehozza a SimulationTimer és a MapManager objektumokat.
  * Rajra keresztül állítható a játék állapota.
  */
-public class Game {
-    private SimulationTimer timer;
-    private MapManager mapManager;
+public class Game implements Serializable {
+    private transient SimulationTimer timer;
+    private transient MapManager mapManager;
     private boolean wasRunning = false;
     private boolean simRunning = false;
 
@@ -117,7 +118,7 @@ public class Game {
                     timer.addEvent("listTrains");
                     break;
                 default:
-                    System.out.println("KYS");
+                    System.out.println("NINCS ILYEN PARANCS");
                     break;
             }
             timer.step(0);
@@ -168,7 +169,7 @@ public class Game {
      */
     public void newGame(String nextLevel) {
         stopGame();
-        mapManager.newMap(nextLevel);
+        mapManager.newMap("levels/" + nextLevel + ".xml");
         startGame();
     }
 
@@ -176,13 +177,13 @@ public class Game {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
-
+        //System.out.println("MAP_COMPLETED");
     }
 
     /**
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-
+        System.out.println("EXPLODE");
     }
 }

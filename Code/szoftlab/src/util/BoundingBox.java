@@ -1,5 +1,6 @@
 package util;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  *     ütközések vizsgálatára
  *</p>
  */
-public class BoundingBox {
+public class BoundingBox implements Serializable {
     /**
      * Az alakzat közepe
      */
