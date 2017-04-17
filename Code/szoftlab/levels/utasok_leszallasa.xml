@@ -17,7 +17,7 @@
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="3" y="0"/>
+            <position x="7" y="0"/>
             <neighbours>
                 <neighbour name="stationRed"/>
             </neighbours>

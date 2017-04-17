@@ -129,6 +129,11 @@ public class Map implements Serializable, Notifiable {
                 if (t.getColor() != null) {
                     cartsEmpty = false;
                 }
+
+                // Ne nyerje meg a jatekot
+                if (t.getPartList().size() == 1){
+                    cartsEmpty = false;
+                }
             }
             if (trainExploded) {
                 game.lost();

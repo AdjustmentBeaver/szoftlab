@@ -150,6 +150,7 @@ public class MapBuilder {
                                     case "specialPlace":
                                         SpecialPlace tunnel = new SpecialPlace(pos, spNeighbours);
                                         map.addNode(tunnel);
+                                        spNeighbours.add(tunnel);
                                         nodeList.put(nodeName, tunnel);
                                         break;
                                     default:
