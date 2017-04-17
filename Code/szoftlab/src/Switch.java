@@ -76,6 +76,6 @@ public class Switch extends Node {
 
     @Override
     public String toString() {
-        return "type=switch " + "pos=" + pos;
+        return "type=switch " + "pos=" + pos+" active=["+activeNode+"]";
     }
 }
