@@ -39,10 +39,10 @@ public class SpecialPlace extends Node{
      */
     @Override
     public void activate() {
-        if (isConstructed){
+        boolean trainOnMe = checkForTrain();
+        if (isConstructed && !trainOnMe){
             isConstructed = false;
         } else {
-            boolean trainOnMe = checkForTrain();
             boolean canConstruct = canConstruct();
             if (!trainOnMe && canConstruct) {
                 for (int i = 0 ; i < spList.size(); i++) {
