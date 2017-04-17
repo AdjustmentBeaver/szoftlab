@@ -64,6 +64,7 @@ public class TrainCart extends TrainPart {
      * Utasok felszállása a kocsira
      */
     public void load() {
+        System.out.println("Color: " + color + " LOADED");
         isEmpty = false;
     }
 }

@@ -29,6 +29,11 @@ public class Node implements Serializable {
     protected Coordinate pos;
     public Coordinate getPos() {return pos;}
 
+    protected String name;
+    public void setName(String n){
+        name = n;
+    }
+
     /**
      * Melyik szomszédos csomópont felől érkezett a látogató
      */

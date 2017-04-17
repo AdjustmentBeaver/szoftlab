@@ -127,28 +127,33 @@ public class MapBuilder {
                                 switch (nodeType) {
                                     case "node":
                                         Node nd = new Node(pos);
+                                        nd.setName(getNodeAttribute(node, "name"));
                                         map.addNode(nd);
                                         nodeList.put(nodeName, nd);
                                         break;
                                     case "switch":
                                         Switch sw = new Switch(pos);
+                                        sw.setName(getNodeAttribute(node, "name"));
                                         map.addNode(sw);
                                         nodeList.put(nodeName, sw);
                                         break;
                                     case "station":
                                         String color = getNodeAttribute(node, "color");
                                         Station station = new Station(pos, new Color(color));
+                                        station.setName(getNodeAttribute(node, "name"));
                                         map.addNode(station);
                                         nodeList.put(nodeName, station);
                                         break;
                                     case "loaderStation":
                                         String loaderColor = getNodeAttribute(node, "color");
                                         LoaderStation loaderStation = new LoaderStation(pos, new Color(loaderColor));
+                                        loaderStation.setName(getNodeAttribute(node, "name"));
                                         map.addNode(loaderStation);
                                         nodeList.put(nodeName, loaderStation);
                                         break;
                                     case "specialPlace":
                                         SpecialPlace tunnel = new SpecialPlace(pos, spNeighbours);
+                                        tunnel.setName(getNodeAttribute(node, "name"));
                                         map.addNode(tunnel);
                                         spNeighbours.add(tunnel);
                                         nodeList.put(nodeName, tunnel);

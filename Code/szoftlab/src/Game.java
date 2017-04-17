@@ -177,7 +177,7 @@ public class Game implements Serializable {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
-        //System.out.println("MAP_COMPLETED");
+        System.out.println("MAP_COMPLETED");
     }
 
     /**

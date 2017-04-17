@@ -59,11 +59,7 @@ public class Switch extends Node {
                 // Ha nincs kettes, akkor vakvágány
                 activeNode = null;
 
-            for (int i = 0 ; i < neighbourNodeList.size(); i++) {
-                if (this == neighbourNodeList.get(i)){
-                    System.out.println("activate Switch" + i);
-                }
-            }
+            System.out.println("activate " + name + " " + activeNode);
         }
 
     }
