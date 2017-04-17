@@ -58,6 +58,12 @@ public class Train implements Notifiable, Serializable {
      * Mozgatja a Traint és minden elemét.
      */
     public void move() {
+        for (int i = 0; i < trainList.size(); i++){
+            if ( this == trainList.get(i)) {
+                System.out.println("Train" + i + " | " + trainPartList.get(0).getNextNode());
+            }
+        }
+
         for (TrainPart tp : trainPartList){
             tp.move();
         }
@@ -95,7 +101,7 @@ public class Train implements Notifiable, Serializable {
      */
     public Color getColor() {
         int tpIndex = 1;
-        while (tpIndex < trainPartList.size() && !trainPartList.get(tpIndex).isEmpty())
+        while (tpIndex < trainPartList.size() && trainPartList.get(tpIndex).isEmpty())
             tpIndex++;
 
         // Ha volt nem üres kocsi - az Engine és a Coalwagon "üresek" ezért nem választódhatnak ki. csak TrainCart
@@ -127,7 +133,7 @@ public class Train implements Notifiable, Serializable {
         // Az összes vonatra nézzük
         for (Train otherTrain: trainList) {
             // Ha nem mi vagyunk
-            if (otherTrain != this) {
+            if (otherTrain != this && otherTrain.isRunning()) {
                 // Másik vonat TrainPartjainak lekérdezése
                 ArrayList<TrainPart> otherTrainPartList = (ArrayList<TrainPart>) otherTrain.getPartList();
 

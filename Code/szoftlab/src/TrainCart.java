@@ -23,6 +23,7 @@ public class TrainCart extends TrainPart {
     public TrainCart(Train t, Color color) {
         super(t);
         this.color = color;
+        isEmpty = false;
     }
 
     /**
@@ -38,6 +39,7 @@ public class TrainCart extends TrainPart {
      * Kiüríti a kocsit. Beállítja semleges színűre és triggereli a Statistics osztály ürítéseket számláló függvényét.
      */
     public void unload() {
+        System.out.println("Color: " + color + " UNLOADED");
         isEmpty = true;
         //st.cartUnloaded();
     }
