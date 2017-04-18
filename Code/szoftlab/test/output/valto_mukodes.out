@@ -1,5 +1,6 @@
 MAP_CREATED
-switch1 node4
-train node2
-train switch1
-train node4
+    switch1 node4
+Train0 | type=node pos=(1.0,0.0)
+Train0 | type=node pos=(2.0,0.0)
+Train0 | type=switch pos=(3.0,0.0) active=[type=node pos=(3.0,1.0)]
+Train0 | type=node pos=(3.0,1.0)

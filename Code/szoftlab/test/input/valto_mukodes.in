@@ -1,4 +1,4 @@
 new valto_mukode
-activate switch1
-step 3
-activate switch1
+activate 3 0
+step 5
+activate 3 0

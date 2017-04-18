@@ -1,3 +1,5 @@
 MAP_CREATED
-train1 node2
+Train0 | type=node pos=(0.0,0.0)
+Train0 | type=node pos=(0.0,1.0)
+Train0 | type=node pos=(0.0,1.0)
 EXPLODE
