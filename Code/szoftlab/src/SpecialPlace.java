@@ -41,15 +41,12 @@ public class SpecialPlace extends Node{
     public void activate() {
         boolean trainOnMe = checkForTrain();
         if (isConstructed && !trainOnMe){
+            System.out.println(name + " DESTRUCTED");
             isConstructed = false;
         } else {
             boolean canConstruct = canConstruct();
             if (!trainOnMe && canConstruct) {
-                for (int i = 0 ; i < spList.size(); i++) {
-                    if (this == spList.get(i)){
-                        System.out.println("activate SpecialPlace" + i);
-                    }
-                }
+                System.out.println(name + " CONSTRUCTED");
                 isConstructed = true;
             }
         }
