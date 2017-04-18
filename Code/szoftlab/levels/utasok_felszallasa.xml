@@ -10,21 +10,21 @@
             </neighbours>
         </node>
         <node type="station" name="stationGreen" color="green">
-            <position x="2" y="0"/>
+            <position x="9" y="0"/>
             <neighbours>
                 <neighbour name="node1"/>
                 <neighbour name="loaderStationGreen"/>
             </neighbours>
         </node>
         <node type="loaderStation" name="loaderStationGreen" color="green">
-            <position x="3" y="0"/>
+            <position x="18" y="0"/>
             <neighbours>
                 <neighbour name="stationGreen"/>
                 <neighbour name="node2"/>
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="4" y="0"/>
+            <position x="30" y="0"/>
             <neighbours>
                 <neighbour name="loaderStationGreen"/>
             </neighbours>
