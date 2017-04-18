@@ -59,7 +59,7 @@ public class Switch extends Node {
                 // Ha nincs kettes, akkor vakvágány
                 activeNode = null;
 
-            System.out.println("activate " + name + " " + activeNode);
+            System.out.println("activate " + name + " activeNode:" + activeNode);
         }
 
     }
