@@ -8,6 +8,8 @@ IF EXIST %RESULT_DIR% (
 	RD /S /Q %RESULT_DIR%
 )
 
+IF EXIST testresult.txt DEL testresult.txt
+
 MD %RESULT_DIR%
 
 FOR %%f IN ("test\input\*.in") DO (
