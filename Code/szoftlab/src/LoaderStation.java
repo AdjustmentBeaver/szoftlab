@@ -1,3 +1,4 @@
+import javafx.scene.canvas.GraphicsContext;
 import util.Color;
 import util.Coordinate;
 
@@ -50,5 +51,12 @@ public class LoaderStation extends Node {
     @Override
     public String toString() {
         return "type=loaderStation pos=" + pos + " color=" + color + " hasPassengers=" + hasPassengers;
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(javafx.scene.paint.Color.PURPLE);
+        gc.setLineWidth(0);
+        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
     }
 }

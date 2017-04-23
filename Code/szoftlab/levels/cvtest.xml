@@ -51,10 +51,17 @@
                 <neighbour name="nd7"/>
             </neighbours>
         </node>
-        <node type="node" name="nd7">
+        <node type="loaderStation" name="nd7" color="green">
             <position x="200" y="200"/>
             <neighbours>
                 <neighbour name="nd6"/>
+                <neighbour name="nd8"/>
+            </neighbours>
+        </node>
+        <node type="node" name="nd8">
+            <position x="300" y="300"/>
+            <neighbours>
+                <neighbour name="nd7"/>
             </neighbours>
         </node>
     </nodes>
