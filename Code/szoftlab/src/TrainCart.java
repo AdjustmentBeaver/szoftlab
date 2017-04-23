@@ -1,4 +1,5 @@
 import util.Color;
+import util.Coordinate;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -8,21 +9,21 @@ import util.Color;
  */
 public class TrainCart extends TrainPart {
 
+    /**
+     * Kocsi színe
+     */
     private Color color;
-    private Statistics st;
 
     /**
      * Konstruktor, a Statistics osztályt ismeri, itt kapja meg. Beállításra kerül még, hogy melyik vonathoz tartozik.
      *
      * @param t     A vonat amihez tartozik.
-     * @param st    Játék statisztikája.
      * @param color A TrainCart színe.
      */
-    public TrainCart(Train t, Statistics st, Color color) {
+    public TrainCart(Train t, Color color) {
         super(t);
-        Prompt.printMessage("TrainCart.TrainCart");
         this.color = color;
-        this.st = st;
+        isEmpty = false;
     }
 
     /**
@@ -31,7 +32,6 @@ public class TrainCart extends TrainPart {
      * @return A TrainCart színe.
      */
     public Color getColor() {
-        Prompt.printMessage("TrainCart.getColor");
         return color;
     }
 
@@ -39,11 +39,9 @@ public class TrainCart extends TrainPart {
      * Kiüríti a kocsit. Beállítja semleges színűre és triggereli a Statistics osztály ürítéseket számláló függvényét.
      */
     public void unload() {
-        Prompt.printMessage("TrainCart.unload");
-        color = new Color("empty");
-        Prompt.addIndent("st.cartUnloaded()");
-        st.cartUnloaded();
-        Prompt.removeIndent();
+        System.out.println("Color: " + color + " UNLOADED");
+        isEmpty = true;
+        //st.cartUnloaded();
     }
 
     /**
@@ -51,10 +49,22 @@ public class TrainCart extends TrainPart {
      */
     @Override
     public void move() {
-        Prompt.printMessage("TrainCart.move");
+        super.move();
 
-        Prompt.addIndent("nextNode.accept(this)");
-        nextNode.accept(this);
-        Prompt.removeIndent();
+        // Ha közel ér a csomóponthoz
+        double length = new Coordinate(nextNode.getPos().getX() - getPos().getX(),
+                                        nextNode.getPos().getY() - getPos().getY())
+                                        .getLength();
+        if (length < activateRadius){
+            nextNode.accept(this);
+        }
+    }
+
+    /**
+     * Utasok felszállása a kocsira
+     */
+    public void load() {
+        System.out.println("Color: " + color + " LOADED");
+        isEmpty = false;
     }
 }

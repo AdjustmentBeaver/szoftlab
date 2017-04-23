@@ -1,0 +1,15 @@
+MAP_CREATED
+Train0 | type=node pos=(1.0,0.0)
+Train0 | type=station pos=(4.0,0.0) color=red
+Train0 | type=station pos=(4.0,0.0) color=red
+Train0 | type=station pos=(4.0,0.0) color=red
+Train0 | type=station pos=(8.0,0.0) color=green
+Train0 | type=station pos=(8.0,0.0) color=green
+Train0 | type=station pos=(8.0,0.0) color=green
+Train0 | type=station pos=(8.0,0.0) color=green
+Color: red UNLOADED
+Train0 | type=node pos=(16.0,0.0)
+Train0 | type=node pos=(16.0,0.0)
+Train0 | type=node pos=(16.0,0.0)
+Color: green UNLOADED
+MAP_COMPLETED

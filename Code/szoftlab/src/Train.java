@@ -1,5 +1,8 @@
 import util.Color;
+import util.Coordinate;
+import util.Speed;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,46 +12,68 @@ import java.util.List;
  * A vonat felrobbantásáért felelős, ekkor triggereli Statistics osztály figyelő függvényét. Tárolja a kocsikat, mozdonyt. Mozgatja saját magát.
  * </p>
  */
-public class Train implements Notifiable {
-    private Statistics stat;
+public class Train implements Notifiable, Serializable {
+    /**
+     *  Tartalmazza, hogy milyen egységekből áll a vonat.
+     */
     private List<TrainPart> trainPartList;
+
+    /**
+     *  Vonatok listája, ütközésvizsgálathoz.
+     */
     private List<Train> trainList;
+
+    /**
+     * A vonat a pályán van-e.
+     */
     private boolean isRunning;
 
     /**
-     *  Konstruktor. Beállítja a statistics és trainList attribútumokat.
+     * A vonat inditasi helye
+     */
+    private Node startNode;
+
+    /**
+     * A vonat inditasi ideje
+     */
+    private int startTime;
+
+    private boolean exploded;
+
+    /**
+     *  Konstruktor. Beállítja a trainList attribútumot.
      *
-     * @param st        A játék statisztikája.
      * @param trainList A vonatok listája.
      */
-    public Train(Statistics st, List<Train> trainList) {
-        Prompt.printMessage("Train.Train");
-        stat = st;
+    public Train(List<Train> trainList, Node startNode, int startTime) {
         this.trainList = trainList;
         isRunning = false;
         trainPartList = new ArrayList<>();
+        this.startNode = startNode;
+        this.startTime = startTime;
+        exploded = false;
     }
 
     /**
      * Mozgatja a Traint és minden elemét.
      */
     public void move() {
-        Prompt.printMessage("Train.move");
-        // for tp in trainPartList
-        TrainPart tp = trainPartList.get(0);
-        Prompt.addIndent("trainPart.move()");
-        tp.move();
-        Prompt.removeIndent();
+        for (int i = 0; i < trainList.size(); i++){
+            if ( this == trainList.get(i)) {
+                System.out.println("Train" + i + " | " + trainPartList.get(0).getNextNode());
+            }
+        }
+
+        for (TrainPart tp : trainPartList){
+            tp.move();
+        }
     }
 
     /**
      * Felrobbantja a Traint.
      */
     public void explode() {
-        Prompt.printMessage("Train.explode");
-        Prompt.addIndent("stat.trainExploded()");
-        stat.trainExploded();
-        Prompt.removeIndent();
+        exploded = true;
     }
 
     /**
@@ -57,10 +82,7 @@ public class Train implements Notifiable {
      * @return Igaz, ha a vonat mozgásban van.
      */
     public boolean isRunning() {
-        Prompt.printMessage("Train.isRunning");
-        System.out.println("[?] Fut már a vonat? [Y/N]");
-        System.out.print("[>] ");
-        return Prompt.readBool();
+        return isRunning;
     }
 
     /**
@@ -69,7 +91,6 @@ public class Train implements Notifiable {
      * @param p A hozzáadandó kocsi.
      */
     public void addPart(TrainPart p) {
-        Prompt.printMessage("Train.addPart");
         trainPartList.add(p);
     }
 
@@ -79,43 +100,50 @@ public class Train implements Notifiable {
      * @return Az utolsó nem üres TrainPart színe.
      */
     public Color getColor() {
-        Prompt.printMessage("Train.getColor");
-        return new Color("");
+        int tpIndex = 1;
+        while (tpIndex < trainPartList.size() && trainPartList.get(tpIndex).isEmpty())
+            tpIndex++;
+
+        // Ha volt nem üres kocsi - az Engine és a Coalwagon "üresek" ezért nem választódhatnak ki. csak TrainCart
+        if (tpIndex < trainPartList.size())
+            return ((TrainCart) trainPartList.get(tpIndex)).getColor();
+
+        // nullt ad vissza "ures" szin helyett
+        return null;
     }
 
     /**
      * Elindítja a vonatot.
      */
     public void startTrain() {
-        Prompt.printMessage("Train.startTrain");
         isRunning = true;
+        Coordinate startcord= new  Coordinate(startNode.getPos().getX()-1,startNode.getPos().getY()-1);
+        for (TrainPart T:trainPartList) {
+            T.setNextNode(startNode);
+            T.setPos(startcord);
+            T.setActivateRadius(((TrainEngine)trainPartList.get(0)).getSpeed().getSpeedAsDouble() / 2.0 + 0.01);
+            startcord=new  Coordinate(startcord.getX()-1,startcord.getY()-1);
+        }
     }
 
     /**
      * Ütközés vizsgálata a vonatok között. A vonat minden TrainPart-ját összehasonlítja a az összes többi vonat TrainPart-jával. Minden szimulációs lépésben végrehajtódik.
      */
     public void checkCollision() {
-        Prompt.printMessage("Train.checkCollision");
+        // Az összes vonatra nézzük
+        for (Train otherTrain: trainList) {
+            // Ha nem mi vagyunk
+            if (otherTrain != this && otherTrain.isRunning()) {
+                // Másik vonat TrainPartjainak lekérdezése
+                ArrayList<TrainPart> otherTrainPartList = (ArrayList<TrainPart>) otherTrain.getPartList();
 
-        // for other in trainList
-        Train other = this;
-        System.out.println("[?] A vizsgált vonatok különbözőek? [Y/N]");
-        System.out.print("[>] ");
-        if (Prompt.readBool()) {
-            // for otherPart in other.getPartList()
-            Prompt.addIndent("other.getPartList()");
-            other.getPartList();
-            Prompt.removeIndent();
-            // for ownPart in trainPartList
-            TrainPart otherPart = trainPartList.get(0);
-            TrainPart ownPart = trainPartList.get(0);
-            Prompt.addIndent("otherPart.checkCollision(ownPart)");
-            boolean collided = otherPart.checkCollision(ownPart);
-            Prompt.removeIndent();
-            if (collided) {
-                Prompt.addIndent("train.explode()");
-                explode();
-                Prompt.removeIndent();
+                // Saját TrainPartok összehasonlítása a másik vonat TrainPartjaival
+                for (TrainPart otherTp: otherTrainPartList) {
+                    for (TrainPart myPart: trainPartList) {
+                        if (myPart.checkCollision(otherTp))
+                            explode();
+                    }
+                }
             }
         }
     }
@@ -133,16 +161,45 @@ public class Train implements Notifiable {
      * A Notifiable interfész megvalósításából származik. Ezen belül történik a mozgatás (move()) és az ütközésvizsgálat (checkCollision()) műveletek hívása.
      */
     @Override
-    public void update() {
-        System.out.println("[?] Fut már a vonat?");
-        System.out.print("[>] ");
-        if (Prompt.readBool()) {
-            Prompt.addIndent("train.move()");
-            move();
-            Prompt.removeIndent();
-            Prompt.addIndent("train.checkCollision()");
-            checkCollision();
-            Prompt.removeIndent();
+    public void update(String event) {
+        if (event == null) {
+            // Ha fut a vonat
+            if (isRunning) {
+                // Mozgatás
+                move();
+                // Ütközésvizsgálat
+                checkCollision();
+            }
         }
+    }
+
+    /**
+     * A vonat inditasi idejet lekerdezo fuggveny
+     * @return a vonat inditasi ideje
+     */
+    public int getStartTime() {
+        return startTime;
+    }
+
+    /**
+     * Visszaadja, hogy a vonat felrobbant-e
+     * @return Igaz, ha a vonat felrobbant
+     */
+    public boolean isExploded() {
+        return exploded;
+    }
+
+    public Speed getSpeed(){
+        return ((TrainEngine) getPartList().get(0)).getSpeed();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder("isRunning = " + isRunning + " startTime = " + startTime + " exploded = " + exploded + " pos = " + trainPartList.get(0).getPos() + "\n");
+        for (int i = 0; i < trainPartList.size(); i++) {
+            TrainPart part = trainPartList.get(i);
+            s.append("\t [").append(i).append("] ").append(part).append("\n");
+        }
+        return s.toString();
     }
 }

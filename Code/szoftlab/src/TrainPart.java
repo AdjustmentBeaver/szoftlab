@@ -1,4 +1,7 @@
+import util.BoundingBox;
 import util.Coordinate;
+
+import java.io.Serializable;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -6,20 +9,46 @@ import util.Coordinate;
  * Absztrakt bázisosztály vonatelemekhez. A vonatok TrainPartokból állnak, a vonatok mozgatása a TrainPartok mozgatására vezethetö vissza, ezért minden TrainPart mozgatja saját magát. Mozgatáskor érheti el a célpontjául szolgáló adott állomást, és visitor minta szerint meglátogatja, azaz triggereli a node-okat ha elért hozzájuk.
  * </p>
  */
-public abstract class TrainPart {
+public abstract class TrainPart implements Serializable {
+    /**
+     * A TrainPart pozíciója
+     */
     private Coordinate pos;
+
+    /**
+     *  BoundingBox az ütközésvizsgálathoz
+     */
+    private BoundingBox boundingBox;
+
+    /**
+     * Irány, amiben a kocsi halad
+     */
+    private Coordinate direction;
+
     /**
      * A következő csomópont ami felé halad.
      */
     protected Node nextNode;
+
     /**
      * Az a csomópont amit előzőleg elhagyott.
      */
     protected Node prevNode;
+
     /**
      * A vonat amihez tartozik.
      */
     protected Train train;
+
+    /**
+     * Üres-e a TrainPart
+     */
+    protected boolean isEmpty;
+
+    /**
+     * Megadja milyen sugarú körben triggelelődik a csomópont, aminek a közelébe ért a TrainPart
+     */
+    protected double activateRadius;
 
     /**
      * Konstruktor. Paraméterül kapja, melyik vonatkoz tartozik.
@@ -27,14 +56,51 @@ public abstract class TrainPart {
      * @param t A vonat, amihez tartozik.
      */
     public TrainPart(Train t) {
-        Prompt.printMessage("TrainPart.TrainPart");
         train = t;
+        isEmpty = true;
+    }
+
+    /**
+     * Beállíja a csomópontokhoz érés sugarát (Ilyen sugarú körben aktiválódik a csomópont)
+     * @param activateRadius A sugár nagysága
+     */
+    public void setActivateRadius(double activateRadius) {
+        this.activateRadius = activateRadius;
+    }
+
+    /**
+     * pos értéke kérdezhető le vele
+     * @return a pos aktuális éréke
+     */
+    public Coordinate getPos() {
+        return pos;
+    }
+
+    /**
+     * Beállítja a kocsi pozícióját
+     * @param pos   beállítani kívánt érték, Coordinate típusú
+     */
+    public void setPos(Coordinate pos) {
+        this.pos = pos;
+
+        // Irány beállítása
+        Coordinate nextNodePosition = nextNode.getPos();
+        direction = new Coordinate( nextNodePosition.getX() - pos.getX(),
+                nextNodePosition.getY() - pos.getY());
+        direction.normalize();
+
+        // BoundingBox frissítés
+        boundingBox = new BoundingBox(this.pos, direction);
     }
 
     /**
      * Mozgatja a TrainPartot. Absztrakt, a leszármazottak valósítják meg..
      */
-    public abstract void move();
+    public void move(){
+        double speed = train.getSpeed().getSpeedAsDouble();
+        // Új pozíció beállítása
+        setPos(new Coordinate((pos.getX() + direction.getX()) * speed, (pos.getY() + direction.getY()) * speed));
+    }
 
     /**
      * Beállítja a kapott Node-ot az adott kocsi következő céljának.
@@ -42,7 +108,6 @@ public abstract class TrainPart {
      * @param n A következő csomópont
      */
     public void setNextNode(Node n) {
-        Prompt.printMessage("TrainPart.setNextNode");
         prevNode = nextNode;
         nextNode = n;
     }
@@ -53,7 +118,6 @@ public abstract class TrainPart {
      * @return A vonat, amihez a TrainPart tartozik.
      */
     public Train getTrain() {
-        Prompt.printMessage("TrainPart.getTrain");
         return train;
     }
 
@@ -64,10 +128,7 @@ public abstract class TrainPart {
      * @return Igaz, ha történt ütközés.
      */
     public boolean checkCollision(TrainPart tp) {
-        Prompt.printMessage("TrainPart.checkCollision");
-        System.out.println("[?] Történt ütközés? [Y/N]");
-        System.out.print("[>] ");
-        return Prompt.readBool();
+        return boundingBox.isCollided(tp.getBoundingBox());
     }
 
     /**
@@ -76,7 +137,6 @@ public abstract class TrainPart {
      * @return Az előző csomópont.
      */
     public Node getPrevNode() {
-        Prompt.printMessage("TrainPart.getPrevNode");
         return prevNode;
     }
 
@@ -86,7 +146,27 @@ public abstract class TrainPart {
      * @return A következő csomópont.
      */
     public Node getNextNode() {
-        Prompt.printMessage("TrainPart.getNextNode");
         return nextNode;
+    }
+
+    /**
+     * Visszaadja, hogy a kocsi üres-e.
+     * @return Üres-e a kocsi.
+     */
+    public boolean isEmpty(){
+        return isEmpty;
+    }
+
+    /**
+     * Visszaadja a kocsi BoundigBoxát
+     * @return A kocsi BoundingBoxa
+     */
+    public BoundingBox getBoundingBox() {
+        return boundingBox;
+    }
+
+    @Override
+    public String toString() {
+        return "pos = "+pos+" next = ["+nextNode+"] empty = "+isEmpty;
     }
 }

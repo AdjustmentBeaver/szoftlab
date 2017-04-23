@@ -8,6 +8,7 @@
 public interface Notifiable {
     /**
      * Az időzítéskor meghívott metódus. A SimualtionTimer hívja meg a Notifiablet megvalósító osztályoknak.
+     * @param event Az esemény amivel értesíteni kell.
      */
-    void update();
+    void update(String event);
 }

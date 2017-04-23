@@ -1,13 +1,11 @@
-import util.Color;
-import util.Coordinate;
-import util.Speed;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Istvan Telek on 3/14/2017.
  */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 
 /**
  * Inicializálja a játékhoz szükséges objektumokat.
@@ -15,10 +13,11 @@ import java.util.List;
  * Létrehozza a SimulationTimer és a MapManager objektumokat.
  * Rajra keresztül állítható a játék állapota.
  */
-public class Game {
-    private SimulationTimer timer;
-    private MapManager mapManager;
-
+public class Game implements Serializable {
+    private transient SimulationTimer timer;
+    private transient MapManager mapManager;
+    private boolean wasRunning = false;
+    private boolean simRunning = false;
 
     /**
      * Instantiates a new Game.
@@ -27,15 +26,8 @@ public class Game {
      * </p>
      */
     public Game() {
-        Prompt.printMessage("Game.Game");
-
-        Prompt.addIndent("<<create>>");
         timer = new SimulationTimer();
-        Prompt.removeIndent();
-
-        Prompt.addIndent("<<create>>");
         mapManager = new MapManager(timer, this);
-        Prompt.removeIndent();
     }
 
     /**
@@ -46,85 +38,90 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
         game.loop();
-
     }
 
     /**
-     * Skeleton main loop for CLI
+     * Main loop for CLI
      */
     private void loop() {
-        boolean run = true;
-        // Init magic
-        Prompt.supressMessages(true);
-        MapManager mapManager = new MapManager(timer, this);
-        mapManager.newMap("level1");
-        Map map = new MapBuilder("testLevel").buildMap(this);
-        map.subscribe(timer);
-        List<Train> trainList = new ArrayList<>();
-        Statistics stat = new Statistics(this);
-        Train train = new Train(stat, trainList);
-        Station station = new Station(new Color(""));
-        TrainEngine te = new TrainEngine(train, new Speed(0));
-        te.setNextNode(station);
-        TrainCart tc = new TrainCart(train, stat, new Color(""));
-        tc.setNextNode(station);
-        train.addPart(tc);
-        Prompt.supressMessages(false);
-        // End of init magic
+        // Input thread, getting CLI lines, starting simulation thread etc.
+        boolean running = true;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        while (run) {
-            System.out.println("---------------------------------------");
-            System.out.println("Válasszon az alábbi lehetőségek közül: ");
-            System.out.println("1: Start");
-            System.out.println("2: Stop");
-            System.out.println("3: New -> Subscribe");
-            System.out.println("4: Load -> Subscribe");
-            System.out.println("5: Save -> Resume");
-            System.out.println("6: Simulate -> Move, Collision Check, Explode, Visit Node");
-            System.out.println("7: Move/Visit node");
-            System.out.println("8: Collision Check");
-            System.out.println("9: Explode");
-            System.out.println("10: Activate");
-            System.out.println("11: Exit");
-            System.out.print("> ");
-            int input = Prompt.readCommand();
-            switch (input) {
-                case 1:
+        while (running) {
+            String in = null;
+            String[] cmd = null;
+            try {
+                in = br.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (in == null) {
+                running = false;
+                break;
+            }
+            cmd = in.split(" ");
+            switch (cmd[0]) {
+                case "new":
+                    try {
+                        newGame(cmd[1]);
+                    } catch (ArrayIndexOutOfBoundsException e){
+                        System.err.println("format: new <mapName>");
+                    }
+                    break;
+                case "load":
+                    stopGame();
+                    try {
+                        mapManager.loadMap(cmd[1]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("format: save <mapName>");
+                    }
                     startGame();
                     break;
-                case 2:
+                case "save":
+                    stopGame();
+                    try {
+                        mapManager.saveMap(cmd[1]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("format: save <mapName>");
+                    }
+                    resumeGame();
+                    break;
+                case "stop":
                     stopGame();
                     break;
-                case 3:
-                    Prompt.addIndent("game.newGame(level)");
-                    newGame("level1");
-                    Prompt.removeIndent();
+                case "start":
+                    startGame();
                     break;
-                case 4:
-                    mapManager.loadMap("level1");
+                case "exit":
+                    stopGame();
+                    running = false;
                     break;
-                case 5:
-                    mapManager.saveMap("level1");
+                case "step":
+                    try {
+                        timer.step(Integer.parseInt(cmd[1]));
+                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Error number of step must be number");
+                    }
                     break;
-                case 6:
-                    timer.step();
+                case "activate":
+                    try {
+                        timer.addEvent("activate " + cmd[1] + " " + cmd[2]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        System.err.println("format: activate <x> <y>");
+                    }
                     break;
-                case 7:
-                    train.move();
+                case "listNodes":
+                    timer.addEvent("listNodes");
                     break;
-                case 8:
-                    train.checkCollision();
+                case "listTrains":
+                    timer.addEvent("listTrains");
                     break;
-                case 9:
-                    train.explode();
-                    break;
-                case 10:
-                    map.activateNode(new Coordinate());
-                    break;
-                case 11:
-                    run = false;
+                default:
+                    System.out.println("NINCS ILYEN PARANCS");
                     break;
             }
+            timer.step(0);
         }
     }
 
@@ -135,10 +132,9 @@ public class Game {
      * </p>
      */
     public void startGame() {
-        Prompt.printMessage("Game.startGame");
-        Prompt.addIndent("timer.start()");
+        wasRunning = simRunning;
         timer.start();
-        Prompt.removeIndent();
+        simRunning = true;
     }
 
     /**
@@ -148,10 +144,9 @@ public class Game {
      * </p>
      */
     public void stopGame() {
-        Prompt.printMessage("Game.stopGame");
-        Prompt.addIndent("timer.stop()");
+        wasRunning = simRunning;
         timer.stop();
-        Prompt.removeIndent();
+        simRunning = false;
     }
 
     /**
@@ -161,16 +156,8 @@ public class Game {
      * </p>
      */
     public void resumeGame() {
-        Prompt.printMessage("Game.resumeGame");
-
-        System.out.println("[?] Futott a játék előzőleg?");
-        System.out.print("[>] ");
-
-        if (Prompt.readBool()) {
-            Prompt.addIndent("timer.start()");
+        if (wasRunning)
             timer.start();
-            Prompt.removeIndent();
-        }
     }
 
     /**
@@ -181,18 +168,22 @@ public class Game {
      * @param nextLevel the next level
      */
     public void newGame(String nextLevel) {
-        Prompt.printMessage("Game.newGame");
-
-        Prompt.addIndent("game.stopGame()");
         stopGame();
-        Prompt.removeIndent();
-
-        Prompt.addIndent("mapManager.newMap(nextLevel)");
-        mapManager.newMap(nextLevel);
-        Prompt.removeIndent();
-
-        Prompt.addIndent("game.startGame()");
+        mapManager.newMap("levels/" + nextLevel + ".xml");
         startGame();
-        Prompt.removeIndent();
+    }
+
+    /**
+     * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
+     */
+    public void won() {
+        System.out.println("MAP_COMPLETED");
+    }
+
+    /**
+     * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
+     */
+    public void lost() {
+        System.out.println("EXPLODE");
     }
 }

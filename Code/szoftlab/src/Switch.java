@@ -1,3 +1,5 @@
+import util.Coordinate;
+
 /**
  * Created by Istvan Telek on 3/14/2017.
  * <p>
@@ -5,14 +7,22 @@
  * </p>
  */
 public class Switch extends Node {
+
+    /**
+     * A váltó aktív iránya
+     */
     private Node activeNode;
+
+    /**
+     * A váltó gyökércsomópontja, ahonnan az elágazás indul.
+     */
+    private Node rootNode;
 
     /**
      * Konstruktor, létrehozza a Switchet.
      */
-    public Switch() {
-        super();
-        Prompt.printMessage("Switch.Switch");
+    public Switch(Coordinate pos) {
+        super(pos);
         activeNode = null;
     }
 
@@ -22,8 +32,12 @@ public class Switch extends Node {
      */
     @Override
     protected Node route() {
-        Prompt.printMessage("Switch.route");
-        return activeNode;
+        // Ha Root felől jött
+        if (visitorComingFrom == rootNode)
+            return activeNode;
+        else
+            return rootNode;
+
     }
 
     /**
@@ -31,10 +45,23 @@ public class Switch extends Node {
      */
     @Override
     public void activate() {
-        Prompt.printMessage("Switch.activate");
-        Prompt.addIndent("switch.checkForTrain()");
         boolean trainOnMe = checkForTrain();
-        Prompt.removeIndent();
+
+        if (!trainOnMe){
+            // Ha a kettes az aktív
+            if (activeNode == neighbourNodeList.get(2))
+                // Aktiváljuk az egyest
+                activeNode = neighbourNodeList.get(1);
+            else if (neighbourNodeList.size() >= 3)
+                // Aktiváljuk a kettest
+                activeNode = neighbourNodeList.get(2);
+            else
+                // Ha nincs kettes, akkor vakvágány
+                activeNode = null;
+
+            System.out.println("activate " + name + " activeNode:" + activeNode);
+        }
+
     }
 
     /**
@@ -43,7 +70,14 @@ public class Switch extends Node {
      */
     @Override
     public void addNeighbourNode(Node n) {
+        // Az első csomópont a gyökércsomópont
+        if (neighbourNodeList.size() == 0) rootNode = n;
         super.addNeighbourNode(n);
         activeNode = n;
+    }
+
+    @Override
+    public String toString() {
+        return "type=switch " + "pos=" + pos+" active=["+activeNode+"]";
     }
 }

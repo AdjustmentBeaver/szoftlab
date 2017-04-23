@@ -15,36 +15,45 @@ public class SimulationTimer {
     List<Notifiable> subscribers;
 
     /**
+     * Az esemenysor
+     */
+    List<String> events;
+
+    /**
      * Instantiates a new Simulation timer.
      */
     public SimulationTimer() {
-        Prompt.printMessage("SimulationTimer.SimulationTimer");
         subscribers = new ArrayList<>();
+        events = new ArrayList<>();
     }
 
     /**
      * Start.
      */
     public void start() {
-        Prompt.printMessage("SimulationTimer.start");
+
     }
 
     /**
      * Stop.
      */
     public void stop() {
-        Prompt.printMessage("SimulationTimer.stop");
     }
 
     /**
      * Lefuttat egy szimulációs lépést.
      */
-    public void step() {
-        Prompt.printMessage("SimulationTimer.step");
-        for (Notifiable sub : subscribers) {
-            Prompt.addIndent("sub.update()");
-            sub.update();
-            Prompt.removeIndent();
+    public void step(int stepNum) {
+        for (String event: events) {
+            for (Notifiable sub: subscribers) {
+                sub.update(event);
+            }
+        }
+        events.clear();
+        for (int i = 0; i < stepNum; i++) {
+            for (Notifiable sub : subscribers) {
+                sub.update(null);
+            }
         }
     }
 
@@ -57,7 +66,6 @@ public class SimulationTimer {
      * @param sub the subscriber
      */
     public void addSubscriber(Notifiable sub) {
-        Prompt.printMessage("SimulationTimer.addSubscriber");
         subscribers.add(sub);
     }
 
@@ -65,7 +73,14 @@ public class SimulationTimer {
      * Delete subscriptions.
      */
     public void deleteSubscriptions() {
-        Prompt.printMessage("SimulationTimer.deleteSubscriptions");
         subscribers.clear();
+    }
+
+    /**
+     *
+     * @param event
+     */
+    public void addEvent(String event) {
+        events.add(event);
     }
 }

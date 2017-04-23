@@ -1,0 +1,7 @@
+MAP_CREATED
+activate SpecialPlace0
+activate SpecialPlace1
+Train0 | type=node pos=(1.0,0.0)
+Train0 | type=node pos=(2.0,0.0)
+Train0 | type=specialPlace pos=(3.0,0.0) isConstructed=true
+Train0 | type=specialPlace pos=(3.0,1.0) isConstructed=true

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE level [
+        <!ELEMENT level (nodes,trains)>
+        <!ELEMENT nodes (node*)>
+        <!ELEMENT node (type, name, position, neighbours, color*)>
+        <!ELEMENT position (x,y)>
+        <!ELEMENT neighbours (neighbour_name*)>
+        <!ELEMENT trains (train*)>
+        <!ELEMENT train (trainPart*, startNode, startTime)>
+        <!ELEMENT trainPart (type, color*, speed*)>
+        <!ELEMENT type (#PCDATA)>
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT x (#PCDATA)>
+        <!ELEMENT y (#PCDATA)>
+        <!ELEMENT neighbour_name (#PCDATA)>
+        <!ELEMENT color (#PCDATA)>
+        <!ELEMENT speed (#PCDATA)>
+        <!ELEMENT startNode (#PCDATA)>
+        <!ELEMENT startTime (#PCDATA)>
+        ]>
+
+<level>
+    <nodes></nodes>
+    <trains></trains>
+</level>

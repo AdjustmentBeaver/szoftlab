@@ -1,0 +1,8 @@
+MAP_CREATED
+Train0 | type=node pos=(1.0,0.0)
+Train1 | type=node pos=(0.0,1.0)
+Train0 | type=node pos=(1.0,2.0)
+Train1 | type=node pos=(2.0,1.0)
+Train0 | type=node pos=(1.0,2.0)
+Train1 | type=node pos=(2.0,1.0)
+EXPLODE
