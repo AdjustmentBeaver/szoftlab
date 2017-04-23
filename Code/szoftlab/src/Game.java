@@ -2,6 +2,13 @@
  * Created by Istvan Telek on 3/14/2017.
  */
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,11 +20,12 @@ import java.io.Serializable;
  * Létrehozza a SimulationTimer és a MapManager objektumokat.
  * Rajra keresztül állítható a játék állapota.
  */
-public class Game implements Serializable {
+public class Game extends Application implements Serializable {
     private transient SimulationTimer timer;
     private transient MapManager mapManager;
     private boolean wasRunning = false;
     private boolean simRunning = false;
+    private Controller ctrl;
 
     /**
      * Instantiates a new Game.
@@ -30,6 +38,21 @@ public class Game implements Serializable {
         mapManager = new MapManager(timer, this);
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("game.fxml"));
+        Parent root = fxmlLoader.load();
+        ctrl = (Controller)fxmlLoader.getController();
+        ctrl.setModel(this);
+        primaryStage.setTitle("Szoftlab");
+        primaryStage.setScene(new Scene(root, 640, 600));
+        primaryStage.show();
+    }
+
+    public GraphicsContext getCanvasGC() {
+        return ctrl.getCanvasGC();
+    }
+
     /**
      * The entry point of application.
      *
@@ -37,12 +60,14 @@ public class Game implements Serializable {
      */
     public static void main(String[] args) {
         Game game = new Game();
-        game.loop();
+        launch(args);
+        //game.loop();
     }
 
     /**
      * Main loop for CLI
      */
+    /*
     private void loop() {
         // Input thread, getting CLI lines, starting simulation thread etc.
         boolean running = true;
@@ -60,69 +85,74 @@ public class Game implements Serializable {
                 running = false;
                 break;
             }
-            cmd = in.split(" ");
-            switch (cmd[0]) {
-                case "new":
-                    try {
-                        newGame(cmd[1]);
-                    } catch (ArrayIndexOutOfBoundsException e){
-                        System.err.println("format: new <mapName>");
-                    }
-                    break;
-                case "load":
-                    stopGame();
-                    try {
-                        mapManager.loadMap(cmd[1]);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.err.println("format: save <mapName>");
-                    }
-                    startGame();
-                    break;
-                case "save":
-                    stopGame();
-                    try {
-                        mapManager.saveMap(cmd[1]);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.err.println("format: save <mapName>");
-                    }
-                    resumeGame();
-                    break;
-                case "stop":
-                    stopGame();
-                    break;
-                case "start":
-                    startGame();
-                    break;
-                case "exit":
-                    stopGame();
-                    running = false;
-                    break;
-                case "step":
-                    try {
-                        timer.step(Integer.parseInt(cmd[1]));
-                    } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                        System.err.println("Error number of step must be number");
-                    }
-                    break;
-                case "activate":
-                    try {
-                        timer.addEvent("activate " + cmd[1] + " " + cmd[2]);
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        System.err.println("format: activate <x> <y>");
-                    }
-                    break;
-                case "listNodes":
-                    timer.addEvent("listNodes");
-                    break;
-                case "listTrains":
-                    timer.addEvent("listTrains");
-                    break;
-                default:
-                    System.out.println("NINCS ILYEN PARANCS");
-                    break;
-            }
-            timer.step(0);
+            update(in);
         }
+    }*/
+
+    public void update(String event) {
+        String cmd[] = event.split(" ");
+        switch (cmd[0]) {
+            case "new":
+                try {
+                    newGame(cmd[1]);
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.err.println("format: new <mapName>");
+                }
+                break;
+            case "load":
+                stopGame();
+                try {
+                    mapManager.loadMap(cmd[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.err.println("format: save <mapName>");
+                }
+                startGame();
+                break;
+            case "save":
+                stopGame();
+                try {
+                    mapManager.saveMap(cmd[1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.err.println("format: save <mapName>");
+                }
+                resumeGame();
+                break;
+            case "stop":
+                stopGame();
+                break;
+            case "start":
+                startGame();
+                break;
+            case "exit":
+                stopGame();
+                //running = false;
+                break;
+            case "step":
+                try {
+                    timer.step(Integer.parseInt(cmd[1]));
+                    timer.addEvent("draw");
+                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Error number of step must be number");
+                }
+                break;
+            case "activate":
+                try {
+                    timer.addEvent("activate " + cmd[1] + " " + cmd[2]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.err.println("format: activate <x> <y>");
+                }
+                break;
+            case "listNodes":
+                timer.addEvent("listNodes");
+                break;
+            case "listTrains":
+                timer.addEvent("listTrains");
+                break;
+            default:
+                System.out.println("NINCS ILYEN PARANCS");
+                break;
+        }
+        timer.step(0);
     }
 
     /**

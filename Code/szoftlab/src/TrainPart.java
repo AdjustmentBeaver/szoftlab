@@ -1,5 +1,7 @@
+import javafx.scene.canvas.GraphicsContext;
 import util.BoundingBox;
 import util.Coordinate;
+import util.IDrawable;
 
 import java.io.Serializable;
 
@@ -9,7 +11,7 @@ import java.io.Serializable;
  * Absztrakt bázisosztály vonatelemekhez. A vonatok TrainPartokból állnak, a vonatok mozgatása a TrainPartok mozgatására vezethetö vissza, ezért minden TrainPart mozgatja saját magát. Mozgatáskor érheti el a célpontjául szolgáló adott állomást, és visitor minta szerint meglátogatja, azaz triggereli a node-okat ha elért hozzájuk.
  * </p>
  */
-public abstract class TrainPart implements Serializable {
+public abstract class TrainPart implements Serializable, IDrawable {
     /**
      * A TrainPart pozíciója
      */
@@ -168,5 +170,12 @@ public abstract class TrainPart implements Serializable {
     @Override
     public String toString() {
         return "pos = "+pos+" next = ["+nextNode+"] empty = "+isEmpty;
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(javafx.scene.paint.Color.RED);
+        gc.setLineWidth(0);
+        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
     }
 }

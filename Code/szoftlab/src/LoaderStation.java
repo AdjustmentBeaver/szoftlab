@@ -7,7 +7,7 @@ import util.Coordinate;
  *     Az ilyen típusú állomásokról az utasok felszállnak a felszállás szabályának megfelelő kocsiba.
  *</p>
  */
-public class LoaderStation extends Node{
+public class LoaderStation extends Node {
 
     /**
      * Az állomás színe

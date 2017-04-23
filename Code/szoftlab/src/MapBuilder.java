@@ -130,12 +130,14 @@ public class MapBuilder {
                                         nd.setName(getNodeAttribute(node, "name"));
                                         map.addNode(nd);
                                         nodeList.put(nodeName, nd);
+                                        map.addDrawable(nd);
                                         break;
                                     case "switch":
                                         Switch sw = new Switch(pos);
                                         sw.setName(getNodeAttribute(node, "name"));
                                         map.addNode(sw);
                                         nodeList.put(nodeName, sw);
+                                        map.addDrawable(sw);
                                         break;
                                     case "station":
                                         String color = getNodeAttribute(node, "color");
@@ -143,6 +145,7 @@ public class MapBuilder {
                                         station.setName(getNodeAttribute(node, "name"));
                                         map.addNode(station);
                                         nodeList.put(nodeName, station);
+                                        map.addDrawable(station);
                                         break;
                                     case "loaderStation":
                                         String loaderColor = getNodeAttribute(node, "color");
@@ -150,6 +153,7 @@ public class MapBuilder {
                                         loaderStation.setName(getNodeAttribute(node, "name"));
                                         map.addNode(loaderStation);
                                         nodeList.put(nodeName, loaderStation);
+                                        map.addDrawable(loaderStation);
                                         break;
                                     case "specialPlace":
                                         SpecialPlace tunnel = new SpecialPlace(pos, spNeighbours);
@@ -157,6 +161,7 @@ public class MapBuilder {
                                         map.addNode(tunnel);
                                         spNeighbours.add(tunnel);
                                         nodeList.put(nodeName, tunnel);
+                                        map.addDrawable(tunnel);
                                         break;
                                     default:
                                         throw new XMLParseException("Invalid node type: " + nodeType);
@@ -179,6 +184,7 @@ public class MapBuilder {
                                 String startTime = getNodeAttribute(train, "start_time");
                                 Train tr = new Train(trainList, nodeList.get(startNode), Integer.parseInt(startTime));
                                 map.addTrain(tr);
+                                map.addDrawable(tr);
                                 NodeList trainParts = train.getChildNodes();
                                 for (int k = 0; k < trainParts.getLength(); k++) {
                                     org.w3c.dom.Node trainPart = trainParts.item(k);

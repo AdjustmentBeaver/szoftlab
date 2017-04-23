@@ -1,4 +1,7 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import util.Coordinate;
+import util.IDrawable;
 import util.Speed;
 
 import java.io.Serializable;
@@ -12,7 +15,7 @@ import java.util.List;
 /**
  * A TrainPartok következő úticélját határozza meg. A csomópontok gráfot alkotnak.
  */
-public class Node implements Serializable {
+public class Node implements Serializable, IDrawable {
     /**
      * The Neighbour node list.
      */
@@ -149,5 +152,12 @@ public class Node implements Serializable {
     @Override
     public String toString() {
         return "type=node " + "pos=" + pos;
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(Color.TURQUOISE);
+        gc.setLineWidth(0);
+        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
     }
 }

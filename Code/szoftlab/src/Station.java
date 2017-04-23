@@ -1,3 +1,4 @@
+import javafx.scene.canvas.GraphicsContext;
 import util.Color;
 import util.Coordinate;
 
@@ -44,5 +45,12 @@ public class Station extends Node {
     @Override
     public String toString() {
         return "type=station " + "pos=" + pos + " color=" + color;
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(javafx.scene.paint.Color.GREEN);
+        gc.setLineWidth(0);
+        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
     }
 }

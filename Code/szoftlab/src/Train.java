@@ -1,5 +1,7 @@
+import javafx.scene.canvas.GraphicsContext;
 import util.Color;
 import util.Coordinate;
+import util.IDrawable;
 import util.Speed;
 
 import java.io.Serializable;
@@ -12,7 +14,7 @@ import java.util.List;
  * A vonat felrobbantásáért felelős, ekkor triggereli Statistics osztály figyelő függvényét. Tárolja a kocsikat, mozdonyt. Mozgatja saját magát.
  * </p>
  */
-public class Train implements Notifiable, Serializable {
+public class Train implements Notifiable, Serializable, IDrawable {
     /**
      *  Tartalmazza, hogy milyen egységekből áll a vonat.
      */
@@ -201,5 +203,12 @@ public class Train implements Notifiable, Serializable {
             s.append("\t [").append(i).append("] ").append(part).append("\n");
         }
         return s.toString();
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        for (TrainPart tp: trainPartList) {
+            tp.Draw(gc);
+        }
     }
 }

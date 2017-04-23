@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import util.Coordinate;
 
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  *     Ezeken a speciális csomópontokon tud a felhasználó alagútszájakat építeni. A pályán maximum 2 alagútszáj lehet aktív, amiket alagút köt össze. Megépített alagútszájat le is lehet rombolni, ha nem tartózkodik az alagútban vonat.
  * </p>
  */
-public class SpecialPlace extends Node{
+public class SpecialPlace extends Node {
 
     /**
      * Maximálisan felépíthető alagútszájak száma
@@ -85,5 +87,12 @@ public class SpecialPlace extends Node{
     @Override
     public String toString() {
         return "type=specialPlace " + "pos=" + pos + " isConstructed=" + isConstructed;
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(Color.YELLOW);
+        gc.setLineWidth(0);
+        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
     }
 }

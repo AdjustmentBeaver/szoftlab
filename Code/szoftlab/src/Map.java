@@ -1,4 +1,6 @@
+import javafx.scene.canvas.GraphicsContext;
 import util.Coordinate;
+import util.IDrawable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +20,9 @@ public class Map implements Serializable, Notifiable {
     private List<Node> nodeList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
+    private List<IDrawable> drawables;
     private Game game;
+    private GraphicsContext gc;
 //    private Statistics stat;
 
     /**
@@ -29,7 +33,9 @@ public class Map implements Serializable, Notifiable {
         trainList = new ArrayList<>();
         nodeList = new ArrayList<>();
         notifiables = new ArrayList<>();
+        drawables = new ArrayList<>();
         this.game = game;
+        gc = game.getCanvasGC();
     }
 
     /**
@@ -107,6 +113,10 @@ public class Map implements Serializable, Notifiable {
         notifiables.add(n);
     }
 
+    public void addDrawable(IDrawable d) {
+        drawables.add(d);
+    }
+
     /**
      * Gets train list.
      *
@@ -165,6 +175,13 @@ public class Map implements Serializable, Notifiable {
                     i = 0;
                     for (Train t: trainList) {
                         System.out.println("Train (" + i++ + ") " + t.toString());
+                    }
+                    break;
+                case "draw":
+                    i = 0;
+                    gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+                    for (IDrawable d: drawables) {
+                        d.Draw(gc);
                     }
                     break;
             }

@@ -1,3 +1,5 @@
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import util.Coordinate;
 
 /**
@@ -79,5 +81,12 @@ public class Switch extends Node {
     @Override
     public String toString() {
         return "type=switch " + "pos=" + pos+" active=["+activeNode+"]";
+    }
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(Color.BLACK);
+        gc.setLineWidth(0);
+        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
     }
 }
