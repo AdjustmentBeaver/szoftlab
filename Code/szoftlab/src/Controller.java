@@ -26,6 +26,7 @@ public class Controller {
 
     public void newEventHandler(ActionEvent actionEvent) {
         game.update("new cvtest");
+        game.update("start");
     }
 
     public void step10EventHandler(ActionEvent actionEvent) {

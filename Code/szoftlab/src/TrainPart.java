@@ -15,7 +15,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
     /**
      * A TrainPart pozíciója
      */
-    private Coordinate pos;
+    protected Coordinate pos;
 
     /**
      *  BoundingBox az ütközésvizsgálathoz
@@ -176,6 +176,6 @@ public abstract class TrainPart implements Serializable, IDrawable {
     public void Draw(GraphicsContext gc) {
         gc.setFill(javafx.scene.paint.Color.RED);
         gc.setLineWidth(0);
-        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
+        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
     }
 }

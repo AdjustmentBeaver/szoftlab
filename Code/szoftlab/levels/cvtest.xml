@@ -4,13 +4,13 @@
 <level>
     <nodes>
         <node type="node" name="node1">
-            <position x="0" y="0"/>
+            <position x="20" y="20"/>
             <neighbours>
                 <neighbour name="switch1"/>
             </neighbours>
         </node>
         <node type="switch" name="switch1">
-            <position x="100" y="0"/>
+            <position x="100" y="20"/>
             <neighbours>
                 <neighbour name="node1"/>
                 <neighbour name="node2"/>
@@ -18,7 +18,7 @@
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="200" y="0"/>
+            <position x="200" y="20"/>
             <neighbours>
                 <neighbour name="switch1"/>
                 <neighbour name="node4"/>
@@ -28,12 +28,33 @@
             <position x="100" y="100"/>
             <neighbours>
                 <neighbour name="switch1"/>
+                <neighbour name="nd5"/>
             </neighbours>
         </node>
         <node type="node" name="node4">
-            <position x="300" y="0"/>
+            <position x="300" y="20"/>
             <neighbours>
                 <neighbour name="node2"/>
+            </neighbours>
+        </node>
+        <node type="node" name="nd5">
+            <position x="100" y="200"/>
+            <neighbours>
+                <neighbour name="node3"/>
+                <neighbour name="nd6"/>
+            </neighbours>
+        </node>
+        <node type="station" name="nd6" color="green">
+            <position x="100" y="200"/>
+            <neighbours>
+                <neighbour name="nd5"/>
+                <neighbour name="nd7"/>
+            </neighbours>
+        </node>
+        <node type="node" name="nd6">
+            <position x="200" y="200"/>
+            <neighbours>
+                <neighbour name="nd5"/>
             </neighbours>
         </node>
     </nodes>
