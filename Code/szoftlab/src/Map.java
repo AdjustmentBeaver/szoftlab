@@ -70,7 +70,7 @@ public class Map implements Serializable, Notifiable {
      */
     public void activateNode(Coordinate c) {
         for (Node n : nodeList) {
-            if (n.getPos() == c) {
+            if (n.getPos().getDistanceTo(c) < 10) {
                 n.activate();
                 break;
             }
@@ -159,11 +159,7 @@ public class Map implements Serializable, Notifiable {
             switch (evt[0]) {
                 case "activate":
                     Coordinate pos = new Coordinate(Integer.parseInt(evt[1]), Integer.parseInt(evt[2]));
-                    for (Node n: nodeList) {
-                        if (n.getPos().getDistanceTo(pos) < 0.5) {
-                            n.activate();
-                        }
-                    }
+                    activateNode(pos);
                     break;
                 case "listNodes":
                     i = 0;

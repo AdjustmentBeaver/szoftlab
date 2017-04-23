@@ -2,6 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Created by moriss on 4/23/2017.
@@ -31,5 +32,9 @@ public class Controller {
 
     public void step10EventHandler(ActionEvent actionEvent) {
         game.update("step 10");
+    }
+
+    public void canvasClickHandler(MouseEvent mouseEvent) {
+        game.update("activate " + ((Double)mouseEvent.getX()).intValue() + " " + ((Double)mouseEvent.getY()).intValue());
     }
 }

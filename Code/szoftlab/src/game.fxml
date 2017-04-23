@@ -27,7 +27,7 @@
         </MenuBar>
     </top>
     <center>
-        <Canvas fx:id="cvGame" height="480.0" width="640.0" BorderPane.alignment="CENTER"/>
+        <Canvas fx:id="cvGame" height="480.0" width="640.0" BorderPane.alignment="CENTER" onMouseClicked="#canvasClickHandler"/>
     </center>
     <bottom>
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">

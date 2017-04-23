@@ -87,6 +87,6 @@ public class Switch extends Node {
     public void Draw(GraphicsContext gc) {
         gc.setFill(Color.BROWN);
         gc.setLineWidth(0);
-        gc.fillRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20);
+        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
     }
 }
