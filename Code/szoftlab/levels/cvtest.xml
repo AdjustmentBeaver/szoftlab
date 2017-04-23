@@ -51,10 +51,10 @@
                 <neighbour name="nd7"/>
             </neighbours>
         </node>
-        <node type="node" name="nd6">
+        <node type="node" name="nd7">
             <position x="200" y="200"/>
             <neighbours>
-                <neighbour name="nd5"/>
+                <neighbour name="nd6"/>
             </neighbours>
         </node>
     </nodes>
