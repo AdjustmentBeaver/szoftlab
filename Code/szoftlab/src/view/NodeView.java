@@ -62,7 +62,18 @@ public class NodeView extends View {
 
     @Override
     public void draw(Switch sw) {
-        drawSprite(sw,spriteSwitch);
+        double x1 = (sw.getPos().getX() + sw.getRootNode().getPos().getX())/2.0;
+        double y1 = (sw.getPos().getY() + sw.getRootNode().getPos().getY())/2.0;
+        double x2 = (sw.getPos().getX() + sw.getActiveNode().getPos().getX())/2.0;
+        double y2 = (sw.getPos().getY() + sw.getActiveNode().getPos().getY())/2.0;
+
+        graphicsContext.setStroke(Color.RED);
+        graphicsContext.setLineWidth(12);
+        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), x1, y1);
+        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), x2, y2);
+        graphicsContext.setFill(Color.RED);
+        graphicsContext.fillRect(x2-8,y2-8,16,16);
+        //drawSprite(sw,spriteSwitch);
     }
 
     @Override

@@ -17,11 +17,13 @@ public class Switch extends Node {
      * A váltó aktív iránya
      */
     private Node activeNode;
-
+    public Node getActiveNode() { return activeNode; }
+    
     /**
      * A váltó gyökércsomópontja, ahonnan az elágazás indul.
      */
     private Node rootNode;
+    public Node getRootNode() { return rootNode; }
 
     /**
      * Konstruktor, létrehozza a Switchet.
