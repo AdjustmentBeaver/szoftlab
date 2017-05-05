@@ -78,6 +78,10 @@ public class Coordinate implements Serializable{
         return new Coordinate(x * d, y * d);
     }
 
+    public static double dot(Coordinate c1, Coordinate c2){
+        return c1.getX()*c2.getX()+c1.getY()*c2.getY();
+    }
+
     @Override
     public String toString() {
         return "(" + x + "," + y + ")";
