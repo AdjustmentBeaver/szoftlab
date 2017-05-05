@@ -1,6 +1,8 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.Coordinate;
-import util.Speed;
+import model.util.Coordinate;
+import model.util.Speed;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -10,15 +12,15 @@ import util.Speed;
  */
 public class TrainEngine extends TrainPart {
     /**
-     * A TrainEngine sebességét adja meg.
+     * A model.TrainEngine sebességét adja meg.
      */
     Speed speed;
 
     /**
      * Konstruktor, a mozdonyhoz.
      *
-     * @param t     A Train, amihez tartozik.
-     * @param speed A TrainEngine sebessége.
+     * @param t     A model.Train, amihez tartozik.
+     * @param speed A model.TrainEngine sebessége.
      */
     public TrainEngine(Train t, Speed speed) {
         super(t);
@@ -26,16 +28,16 @@ public class TrainEngine extends TrainPart {
     }
 
     /**
-     *  Visszaadja a TrainEngine sebességét.
+     *  Visszaadja a model.TrainEngine sebességét.
      *
-     * @return A TrainEngine sebessége
+     * @return A model.TrainEngine sebessége
      */
     public Speed getSpeed() {
         return speed;
     }
 
     /**
-     * A TrainEngine mozgatása.
+     * A model.TrainEngine mozgatása.
      */
     @Override
     public void move() {

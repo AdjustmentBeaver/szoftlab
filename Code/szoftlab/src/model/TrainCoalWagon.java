@@ -1,5 +1,7 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.Coordinate;
+import model.util.Coordinate;
 
 /**
  * <p>
@@ -11,7 +13,7 @@ public class TrainCoalWagon extends TrainPart {
     /**
      * Konstruktor, a szeneskocsihoz.
      *
-     * @param t     A Train, amihez tartozik.
+     * @param t     A model.Train, amihez tartozik.
      */
     public TrainCoalWagon(Train t) {
         super(t);

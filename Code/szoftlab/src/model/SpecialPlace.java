@@ -1,6 +1,8 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import util.Coordinate;
+import model.util.Coordinate;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class SpecialPlace extends Node {
     private static final int MAX_NUM_SPECIALPLACE = 2;
 
     /**
-     * Az összes SpecialPlace-et tartalmazó lista.
+     * Az összes model.SpecialPlace-et tartalmazó lista.
      */
     public List<SpecialPlace> spList;
 

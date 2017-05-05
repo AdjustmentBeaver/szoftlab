@@ -1,10 +1,12 @@
+package model;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
  * <p>
- * Vonatok indításának ütemezéséért felelős osztály. A SimulationTimer triggereli, ekkor ha szükséges indítja a következő vonatot.
+ * Vonatok indításának ütemezéséért felelős osztály. A model.SimulationTimer triggereli, ekkor ha szükséges indítja a következő vonatot.
  * </p>
  */
 public class TrainScheduler implements Notifiable, Serializable {
@@ -24,7 +26,7 @@ public class TrainScheduler implements Notifiable, Serializable {
     }
 
     /**
-     * Notifiable interfész megvalósítása, itt történik a vonatindítási logika.
+     * model.Notifiable interfész megvalósítása, itt történik a vonatindítási logika.
      */
     @Override
     public void update(String event) {

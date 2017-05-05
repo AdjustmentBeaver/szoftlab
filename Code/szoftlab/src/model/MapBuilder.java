@@ -1,4 +1,5 @@
-import util.*;
+package model;
+
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import javax.management.modelmbean.XMLParseException;
@@ -19,7 +20,7 @@ public class MapBuilder {
     private String mapName;
     private Game game;
     /**
-     * Létrehoz egy új Map buildert.
+     * Létrehoz egy új model.Map buildert.
      *
      * @param mapName a pálya elérési útvonala
      */
@@ -36,7 +37,7 @@ public class MapBuilder {
     public Map buildMap() {
         try {
             if (game == null) {
-                throw new NullPointerException("Game is null");
+                throw new NullPointerException("model.Game is null");
             }
 
             // Betoltjuk az XML dokumentumot az elso parameterkent megadott eleresi utvonalrol
@@ -74,7 +75,7 @@ public class MapBuilder {
                 org.w3c.dom.Node group = groups.item(i);
                 // Csak a node tipusu elementek erdekelnek minket
                 if (group.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
-                    // Node tipusu entitasok
+                    // model.Node tipusu entitasok
                     if (group.getNodeName().equals("nodes")) {
                         // Megkapjuk a listat ami a nodeokat tartalmazza
                         NodeList nodes = group.getChildNodes();
@@ -86,13 +87,13 @@ public class MapBuilder {
                                 if (!node.getNodeName().equals("node")) {
                                     throw new XMLParseException("Invalid element: " + node.getNodeName());
                                 }
-                                // Node nevenek lekerese (kotelezo attributum)
+                                // model.Node nevenek lekerese (kotelezo attributum)
                                 String nodeName = getNodeAttribute(node, "name");
-                                // Node tipusanak lekerese (kotelezo attributum)
+                                // model.Node tipusanak lekerese (kotelezo attributum)
                                 String nodeType = getNodeAttribute(node, "type");
-                                // Node pozicioja
-                                Coordinate pos = null;
-                                // Node attributumok lekerese, eloszor azokat amik child nodekent vannak tarolva
+                                // model.Node pozicioja
+                                model.util.Coordinate pos = null;
+                                // model.Node attributumok lekerese, eloszor azokat amik child nodekent vannak tarolva
                                 NodeList nodeAttrs = node.getChildNodes();
                                 for (int k = 0; k < nodeAttrs.getLength(); k++) {
                                     org.w3c.dom.Node nodeAttr = nodeAttrs.item(k);
@@ -102,7 +103,7 @@ public class MapBuilder {
                                             case "position":
                                                 String xPos = getNodeAttribute(nodeAttr, "x");
                                                 String yPos = getNodeAttribute(nodeAttr, "y");
-                                                pos = new Coordinate(Integer.parseInt(xPos), Integer.parseInt(yPos));
+                                                pos = new model.util.Coordinate(Integer.parseInt(xPos), Integer.parseInt(yPos));
                                                 break;
                                             case "neighbours":
                                                 NodeList neighbourList = nodeAttr.getChildNodes();
@@ -112,7 +113,7 @@ public class MapBuilder {
                                                 // Minden egyes szomszedot hozzaadunk a listahoz
                                                 for (int l = 0; l < neighbourList.getLength(); l++) {
                                                     org.w3c.dom.Node neighbour = neighbourList.item(l);
-                                                    // Csak a Node tipusuak erdekelnek
+                                                    // Csak a model.Node tipusuak erdekelnek
                                                     if (neighbour.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE) {
                                                         // Hozzaadjuk a listahoz, hogy mi a szomszed neve
                                                         nbList.add(getNodeAttribute(neighbour, "name"));
@@ -141,7 +142,7 @@ public class MapBuilder {
                                         break;
                                     case "station":
                                         String color = getNodeAttribute(node, "color");
-                                        Station station = new Station(pos, new Color(color));
+                                        Station station = new Station(pos, new model.util.Color(color));
                                         station.setName(getNodeAttribute(node, "name"));
                                         map.addNode(station);
                                         nodeList.put(nodeName, station);
@@ -149,7 +150,7 @@ public class MapBuilder {
                                         break;
                                     case "loaderStation":
                                         String loaderColor = getNodeAttribute(node, "color");
-                                        LoaderStation loaderStation = new LoaderStation(pos, new Color(loaderColor));
+                                        LoaderStation loaderStation = new LoaderStation(pos, new model.util.Color(loaderColor));
                                         loaderStation.setName(getNodeAttribute(node, "name"));
                                         map.addNode(loaderStation);
                                         nodeList.put(nodeName, loaderStation);
@@ -168,7 +169,7 @@ public class MapBuilder {
                                 }
                             }
                         }
-                        // Train tipusu entitasok
+                        // model.Train tipusu entitasok
                     } else if (group.getNodeName().equals("trains")) {
                         NodeList trains = group.getChildNodes();
                         for (int j=0; j<trains.getLength(); ++j) {
@@ -193,12 +194,12 @@ public class MapBuilder {
                                         switch (partType) {
                                             case "engine":
                                                 String speed = getNodeAttribute(trainPart, "speed");
-                                                TrainEngine engine = new TrainEngine(tr, new Speed(Integer.parseInt(speed)));
+                                                TrainEngine engine = new TrainEngine(tr, new model.util.Speed(Integer.parseInt(speed)));
                                                 tr.addPart(engine);
                                                 break;
                                             case "cart":
                                                 String color = getNodeAttribute(trainPart, "color");
-                                                TrainCart cart = new TrainCart(tr, new Color(color));
+                                                TrainCart cart = new TrainCart(tr, new model.util.Color(color));
                                                 tr.addPart(cart);
                                                 break;
                                             case "coalWagon":
@@ -238,7 +239,7 @@ public class MapBuilder {
             }
 
             return map;
-        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException | NumberFormatException | NullAttributeException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException | NumberFormatException | model.util.NullAttributeException e) {
             System.err.println("Error while parsing level: " + mapName);
             System.err.println(e.getMessage());
         }
@@ -252,15 +253,15 @@ public class MapBuilder {
      * @param attr the attribute to get
      * @return the node attribute as a String
      * @throws NullPointerException   occurs when the node is null
-     * @throws NullAttributeException occurs when the specified attribute is not found or empty
+     * @throws model.util.NullAttributeException occurs when the specified attribute is not found or empty
      */
-    private static String getNodeAttribute(org.w3c.dom.Node n, String attr) throws NullPointerException, NullAttributeException {
+    private static String getNodeAttribute(org.w3c.dom.Node n, String attr) throws NullPointerException, model.util.NullAttributeException {
         if (n == null) {
             throw new NullPointerException();
         }
         String s = ((Element)n).getAttribute(attr);
         if (s == null || s.equals("")) {
-            throw new NullAttributeException("Attribute is null: " + attr);
+            throw new model.util.NullAttributeException("Attribute is null: " + attr);
         }
         return s;
     }

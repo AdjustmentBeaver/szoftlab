@@ -1,8 +1,9 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import util.Coordinate;
-import util.IDrawable;
-import util.Speed;
+import model.util.Coordinate;
+import model.util.IDrawable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class Node implements Serializable, IDrawable {
     /**
      * A csomópont irányítja a TrainEnginet a következő állomás felé, ha az létezik.
      *
-     * @param te the TrainEngine
+     * @param te the model.TrainEngine
      */
     public void accept(TrainEngine te) {
         accept((TrainPart) te);
@@ -77,7 +78,7 @@ public class Node implements Serializable, IDrawable {
     /**
      * A csomópont irányítja a TrainCartot a következő állomás felé, ha az létezik.
      *
-     * @param tc the TrainCart
+     * @param tc the model.TrainCart
      */
     public void accept(TrainCart tc) {
         accept((TrainPart) tc);
@@ -86,14 +87,14 @@ public class Node implements Serializable, IDrawable {
     /**
      * A csomópont irányítja a TrainCoalWagont a következő állomás felé, ha az létezik.
      *
-     * @param tw the TrainCoalWagon
+     * @param tw the model.TrainCoalWagon
      */
     public void accept(TrainCoalWagon tw) {
         accept((TrainPart) tw);
     }
 
     /**
-     * Megnézi honnan jött az aktuális TrainPart, és a másik node felé irányítja, mint ahonnan jött.
+     * Megnézi honnan jött az aktuális model.TrainPart, és a másik node felé irányítja, mint ahonnan jött.
      *
      * @return the node
      */
@@ -143,7 +144,7 @@ public class Node implements Serializable, IDrawable {
     /**
      * Add neighbour node.
      *
-     * @param n the Node
+     * @param n the model.Node
      */
     public void addNeighbourNode(Node n) {
         neighbourNodeList.add(n);

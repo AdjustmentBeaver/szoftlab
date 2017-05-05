@@ -1,6 +1,8 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import util.Coordinate;
+import model.util.Coordinate;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -30,7 +32,7 @@ public class Switch extends Node {
 
     /**
      * Meghatározza a vonat továbbhaladási irányát. Ha a vonat a root felől jön, akkor az aktív node felé irányíja, ha pedig a másik irányok valamelyikéből, akkor a root felé fog vezetni az irány.
-     * @return  A Switch aktív csomópontja.
+     * @return  A model.Switch aktív csomópontja.
      */
     @Override
     protected Node route() {

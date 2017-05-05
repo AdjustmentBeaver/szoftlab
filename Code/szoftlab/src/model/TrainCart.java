@@ -1,6 +1,8 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.Color;
-import util.Coordinate;
+import model.util.Color;
+import model.util.Coordinate;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -19,7 +21,7 @@ public class TrainCart extends TrainPart {
      * Konstruktor, a Statistics osztályt ismeri, itt kapja meg. Beállításra kerül még, hogy melyik vonathoz tartozik.
      *
      * @param t     A vonat amihez tartozik.
-     * @param color A TrainCart színe.
+     * @param color A model.TrainCart színe.
      */
     public TrainCart(Train t, Color color) {
         super(t);
@@ -28,9 +30,9 @@ public class TrainCart extends TrainPart {
     }
 
     /**
-     *  Visszaadja a TrainCart színét.
+     *  Visszaadja a model.TrainCart színét.
      *
-     * @return A TrainCart színe.
+     * @return A model.TrainCart színe.
      */
     public Color getColor() {
         return color;
@@ -46,7 +48,7 @@ public class TrainCart extends TrainPart {
     }
 
     /**
-     * A TrainCart mozgása.
+     * A model.TrainCart mozgása.
      */
     @Override
     public void move() {

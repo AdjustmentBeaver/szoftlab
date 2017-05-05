@@ -1,19 +1,21 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.BoundingBox;
-import util.Coordinate;
-import util.IDrawable;
+import model.util.BoundingBox;
+import model.util.Coordinate;
+import model.util.IDrawable;
 
 import java.io.Serializable;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
  * <p>
- * Absztrakt bázisosztály vonatelemekhez. A vonatok TrainPartokból állnak, a vonatok mozgatása a TrainPartok mozgatására vezethetö vissza, ezért minden TrainPart mozgatja saját magát. Mozgatáskor érheti el a célpontjául szolgáló adott állomást, és visitor minta szerint meglátogatja, azaz triggereli a node-okat ha elért hozzájuk.
+ * Absztrakt bázisosztály vonatelemekhez. A vonatok TrainPartokból állnak, a vonatok mozgatása a TrainPartok mozgatására vezethetö vissza, ezért minden model.TrainPart mozgatja saját magát. Mozgatáskor érheti el a célpontjául szolgáló adott állomást, és visitor minta szerint meglátogatja, azaz triggereli a node-okat ha elért hozzájuk.
  * </p>
  */
 public abstract class TrainPart implements Serializable, IDrawable {
     /**
-     * A TrainPart pozíciója
+     * A model.TrainPart pozíciója
      */
     protected Coordinate pos;
 
@@ -43,12 +45,12 @@ public abstract class TrainPart implements Serializable, IDrawable {
     protected Train train;
 
     /**
-     * Üres-e a TrainPart
+     * Üres-e a model.TrainPart
      */
     protected boolean isEmpty;
 
     /**
-     * Megadja milyen sugarú körben triggelelődik a csomópont, aminek a közelébe ért a TrainPart
+     * Megadja milyen sugarú körben triggelelődik a csomópont, aminek a közelébe ért a model.TrainPart
      */
     protected double activateRadius;
 
@@ -105,7 +107,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
     }
 
     /**
-     * Beállítja a kapott Node-ot az adott kocsi következő céljának.
+     * Beállítja a kapott model.Node-ot az adott kocsi következő céljának.
      *
      * @param n A következő csomópont
      */
@@ -115,9 +117,9 @@ public abstract class TrainPart implements Serializable, IDrawable {
     }
 
     /**
-     * Visszaadja, hogy a TrainPart melyik Trainhez tartozik.
+     * Visszaadja, hogy a model.TrainPart melyik Trainhez tartozik.
      *
-     * @return A vonat, amihez a TrainPart tartozik.
+     * @return A vonat, amihez a model.TrainPart tartozik.
      */
     public Train getTrain() {
         return train;
@@ -126,7 +128,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
     /**
      * Megvizsgálja, hogy a paraméterül kapott másik trainParttal összeütközött-e.
      *
-     * @param tp A másik TrainPart, amihez hasonlítunk.
+     * @param tp A másik model.TrainPart, amihez hasonlítunk.
      * @return Igaz, ha történt ütközés.
      */
     public boolean checkCollision(TrainPart tp) {

@@ -1,6 +1,8 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.Color;
-import util.Coordinate;
+import model.util.Color;
+import model.util.Coordinate;
 
 /**
  * Created by András on 14/04/2017.
@@ -35,7 +37,7 @@ public class LoaderStation extends Node {
     /**
      * Megivizsgálja, hogy az állomáshoz ért kocsi színe a megegyezik az állomáséval és, hogy
      * a felszállhatnak-e utasok az állomásról.
-     * @param tc Az állomáshoz érő TrainCart
+     * @param tc Az állomáshoz érő model.TrainCart
      */
     @Override
     public void accept(TrainCart tc) {

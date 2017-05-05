@@ -1,3 +1,7 @@
+package model;
+
+import view.View;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +23,19 @@ public class SimulationTimer {
      */
     List<String> events;
 
+    private View view;
+
     /**
      * Instantiates a new Simulation timer.
      */
     public SimulationTimer() {
         subscribers = new ArrayList<>();
         events = new ArrayList<>();
+        view = null;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 
     /**
@@ -38,22 +49,34 @@ public class SimulationTimer {
      * Stop.
      */
     public void stop() {
+
     }
 
     /**
      * Lefuttat egy szimulációs lépést.
      */
     public void step(int stepNum) {
+        /*
+        timer.step(Integer.parseInt(cmd[1]));
+        timer.addEvent("draw");
+        timer.step(0);
+         */
+
         for (String event: events) {
             for (Notifiable sub: subscribers) {
                 sub.update(event);
             }
         }
+
         events.clear();
         for (int i = 0; i < stepNum; i++) {
             for (Notifiable sub : subscribers) {
                 sub.update(null);
             }
+        }
+
+        if (view != null) {
+            view.Update();
         }
     }
 

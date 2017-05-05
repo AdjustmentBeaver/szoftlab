@@ -1,4 +1,4 @@
-package util;
+package model.util;
 
 /**
  * Null attribute exception.

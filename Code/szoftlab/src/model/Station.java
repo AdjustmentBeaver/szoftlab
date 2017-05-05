@@ -1,6 +1,8 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.Color;
-import util.Coordinate;
+import model.util.Color;
+import model.util.Coordinate;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -16,10 +18,10 @@ public class Station extends Node {
     private Color color;
 
     /**
-     * Konstruktor, beállítható az Station színe.
+     * Konstruktor, beállítható az model.Station színe.
      *
-     * @param pos A Station pozíciója.
-     * @param color Az Station színe.
+     * @param pos A model.Station pozíciója.
+     * @param color Az model.Station színe.
      */
     public Station(Coordinate pos, Color color) {
         super(pos);
@@ -27,9 +29,9 @@ public class Station extends Node {
     }
 
     /**
-     * Egy TrainCart-al való találkozáskor fut le. Elvégzi a vizsgálatot, hogy a TrainCart kiüríthető-e.
+     * Egy model.TrainCart-al való találkozáskor fut le. Elvégzi a vizsgálatot, hogy a model.TrainCart kiüríthető-e.
      *
-     * @param tc A TrainCart, amivel iterakcióba lépett.
+     * @param tc A model.TrainCart, amivel iterakcióba lépett.
      */
     @Override
     public void accept(TrainCart tc) {

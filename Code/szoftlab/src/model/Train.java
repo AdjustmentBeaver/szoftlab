@@ -1,8 +1,10 @@
+package model;
+
 import javafx.scene.canvas.GraphicsContext;
-import util.Color;
-import util.Coordinate;
-import util.IDrawable;
-import util.Speed;
+import model.util.Color;
+import model.util.Coordinate;
+import model.util.IDrawable;
+import model.util.Speed;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -62,7 +64,7 @@ public class Train implements Notifiable, Serializable, IDrawable {
     public void move() {
         for (int i = 0; i < trainList.size(); i++){
             if ( this == trainList.get(i)) {
-                System.out.println("Train" + i + " | " + trainPartList.get(0).getNextNode());
+                System.out.println("model.Train" + i + " | " + trainPartList.get(0).getNextNode());
             }
         }
 
@@ -79,7 +81,7 @@ public class Train implements Notifiable, Serializable, IDrawable {
     }
 
     /**
-     * Visszaadja, hogy a Train mozgásban van-e.
+     * Visszaadja, hogy a model.Train mozgásban van-e.
      *
      * @return Igaz, ha a vonat mozgásban van.
      */
@@ -97,16 +99,16 @@ public class Train implements Notifiable, Serializable, IDrawable {
     }
 
     /**
-     * Visszaadja az utolsó nem üres TrainPart színét.
+     * Visszaadja az utolsó nem üres model.TrainPart színét.
      *
-     * @return Az utolsó nem üres TrainPart színe.
+     * @return Az utolsó nem üres model.TrainPart színe.
      */
     public Color getColor() {
         int tpIndex = 1;
         while (tpIndex < trainPartList.size() && trainPartList.get(tpIndex).isEmpty())
             tpIndex++;
 
-        // Ha volt nem üres kocsi - az Engine és a Coalwagon "üresek" ezért nem választódhatnak ki. csak TrainCart
+        // Ha volt nem üres kocsi - az Engine és a Coalwagon "üresek" ezért nem választódhatnak ki. csak model.TrainCart
         if (tpIndex < trainPartList.size())
             return ((TrainCart) trainPartList.get(tpIndex)).getColor();
 
@@ -129,7 +131,7 @@ public class Train implements Notifiable, Serializable, IDrawable {
     }
 
     /**
-     * Ütközés vizsgálata a vonatok között. A vonat minden TrainPart-ját összehasonlítja a az összes többi vonat TrainPart-jával. Minden szimulációs lépésben végrehajtódik.
+     * Ütközés vizsgálata a vonatok között. A vonat minden model.TrainPart-ját összehasonlítja a az összes többi vonat model.TrainPart-jával. Minden szimulációs lépésben végrehajtódik.
      */
     public void checkCollision() {
         // Az összes vonatra nézzük
@@ -151,7 +153,7 @@ public class Train implements Notifiable, Serializable, IDrawable {
     }
 
     /**
-     * Visszaadja a Train-hez tartozó TrainPartok listáját.
+     * Visszaadja a model.Train-hez tartozó TrainPartok listáját.
      *
      * @return A vonathoz tartozó TrainPartok listája.
      */
@@ -160,7 +162,7 @@ public class Train implements Notifiable, Serializable, IDrawable {
     }
 
     /**
-     * A Notifiable interfész megvalósításából származik. Ezen belül történik a mozgatás (move()) és az ütközésvizsgálat (checkCollision()) műveletek hívása.
+     * A model.Notifiable interfész megvalósításából származik. Ezen belül történik a mozgatás (move()) és az ütközésvizsgálat (checkCollision()) műveletek hívása.
      */
     @Override
     public void update(String event) {

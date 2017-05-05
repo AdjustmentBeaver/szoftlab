@@ -1,4 +1,4 @@
-/**
+package model; /**
  * Created by szilard95 on 3/14/17.
  * Project: szoftlab
  */
@@ -9,7 +9,7 @@ import java.io.*;
  * A pályák kezeléséért felelős. <br>
  * Képes menteni egy játékállást, betölteni egy korábban lementettet, vagy újat, és kezeli az ezzel járó
  * feliratkoztatásokat (ld. subscription szekvencia). <br>
- * Tárolja a jelenlegi Map-ot.
+ * Tárolja a jelenlegi model.Map-ot.
  */
 public class MapManager {
     private Game game;
@@ -17,7 +17,7 @@ public class MapManager {
     private SimulationTimer timer;
 
     /**
-     * Instantiates a new Map manager.
+     * Instantiates a new model.Map manager.
      *
      * @param timer the timer
      * @param game  the game
@@ -29,7 +29,7 @@ public class MapManager {
     }
 
     /**
-     * Betölti a paraméterül kapott nevű pályát egy MapBuilder segítségével.
+     * Betölti a paraméterül kapott nevű pályát egy model.MapBuilder segítségével.
      *
      * @param mapName the map name
      */
@@ -73,7 +73,7 @@ public class MapManager {
             ObjectInputStream ser = new ObjectInputStream(new FileInputStream(mapName));
             map = (Map) ser.readObject();
             if (map == null) {
-                System.err.println("Unable to load level: Map is null.");
+                System.err.println("Unable to load level: model.Map is null.");
                 return;
             }
             System.out.println("MAP_LOADED");
