@@ -3,6 +3,8 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import model.util.BoundingBox;
 import model.util.Coordinate;
+import model.util.IDrawable;
+import view.View;
 
 import java.io.Serializable;
 
@@ -12,7 +14,7 @@ import java.io.Serializable;
  * Absztrakt bázisosztály vonatelemekhez. A vonatok TrainPartokból állnak, a vonatok mozgatása a TrainPartok mozgatására vezethetö vissza, ezért minden model.TrainPart mozgatja saját magát. Mozgatáskor érheti el a célpontjául szolgáló adott állomást, és visitor minta szerint meglátogatja, azaz triggereli a node-okat ha elért hozzájuk.
  * </p>
  */
-public abstract class TrainPart implements Serializable {
+public abstract class TrainPart implements Serializable, IDrawable {
     /**
      * A model.TrainPart pozíciója
      */
@@ -173,5 +175,8 @@ public abstract class TrainPart implements Serializable {
         return "pos = "+pos+" next = ["+nextNode+"] empty = "+isEmpty;
     }
 
-
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }

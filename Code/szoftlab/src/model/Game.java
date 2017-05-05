@@ -4,6 +4,7 @@ import controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import view.View;
 
@@ -42,7 +43,8 @@ public class Game extends Application implements Serializable {
         ctrl.setModel(this);
         timer = new SimulationTimer();
         mapManager = new MapManager(timer, this);
-        view = new View(root, mapManager, ctrl);
+        view = new View(mapManager, ctrl);
+        view.setScene(new Scene(root, view.getWidth(), view.getHeight()));
         timer.setView(view);
     }
 
@@ -58,7 +60,7 @@ public class Game extends Application implements Serializable {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Szoftlab");
-        primaryStage.setScene(view);
+        primaryStage.setScene(view.getScene());
         primaryStage.show();
     }
 

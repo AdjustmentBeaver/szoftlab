@@ -3,37 +3,58 @@ package view;
 import controller.Controller;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import model.MapManager;
-import model.Node;
-import model.Train;
-import model.TrainPart;
+import model.*;
 
-public class View extends Scene {
-    private Controller ctrl;
-    private MapManager mapManager;
+public class View {
+    protected Controller ctrl;
+    protected MapManager mapManager;
+    private NodeView nodeView;
+    private TrainView trainView;
+    private Scene scene;
 
-    public View(Parent root, MapManager mapManager, Controller ctrl) {
-        super(root, 640, 640);
+    protected View() {
+    }
+
+    public View(MapManager mapManager, Controller ctrl) {
         this.mapManager = mapManager;
         this.ctrl = ctrl;
+        GraphicsContext gc = ctrl.getCanvasGC();
+        nodeView = new NodeView(gc);
+        trainView = new TrainView(gc);
     }
 
     public void Update() {
         ctrl.getCanvasGC().clearRect(0, 0, ctrl.getCanvasGC().getCanvas().getWidth(), ctrl.getCanvasGC().getCanvas().getHeight());
-        ctrl.getCanvasGC().setFill(Color.BLACK);
+        Map m = mapManager.getMap();
+        nodeView.draw(m);
+        trainView.draw(m);
+        nodeView.drawTunnel();
+    }
 
-        for (Node n : mapManager.getMap().getNodeList()) {
-            ctrl.getCanvasGC().fillRect(n.getPos().getX() - 5, n.getPos().getY() - 5, 10, 10);
-            for (Node nb : mapManager.getMap().getNeighborList().get(n)) {
-                ctrl.getCanvasGC().strokeLine(n.getPos().getX(), n.getPos().getY(), nb.getPos().getX(), nb.getPos().getY());
-            }
-        }
-        ctrl.getCanvasGC().setFill(Color.BLUE);
-        for (Train t : mapManager.getMap().getTrainList()) {
-            for (TrainPart tp : t.getPartList()) {
-                ctrl.getCanvasGC().fillOval(tp.getPos().getX() - 5, tp.getPos().getY() - 5, 10, 10);
-            }
-        }
+    public void draw(TrainPart trainPart) {}
+    public void draw(TrainCart trainCart) {}
+    public void draw(TrainEngine trainEngine) {}
+    public void draw(TrainCoalWagon trainCoalWagon) {}
+    public void draw(Node node) {}
+    public void draw(Station station) {}
+    public void draw(Switch sw) {}
+    public void draw(SpecialPlace tunnel) {}
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public double getHeight() {
+        return 640;
+    }
+
+    public double getWidth() {
+        return 640;
     }
 }

@@ -3,6 +3,8 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.util.Coordinate;
+import model.util.IDrawable;
+import view.View;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
 /**
  * A TrainPartok következő úticélját határozza meg. A csomópontok gráfot alkotnak.
  */
-public class Node implements Serializable {
+public class Node implements Serializable, IDrawable {
     /**
      * The Neighbour node list.
      */
@@ -154,4 +156,8 @@ public class Node implements Serializable {
         return "type=node " + "pos=" + pos;
     }
 
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }
