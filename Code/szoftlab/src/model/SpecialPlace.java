@@ -62,9 +62,10 @@ public class SpecialPlace extends Node {
      */
     @Override
     protected Node route() {
+        Node nb = super.route();
         for(SpecialPlace sp: spList){
             if (sp.isConstructed && sp != this)
-                return sp;
+                return nb;
         }
         return null;
     }
