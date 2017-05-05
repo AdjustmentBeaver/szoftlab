@@ -61,11 +61,11 @@ public class Train implements Notifiable, Serializable {
      * Mozgatja a Traint és minden elemét.
      */
     public void move() {
-        for (int i = 0; i < trainList.size(); i++){
-            if ( this == trainList.get(i)) {
-                System.out.println("model.Train" + i + " | " + trainPartList.get(0).getNextNode());
-            }
-        }
+//        for (int i = 0; i < trainList.size(); i++){
+//            if ( this == trainList.get(i)) {
+//                System.out.println("model.Train" + i + " | " + trainPartList.get(0).getNextNode());
+//            }
+//        }
 
         for (TrainPart tp : trainPartList){
             tp.move();
