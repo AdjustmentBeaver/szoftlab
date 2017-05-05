@@ -25,7 +25,7 @@ public class Controller {
     }
 
     public void stepEventHandler(ActionEvent actionEvent){
-
+        game.step(1);
     }
 
     public void newEventHandler(ActionEvent actionEvent) {
@@ -33,7 +33,7 @@ public class Controller {
     }
 
     public void step10EventHandler(ActionEvent actionEvent) {
-
+        game.step(10);
     }
 
     public void canvasClickHandler(MouseEvent mouseEvent) {

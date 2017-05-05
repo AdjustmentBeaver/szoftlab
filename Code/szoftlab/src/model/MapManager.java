@@ -97,4 +97,8 @@ public class MapManager {
             return;
         }
     }
+
+    public Map getMap() {
+        return map;
+    }
 }

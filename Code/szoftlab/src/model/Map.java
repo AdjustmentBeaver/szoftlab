@@ -4,6 +4,7 @@ import model.util.Coordinate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,6 +18,16 @@ import java.util.List;
  */
 public class Map implements Serializable, Notifiable {
     private List<Node> nodeList;
+
+    public java.util.Map<Node, ArrayList<Node>> getNeighborList() {
+        return neighborList;
+    }
+
+    public void setNeighborList(java.util.Map<Node, ArrayList<Node>> neighborList) {
+        this.neighborList = neighborList;
+    }
+
+    private java.util.Map<Node, ArrayList<Node>> neighborList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
     private Game game;
@@ -28,6 +39,7 @@ public class Map implements Serializable, Notifiable {
     public Map(Game game) {
         trainList = new ArrayList<>();
         nodeList = new ArrayList<>();
+        neighborList = new HashMap<>();
         notifiables = new ArrayList<>();
         this.game = game;
     }
@@ -166,5 +178,9 @@ public class Map implements Serializable, Notifiable {
                     break;
             }
         }
+    }
+
+    public List<Node> getNodeList() {
+        return nodeList;
     }
 }

@@ -139,4 +139,8 @@ public class Game extends Application implements Serializable {
     public void lost() {
         System.out.println("EXPLODE");
     }
+
+    public void step(int n){
+        timer.step(n);
+    }
 }

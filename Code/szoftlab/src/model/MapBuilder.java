@@ -231,12 +231,23 @@ public class MapBuilder {
                     actNode.addNeighbourNode(nodeList.get(nbName));
                 }
             }
+            // Szomszedsagi lista generalasa Node-Node eset
+            HashMap<Node, ArrayList<Node>> neighbourList = new HashMap<>();
+            for (java.util.Map.Entry<String, ArrayList<String>> e: nodeNeighbours.entrySet()) {
+                ArrayList<Node> neighbours = new ArrayList<>();
+                for (String s : e.getValue()) {
+                    neighbours.add(nodeList.get(s));
+                }
+                neighbourList.put(nodeList.get(e.getKey()), neighbours);
+            }
+            map.setNeighborList(neighbourList);
 
             return map;
         } catch (ParserConfigurationException | SAXException | IOException | XMLParseException | NullPointerException | NumberFormatException | model.util.NullAttributeException e) {
             System.err.println("Error while parsing level: " + mapName);
             System.err.println(e.getMessage());
         }
+
         return null;
     }
 
