@@ -3,6 +3,7 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import model.util.Color;
 import model.util.Coordinate;
+import view.View;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -48,5 +49,8 @@ public class Station extends Node {
     public String toString() {
         return "type=station " + "pos=" + pos + " color=" + color;
     }
-
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }

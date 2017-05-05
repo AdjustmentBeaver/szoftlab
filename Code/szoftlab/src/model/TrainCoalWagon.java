@@ -2,6 +2,7 @@ package model;
 
 import javafx.scene.canvas.GraphicsContext;
 import model.util.Coordinate;
+import view.View;
 
 /**
  * <p>
@@ -31,5 +32,8 @@ public class TrainCoalWagon extends TrainPart {
             nextNode.accept(this);
         }
     }
-
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }

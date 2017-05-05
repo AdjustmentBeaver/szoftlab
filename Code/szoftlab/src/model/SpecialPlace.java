@@ -3,6 +3,7 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.util.Coordinate;
+import view.View;
 
 import java.util.List;
 
@@ -89,5 +90,8 @@ public class SpecialPlace extends Node {
         return "type=specialPlace " + "pos=" + pos + " isConstructed=" + isConstructed;
     }
 
-
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }

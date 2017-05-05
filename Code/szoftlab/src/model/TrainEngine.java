@@ -3,6 +3,7 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import model.util.Coordinate;
 import model.util.Speed;
+import view.View;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -48,5 +49,8 @@ public class TrainEngine extends TrainPart {
             nextNode.accept(this);
         }
     }
-
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }

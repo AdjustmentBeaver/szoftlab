@@ -3,6 +3,7 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import model.util.Color;
 import model.util.Coordinate;
+import view.View;
 
 /**
  * Created by Istvan Telek on 3/14/2017.
@@ -65,4 +66,8 @@ public class TrainCart extends TrainPart {
         isEmpty = false;
     }
 
+    @Override
+    public void draw(View view) {
+        view.draw(this);
+    }
 }
