@@ -47,11 +47,12 @@ public class TrainView extends View {
 
     private void drawSprite(TrainPart trainPart, Image sprite) {
         ImageView iv = new ImageView(sprite);
-        iv.setRotate(Math.toDegrees(Math.acos(Coordinate.dot(trainPart.getDirection(),new Coordinate(1,0)))));
+        Coordinate dir = trainPart.getDirection() == null ? new Coordinate(1, 0) : trainPart.getDirection();
+        iv.setRotate(Math.toDegrees(Math.acos(Coordinate.dot(dir, new Coordinate(1, 0)))));
         SnapshotParameters param = new SnapshotParameters();
         param.setFill(Color.TRANSPARENT);
         Image rotatedImage = iv.snapshot(param, null);
-        graphicsContext.drawImage(rotatedImage, trainPart.getPos().getX()-rotatedImage.getWidth()/2, trainPart.getPos().getY()-rotatedImage.getHeight()/2);
+        graphicsContext.drawImage(rotatedImage, trainPart.getPos().getX() - rotatedImage.getWidth() / 2, trainPart.getPos().getY() - rotatedImage.getHeight() / 2);
     }
 
     @Override

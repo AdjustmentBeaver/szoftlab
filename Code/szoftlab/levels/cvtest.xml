@@ -31,10 +31,12 @@
                 <neighbour name="nd5"/>
             </neighbours>
         </node>
-        <node type="node" name="node4">
+        <node type="specialPlace" name="node4">
             <position x="300" y="20"/>
             <neighbours>
                 <neighbour name="node2"/>
+                <neighbour name="nd8"/>
+
             </neighbours>
         </node>
         <node type="node" name="nd5">
@@ -58,10 +60,11 @@
                 <neighbour name="nd8"/>
             </neighbours>
         </node>
-        <node type="node" name="nd8">
+        <node type="specialPlace" name="nd8">
             <position x="300" y="300"/>
             <neighbours>
                 <neighbour name="nd7"/>
+                <neighbour name="node4"/>
             </neighbours>
         </node>
     </nodes>

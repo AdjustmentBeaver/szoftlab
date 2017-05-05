@@ -7,6 +7,7 @@ import model.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by szilard95 on 5/5/17.
@@ -18,10 +19,11 @@ public class NodeView extends View {
     private Image spriteSwitch;
     private Image spriteStation;
 
-    private SpecialPlace tunnels[];
+    private ArrayList<SpecialPlace> tunnels = new ArrayList<>();
 
     public NodeView(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
+        graphicsContext.setLineWidth(12);
         try {
             spriteNode = new Image(new FileInputStream("sprites/Node.png"));
             spriteSpecialPlace = new Image(new FileInputStream("sprites/Node.png"));
@@ -66,9 +68,13 @@ public class NodeView extends View {
     @Override
     public void draw(SpecialPlace tunnel) {
         drawSprite(tunnel);
+        if (tunnel.isConstructed) tunnels.add(tunnel);
     }
 
     public void drawTunnel() {
-
+        graphicsContext.setStroke(Color.RED);
+        if(tunnels.size()==2)
+            graphicsContext.strokeLine(tunnels.get(0).getPos().getX(), tunnels.get(0).getPos().getY(), tunnels.get(1).getPos().getX(), tunnels.get(1).getPos().getY());
+        tunnels.clear();
     }
 }
