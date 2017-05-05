@@ -104,7 +104,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
     public void move(){
         double speed = train.getSpeed().getSpeedAsDouble();
         // Új pozíció beállítása
-        setPos(new Coordinate((pos.getX() + direction.getX()) * speed, (pos.getY() + direction.getY()) * speed));
+        setPos(new Coordinate((pos.getX() + direction.getX() * speed), (pos.getY() + direction.getY() * speed)));
     }
 
     /**
