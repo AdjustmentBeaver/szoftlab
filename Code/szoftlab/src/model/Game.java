@@ -116,6 +116,11 @@ public class Game extends Application implements Serializable {
     }
 
     /**
+     *  Megadja, hogy jelenleg fut-e a játék
+     */
+    public boolean isRunning() { return simRunning; }
+
+    /**
      * New game.
      * <br>
      * Megállítja a szimulációt, majd szól a MapManagernek, hogy hozzon létre egy új pályát, végül pedig elindítja azt.
