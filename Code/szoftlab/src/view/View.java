@@ -26,7 +26,8 @@ public class View {
     }
 
     public void Update() {
-        ctrl.getCanvasGC().clearRect(0, 0, ctrl.getCanvasGC().getCanvas().getWidth(), ctrl.getCanvasGC().getCanvas().getHeight());
+        ctrl.getCanvasGC().setFill(Color.GREEN);
+        ctrl.getCanvasGC().fillRect(0, 0, ctrl.getCanvasGC().getCanvas().getWidth(), ctrl.getCanvasGC().getCanvas().getHeight());
         Map m = mapManager.getMap();
         nodeView.draw(m);
         trainView.draw(m);

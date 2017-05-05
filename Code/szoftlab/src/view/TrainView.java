@@ -1,31 +1,31 @@
 package view;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import model.Map;
-import model.Train;
-import model.TrainPart;
+import model.*;
+import model.util.Coordinate;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by szilard95 on 5/5/17.
  */
-public class TrainView extends View{
+public class TrainView extends View {
     private GraphicsContext graphicsContext;
-    private BufferedImage spriteTrainEngine;
-    private BufferedImage spriteTrainCoalWagon;
-    private BufferedImage spriteTrainCart;
+    private Image spriteTrainEngine;
+    private Image spriteTrainCoalWagon;
+    private Image spriteTrainCart;
 
     public TrainView(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
         try {
-            spriteTrainCart = ImageIO.read(new java.io.File("sprites/TrainCart.png"));
-            spriteTrainCoalWagon = ImageIO.read(new java.io.File("sprites/TrainCoalWagon.png"));
-            spriteTrainEngine = ImageIO.read(new java.io.File("sprites/TrainEngine.png"));
+            spriteTrainCart = new Image(new FileInputStream("sprites/TrainCart.png"));
+            spriteTrainCoalWagon = new Image(new FileInputStream("sprites/TrainCart.png"));
+            spriteTrainEngine = new Image(new FileInputStream("sprites/TrainCart.png"));
         } catch (IOException e) {
             System.err.println("ERROR LOADING TRAIN SPRITES. RESISTANCE IS FUTILE.");
         }
@@ -35,8 +35,32 @@ public class TrainView extends View{
         graphicsContext.setFill(Color.BLUE);
         for (Train t : map.getTrainList()) {
             for (TrainPart tp : t.getPartList()) {
-                graphicsContext.fillOval(tp.getPos().getX() - 5, tp.getPos().getY() - 5, 10, 10);
+                tp.draw(this);
             }
         }
+    }
+
+    @Override
+    public void draw(TrainCart trainCart) {
+        drawSprite(trainCart, spriteTrainCart);
+    }
+
+    private void drawSprite(TrainPart trainPart, Image sprite) {
+        ImageView iv = new ImageView(sprite);
+        iv.setRotate(Math.toDegrees(Math.acos(Coordinate.dot(trainPart.getDirection(),new Coordinate(1,0)))));
+        SnapshotParameters param = new SnapshotParameters();
+        param.setFill(Color.TRANSPARENT);
+        Image rotatedImage = iv.snapshot(param, null);
+        graphicsContext.drawImage(rotatedImage, trainPart.getPos().getX()-rotatedImage.getWidth()/2, trainPart.getPos().getY()-rotatedImage.getHeight()/2);
+    }
+
+    @Override
+    public void draw(TrainEngine trainEngine) {
+        drawSprite(trainEngine, spriteTrainEngine);
+    }
+
+    @Override
+    public void draw(TrainCoalWagon trainCoalWagon) {
+        drawSprite(trainCoalWagon, spriteTrainCoalWagon);
     }
 }
