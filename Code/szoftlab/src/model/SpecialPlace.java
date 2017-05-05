@@ -45,7 +45,17 @@ public class SpecialPlace extends Node {
     @Override
     public void activate() {
         boolean trainOnMe = checkForTrain();
-        if (isConstructed && !trainOnMe){
+        SpecialPlace nb = null;
+        for(SpecialPlace sp: spList){
+            if (sp.isConstructed && sp != this)
+                nb = sp;
+        }
+        boolean trainOnNb = false;
+        if (nb != null) {
+            trainOnNb = nb.checkForTrain();
+        }
+
+        if (isConstructed && !trainOnMe && !trainOnNb){
             isConstructed = false;
         } else {
             boolean canConstruct = canConstruct();
