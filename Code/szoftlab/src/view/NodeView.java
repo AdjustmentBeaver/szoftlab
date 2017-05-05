@@ -48,26 +48,26 @@ public class NodeView extends View {
 
     @Override
     public void draw(Node node) {
-        drawSprite(node);
+        drawSprite(node,spriteNode);
     }
 
-    private void drawSprite(Node node) {
-        graphicsContext.drawImage(spriteNode, node.getPos().getX() - spriteNode.getWidth() / 2, node.getPos().getY() - spriteNode.getHeight() / 2);
+    private void drawSprite(Node node, Image sprite) {
+        graphicsContext.drawImage(sprite, node.getPos().getX() - spriteNode.getWidth() / 2, node.getPos().getY() - spriteNode.getHeight() / 2);
     }
 
     @Override
     public void draw(Station station) {
-        drawSprite(station);
+        drawSprite(station,spriteStation);
     }
 
     @Override
     public void draw(Switch sw) {
-        drawSprite(sw);
+        drawSprite(sw,spriteSwitch);
     }
 
     @Override
     public void draw(SpecialPlace tunnel) {
-        drawSprite(tunnel);
+        drawSprite(tunnel,spriteSpecialPlace);
         if (tunnel.isConstructed) tunnels.add(tunnel);
     }
 
