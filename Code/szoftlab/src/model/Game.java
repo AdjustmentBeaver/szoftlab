@@ -24,6 +24,7 @@ public class Game extends Application implements Serializable {
     private boolean wasRunning = false;
     private boolean simRunning = false;
     private View view;
+    private String level;
 
     /**
      * Instantiates a new model.Game.
@@ -129,7 +130,8 @@ public class Game extends Application implements Serializable {
      */
     public void newGame(String nextLevel) {
         stopGame();
-        mapManager.newMap("levels/" + nextLevel + ".xml");
+        level="levels/" + nextLevel + ".xml";
+        mapManager.newMap(level);
         startGame();
     }
 
@@ -139,10 +141,13 @@ public class Game extends Application implements Serializable {
     public void won() {
     }
 
+
     /**
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
+        System.out.println("EXPLODE");
+        mapManager.newMap(level);
     }
 
     public void step(int n) {
