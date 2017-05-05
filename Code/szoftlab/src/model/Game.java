@@ -146,7 +146,6 @@ public class Game extends Application implements Serializable {
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-        System.out.println("EXPLODE");
         mapManager.newMap(level);
     }
 
