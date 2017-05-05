@@ -41,17 +41,20 @@ public class Coordinate implements Serializable{
     /**
      * Normalizálja a vektort
      */
-    public void normalize(){
-        x *= (1 / getLength());
-        y *= (1 / getLength());
+    public Coordinate normalize(){
+        if (length() > 0.0001 || length() < -0.0001) {
+            return new Coordinate(x / length(), y / length());
+        } else {
+            return new Coordinate(0, 0);
+        }
     }
 
     /**
      * Visszaadja a vektor hosszát
      * @return Vektor hossza
      */
-    public double getLength(){
-        return Math.sqrt(Math.pow(x,2) + Math.pow(y,2));
+    public double length(){
+        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
     /**
@@ -61,6 +64,18 @@ public class Coordinate implements Serializable{
      */
     public double getDistanceTo(Coordinate p) {
         return Math.sqrt(Math.pow(x-p.getX(),2) + Math.pow(y-p.getY(),2));
+    }
+
+    public Coordinate add(Coordinate c) {
+        return new Coordinate(x + c.x, y + c.y);
+    }
+
+    public Coordinate substract(Coordinate c) {
+        return new Coordinate(x - c.x, y - c.y);
+    }
+
+    public Coordinate scale(double d) {
+        return new Coordinate(x * d, y * d);
     }
 
     @Override

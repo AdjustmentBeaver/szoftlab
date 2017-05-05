@@ -137,17 +137,17 @@ public class Game extends Application implements Serializable {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
-        System.out.println("MAP_COMPLETED");
     }
 
     /**
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-        System.out.println("EXPLODE");
     }
 
-    public void step(int n){
-        timer.step(n);
+    public void step(int n) {
+        if (mapManager.getMap() != null) {
+            timer.step(n);
+        }
     }
 }

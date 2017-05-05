@@ -61,12 +61,6 @@ public class Train implements Notifiable, Serializable {
      * Mozgatja a Traint és minden elemét.
      */
     public void move() {
-//        for (int i = 0; i < trainList.size(); i++){
-//            if ( this == trainList.get(i)) {
-//                System.out.println("model.Train" + i + " | " + trainPartList.get(0).getNextNode());
-//            }
-//        }
-
         for (TrainPart tp : trainPartList){
             tp.move();
         }
@@ -120,12 +114,17 @@ public class Train implements Notifiable, Serializable {
      */
     public void startTrain() {
         isRunning = true;
-        Coordinate startcord= new  Coordinate(startNode.getPos().getX()-1,startNode.getPos().getY()-1);
-        for (TrainPart T:trainPartList) {
-            T.setNextNode(startNode);
-            T.setPos(startcord);
-            T.setActivateRadius(((TrainEngine)trainPartList.get(0)).getSpeed().getSpeedAsDouble() / 2.0 + 0.01);
-            startcord = new Coordinate(startcord.getX()-20,startcord.getY()-20);
+        Coordinate direction = new Coordinate(1, 1).normalize();
+        Node nb = startNode.neighbourNodeList.get(0);
+        if ((nb) != null) {
+            direction = startNode.getPos().substract(nb.getPos()).normalize();
+        }
+        Coordinate startcord = startNode.getPos();
+        for (TrainPart tp : trainPartList) {
+            tp.setNextNode(startNode);
+            tp.setPos(startcord);
+            tp.setActivateRadius(((TrainEngine)trainPartList.get(0)).getSpeed().toDouble());
+            startcord = startcord.substract(direction.scale(-20));
         }
     }
 

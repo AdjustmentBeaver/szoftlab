@@ -38,7 +38,6 @@ public class MapManager {
         mapBuilder.setGame(game);
         map = mapBuilder.buildMap();
         if (map != null) {
-            System.out.println("MAP_CREATED");
             map.subscribe(timer);
         }
     }
@@ -56,7 +55,6 @@ public class MapManager {
             System.out.println(mapName);
             ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(mapName));
             ser.writeObject(map);
-            System.out.println("MAP_SAVED");
             ser.close();
         } catch (IOException e) {
             System.err.println("Unable to save level: " + e.getMessage());
@@ -79,8 +77,6 @@ public class MapManager {
                 System.err.println("Unable to load level: model.Map is null.");
                 return;
             }
-            System.out.println("MAP_LOADED");
-            // map = newMap
             map.subscribe(timer);
         } catch (StreamCorruptedException e) {
             System.err.println("Unable to load level " + mapName + ": data file is corrupted.");

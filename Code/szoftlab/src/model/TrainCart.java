@@ -42,9 +42,7 @@ public class TrainCart extends TrainPart {
      * Kiüríti a kocsit. Beállítja semleges színűre és triggereli a Statistics osztály ürítéseket számláló függvényét.
      */
     public void unload() {
-        System.out.println("Color: " + color + " UNLOADED");
         isEmpty = true;
-        //st.cartUnloaded();
     }
 
     /**
@@ -55,10 +53,7 @@ public class TrainCart extends TrainPart {
         super.move();
 
         // Ha közel ér a csomóponthoz
-        double length = new Coordinate(nextNode.getPos().getX() - getPos().getX(),
-                                        nextNode.getPos().getY() - getPos().getY())
-                                        .getLength();
-        if (length < activateRadius){
+        if (nextNode.getPos().substract(pos).length() <= activateRadius){
             nextNode.accept(this);
         }
     }
@@ -67,7 +62,6 @@ public class TrainCart extends TrainPart {
      * Utasok felszállása a kocsira
      */
     public void load() {
-        System.out.println("Color: " + color + " LOADED");
         isEmpty = false;
     }
 

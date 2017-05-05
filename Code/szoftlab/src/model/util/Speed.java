@@ -12,7 +12,7 @@ public class Speed implements Serializable {
         this.speed = speed;
     }
 
-    public double getSpeedAsDouble(){
+    public double toDouble(){
         return speed;
     }
 }

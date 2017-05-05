@@ -87,10 +87,7 @@ public class BoundingBox implements Serializable {
                 return false;
         }
 
-        if (numOfOverLaps == 4)
-            return true;
-        else
-            return false;
+        return numOfOverLaps == 4;
     }
 
     /**
@@ -120,10 +117,8 @@ public class BoundingBox implements Serializable {
             if (scalar > Bmax) Bmax = scalar;
         }
 
-        if (Bmin <= Amax && Bmax >= Amin)
-            return true;
+        return Bmin <= Amax && Bmax >= Amin;
 
-        return false;
     }
 
     /**
@@ -133,8 +128,7 @@ public class BoundingBox implements Serializable {
      * @return A tengelyen elfoglalt hely - Skalár szám
      */
     private double getScalarForCollision(Coordinate point, Coordinate axis){
-        double projConst = (point.getX() * axis.getX() + point.getY() * axis.getY())/(Math.pow(axis.getX(),2) + Math.pow(axis.getY(),2));
-        double pointScalar = projConst * Math.pow(point.getX(),2) + projConst * Math.pow(point.getY(),2);
-        return pointScalar;
+        double projConst = (point.getX() * axis.getX() + point.getY() * axis.getY()) / (Math.pow(axis.getX(),2) + Math.pow(axis.getY(),2));
+        return projConst * Math.pow(point.getX(),2) + projConst * Math.pow(point.getY(),2);
     }
 }

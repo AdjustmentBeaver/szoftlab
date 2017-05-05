@@ -164,18 +164,6 @@ public class Map implements Serializable, Notifiable {
                     Coordinate pos = new Coordinate(Double.parseDouble(evt[1]), Double.parseDouble(evt[2]));
                     activateNode(pos);
                     break;
-                case "listNodes":
-                    i = 0;
-                    for (Node n: nodeList) {
-                        System.out.println("model.Node (" + i++ + ") " + n.toString());
-                    }
-                    break;
-                case "listTrains":
-                    i = 0;
-                    for (Train t: trainList) {
-                        System.out.println("model.Train (" + i++ + ") " + t.toString());
-                    }
-                    break;
             }
         }
     }

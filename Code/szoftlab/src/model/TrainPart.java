@@ -25,6 +25,10 @@ public abstract class TrainPart implements Serializable, IDrawable {
      */
     private BoundingBox boundingBox;
 
+    public Coordinate getDirection() {
+        return direction;
+    }
+
     /**
      * Irány, amiben a kocsi halad
      */
@@ -87,24 +91,17 @@ public abstract class TrainPart implements Serializable, IDrawable {
      */
     public void setPos(Coordinate pos) {
         this.pos = pos;
-
-        // Irány beállítása
-        Coordinate nextNodePosition = nextNode.getPos();
-        direction = new Coordinate( nextNodePosition.getX() - pos.getX(),
-                nextNodePosition.getY() - pos.getY());
-        direction.normalize();
-
+        direction = nextNode.getPos().substract(pos).normalize();
         // BoundingBox frissítés
-        boundingBox = new BoundingBox(this.pos, direction);
+        boundingBox = new BoundingBox(pos, direction);
     }
 
     /**
      * Mozgatja a TrainPartot. Absztrakt, a leszármazottak valósítják meg..
      */
     public void move(){
-        double speed = train.getSpeed().getSpeedAsDouble();
         // Új pozíció beállítása
-        setPos(new Coordinate((pos.getX() + direction.getX() * speed), (pos.getY() + direction.getY() * speed)));
+        setPos(pos.add(direction.scale(train.getSpeed().toDouble())));
     }
 
     /**

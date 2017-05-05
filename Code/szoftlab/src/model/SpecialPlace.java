@@ -45,12 +45,10 @@ public class SpecialPlace extends Node {
     public void activate() {
         boolean trainOnMe = checkForTrain();
         if (isConstructed && !trainOnMe){
-            System.out.println(name + " DESTRUCTED");
             isConstructed = false;
         } else {
             boolean canConstruct = canConstruct();
             if (!trainOnMe && canConstruct) {
-                System.out.println(name + " CONSTRUCTED");
                 isConstructed = true;
             }
         }
