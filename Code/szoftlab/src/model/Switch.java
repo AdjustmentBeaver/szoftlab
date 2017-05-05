@@ -85,10 +85,4 @@ public class Switch extends Node {
         return "type=switch " + "pos=" + pos+" active=["+activeNode+"]";
     }
 
-    @Override
-    public void Draw(GraphicsContext gc) {
-        gc.setFill(Color.BROWN);
-        gc.setLineWidth(0);
-        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
-    }
 }

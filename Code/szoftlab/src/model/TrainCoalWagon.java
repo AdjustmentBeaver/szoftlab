@@ -35,10 +35,4 @@ public class TrainCoalWagon extends TrainPart {
         }
     }
 
-    @Override
-    public void Draw(GraphicsContext gc) {
-        gc.setFill(javafx.scene.paint.Color.BLACK);
-        gc.setLineWidth(0);
-        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
-    }
 }

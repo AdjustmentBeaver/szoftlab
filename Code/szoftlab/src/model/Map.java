@@ -1,8 +1,6 @@
 package model;
 
-import javafx.scene.canvas.GraphicsContext;
 import model.util.Coordinate;
-import model.util.IDrawable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,7 +19,6 @@ public class Map implements Serializable, Notifiable {
     private List<Node> nodeList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
-    private List<IDrawable> drawables;
     private Game game;
 
     /**
@@ -32,7 +29,6 @@ public class Map implements Serializable, Notifiable {
         trainList = new ArrayList<>();
         nodeList = new ArrayList<>();
         notifiables = new ArrayList<>();
-        drawables = new ArrayList<>();
         this.game = game;
     }
 
@@ -111,9 +107,6 @@ public class Map implements Serializable, Notifiable {
         notifiables.add(n);
     }
 
-    public void addDrawable(IDrawable d) {
-        drawables.add(d);
-    }
 
     /**
      * Gets train list.

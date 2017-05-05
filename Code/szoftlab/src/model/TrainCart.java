@@ -71,14 +71,4 @@ public class TrainCart extends TrainPart {
         isEmpty = false;
     }
 
-    @Override
-    public void Draw(GraphicsContext gc) {
-        if (isEmpty) {
-            gc.setFill(javafx.scene.paint.Color.GRAY);
-        } else {
-            gc.setFill(javafx.scene.paint.Color.RED);
-        }
-        gc.setLineWidth(0);
-        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
-    }
 }

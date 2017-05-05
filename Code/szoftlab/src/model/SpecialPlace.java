@@ -91,10 +91,5 @@ public class SpecialPlace extends Node {
         return "type=specialPlace " + "pos=" + pos + " isConstructed=" + isConstructed;
     }
 
-    @Override
-    public void Draw(GraphicsContext gc) {
-        gc.setFill(Color.YELLOW);
-        gc.setLineWidth(0);
-        gc.fillRoundRect(this.pos.getX()-10, this.pos.getY()-10, 20, 20,20, 20);
-    }
+
 }
