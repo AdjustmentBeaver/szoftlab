@@ -7,7 +7,7 @@
 <BorderPane id="mainBorderPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.Controller">
     <stylesheets>
-        <URL value="@../application.css" />
+        <URL value="@../application.css"/>
     </stylesheets>
     <top>
         <MenuBar id="mainMenuBar" BorderPane.alignment="CENTER">
@@ -32,7 +32,7 @@
         </MenuBar>
     </top>
     <center>
-        <Canvas styleClass="gameCanvas" fx:id="cvGame" height="480.0" onMouseClicked="#canvasClickHandler" width="640.0"
+        <Canvas styleClass="gameCanvas" fx:id="cvGame" height="600.0" onMouseClicked="#canvasClickHandler" width="800.0"
                 BorderPane.alignment="CENTER"/>
     </center>
     <bottom>

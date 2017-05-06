@@ -5,9 +5,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import view.View;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -138,6 +143,14 @@ public class Game extends Application implements Serializable {
      */
     public void won() {
         stopGame();
+        new MediaPlayer(new Media(new File("sound/applause.mp3").toURI().toString())).play();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Train Simulator 2017");
+        alert.setHeaderText(null);
+        alert.setContentText("Gratulálunk, nyertél!");
+        ButtonType nextButton = new ButtonType("Következő pálya");
+        alert.getButtonTypes().setAll(nextButton);
+        alert.showAndWait();
         mapManager.nextMap();
         startGame();
     }
@@ -148,6 +161,12 @@ public class Game extends Application implements Serializable {
      */
     public void lost() {
         stopGame();
+        new MediaPlayer(new Media(new File("sound/explosion.mp3").toURI().toString())).play();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Train Simulator 2017");
+        alert.setHeaderText(null);
+        alert.setContentText("Sajnálom, vesztettél!");
+        alert.showAndWait();
         mapManager.newMap(mapManager.getMap().getMapName());
         startGame();
     }
