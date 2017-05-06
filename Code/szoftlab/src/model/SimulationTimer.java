@@ -26,7 +26,6 @@ public class SimulationTimer {
     private boolean running = false;
     private View view;
     private Simulation simTask;
-    private final Object syncObject=new Object();
     private Thread th;
 
     /**
@@ -53,44 +52,42 @@ public class SimulationTimer {
         th = new Thread(simTask);
         th.setDaemon(true);
         th.start();
-        running=true;
+        running = true;
     }
 
     /**
      * Stop.
      */
     public void stop() {
-        if (!running||simTask==null) return;
+        if (!running || simTask == null) return;
         simTask.cancel();
         try {
             th.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        running=false;
+        running = false;
     }
 
     /**
      * Lefuttat egy szimulációs lépést.
      */
-    public void step(int stepNum) {
-        synchronized (syncObject) {
-            for (String event : events) {
-                for (Notifiable sub : subscribers) {
-                    sub.update(event);
-                }
+    public synchronized void step(int stepNum) {
+        for (String event : events) {
+            for (Notifiable sub : subscribers) {
+                sub.update(event);
             }
+        }
 
-            events.clear();
-            for (int i = 0; i < stepNum; i++) {
-                for (Notifiable sub : subscribers) {
-                    sub.update(null);
-                }
+        events.clear();
+        for (int i = 0; i < stepNum; i++) {
+            for (Notifiable sub : subscribers) {
+                sub.update(null);
             }
+        }
 
-            if (view != null) {
-                Platform.runLater(() -> view.Update());
-            }
+        if (view != null) {
+            Platform.runLater(() -> view.Update());
         }
     }
 
