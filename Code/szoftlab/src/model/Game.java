@@ -137,6 +137,9 @@ public class Game extends Application implements Serializable {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
+        stopGame();
+        mapManager.nextMap();
+        startGame();
     }
 
 
@@ -144,7 +147,9 @@ public class Game extends Application implements Serializable {
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
+        stopGame();
         mapManager.newMap(mapManager.getMap().getMapName());
+        startGame();
     }
 
     public void step(int n) {

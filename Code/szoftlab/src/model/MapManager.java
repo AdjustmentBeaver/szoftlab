@@ -4,6 +4,7 @@ package model; /**
  */
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * A pályák kezeléséért felelős. <br>
@@ -15,6 +16,7 @@ public class MapManager {
     private Game game;
     private Map map;
     private SimulationTimer timer;
+    private ArrayList<String> mapRotation=new ArrayList<>();
 
     /**
      * Instantiates a new model.Map manager.
@@ -26,6 +28,9 @@ public class MapManager {
         this.game = game;
         this.map = null;
         this.timer = timer;
+        mapRotation.add("jatek_megnyeres");
+        mapRotation.add("cvtest");
+        mapRotation.add("hosszu");
     }
 
     /**
@@ -95,5 +100,12 @@ public class MapManager {
 
     public Map getMap() {
         return map;
+    }
+
+    public void nextMap() {
+        String mapName = mapRotation.get(0);
+        mapRotation.remove(mapName);
+        mapRotation.add(mapName);
+        newMap(mapName);
     }
 }

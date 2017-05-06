@@ -1,5 +1,6 @@
 package model;
 
+import javafx.application.Platform;
 import model.util.Coordinate;
 
 import java.io.Serializable;
@@ -156,16 +157,15 @@ public class Map implements Serializable, Notifiable {
                 }
             }
             if (trainExploded) {
-                game.lost();
+                Platform.runLater(() -> game.lost());
             } else if (cartsEmpty) {
-                game.won();
+                Platform.runLater(() -> game.won());
             }
         } else {
             String evt[] = event.split(" ");
             if (evt.length == 0) {
                 return;
             }
-            int i;
             switch (evt[0]) {
                 case "activate":
                     Coordinate pos = new Coordinate(Double.parseDouble(evt[1]), Double.parseDouble(evt[2]));

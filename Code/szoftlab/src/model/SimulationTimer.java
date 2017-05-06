@@ -27,6 +27,7 @@ public class SimulationTimer {
     private View view;
     private Simulation simTask;
     private final Object syncObject=new Object();
+    private Thread th;
 
     /**
      * Instantiates a new Simulation timer.
@@ -49,7 +50,7 @@ public class SimulationTimer {
         if (running) return;
 
         simTask = new Simulation();
-        Thread th = new Thread(simTask);
+        th = new Thread(simTask);
         th.setDaemon(true);
         th.start();
         running=true;
@@ -61,6 +62,11 @@ public class SimulationTimer {
     public void stop() {
         if (!running||simTask==null) return;
         simTask.cancel();
+        try {
+            th.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         running=false;
     }
 
