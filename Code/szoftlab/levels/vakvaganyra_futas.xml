@@ -4,13 +4,13 @@
 <level>
     <nodes>
         <node type="node" name="node1">
-            <position x="0" y="0"/>
+            <position x="20" y="250"/>
             <neighbours>
                 <neighbour name="node2"/>
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="0" y="1"/>
+            <position x="100" y="250"/>
             <neighbours>
                 <neighbour name="node1"/>
             </neighbours>

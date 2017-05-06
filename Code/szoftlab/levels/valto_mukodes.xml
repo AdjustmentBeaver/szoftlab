@@ -4,20 +4,20 @@
 <level>
     <nodes>
         <node type="node" name="node1">
-            <position x="1" y="0"/>
+            <position x="20" y="20"/>
             <neighbours>
                 <neighbour name="node2"/>
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="2" y="0"/>
+            <position x="80" y="20"/>
             <neighbours>
                 <neighbour name="node1"/>
                 <neighbour name="switch1"/>
             </neighbours>
         </node>
         <node type="switch" name="switch1">
-            <position x="3" y="0"/>
+            <position x="140" y="20"/>
             <neighbours>
                 <neighbour name="node2"/>
                 <neighbour name="node3"/>
@@ -25,13 +25,13 @@
             </neighbours>
         </node>
         <node type="node" name="node3">
-            <position x="3" y="1"/>
+            <position x="140" y="120"/>
             <neighbours>
                 <neighbour name="switch1"/>
             </neighbours>
         </node>
         <node type="node" name="node4">
-            <position x="4" y="0"/>
+            <position x="300" y="20"/>
             <neighbours>
                 <neighbour name="switch1"/>
             </neighbours>

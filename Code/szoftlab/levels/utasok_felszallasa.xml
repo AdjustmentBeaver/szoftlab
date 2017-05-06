@@ -4,27 +4,27 @@
 <level>
     <nodes>
         <node type="node" name="node1">
-            <position x="1" y="0"/>
+            <position x="20" y="20"/>
             <neighbours>
                 <neighbour name="stationGreen"/>
             </neighbours>
         </node>
         <node type="station" name="stationGreen" color="green">
-            <position x="9" y="0"/>
+            <position x="90" y="20"/>
             <neighbours>
                 <neighbour name="node1"/>
                 <neighbour name="loaderStationGreen"/>
             </neighbours>
         </node>
         <node type="loaderStation" name="loaderStationGreen" color="green">
-            <position x="18" y="0"/>
+            <position x="180" y="20"/>
             <neighbours>
                 <neighbour name="stationGreen"/>
                 <neighbour name="node2"/>
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="30" y="0"/>
+            <position x="500" y="20"/>
             <neighbours>
                 <neighbour name="loaderStationGreen"/>
             </neighbours>
