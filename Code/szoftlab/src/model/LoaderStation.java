@@ -61,4 +61,7 @@ public class LoaderStation extends Node {
         view.draw(this);
     }
 
+    public Color getColor() {
+        return color;
+    }
 }

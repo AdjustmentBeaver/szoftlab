@@ -8,6 +8,7 @@ import model.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by szilard95 on 5/5/17.
@@ -18,8 +19,8 @@ public class NodeView extends View {
     private Image spriteSpecialPlace;
     private Image spriteSpecialPlaceBuilt;
     private Image spriteSwitch;
-    private Image spriteStation;
-    private Image spriteLoaderStation;
+    private HashMap<String, Image> spriteStations;
+    private HashMap<String, Image> spriteLoaderStations;
     private ArrayList<SpecialPlace> tunnels = new ArrayList<>();
 
     public NodeView(GraphicsContext graphicsContext) {
@@ -27,17 +28,32 @@ public class NodeView extends View {
         graphicsContext.setLineWidth(12);
         try {
             FileInputStream fi;
+
             spriteNode = new Image(fi = new FileInputStream("sprites/Node.png"));
             fi.close();
             spriteSpecialPlace = new Image(fi = new FileInputStream("sprites/tunnel_closed.png"));
             fi.close();
             spriteSpecialPlaceBuilt = new Image(fi = new FileInputStream("sprites/tunnel.png"));
             fi.close();
-            spriteStation = new Image(fi = new FileInputStream("sprites/station_blue.png"));
-            fi.close();
             spriteSwitch = new Image(fi = new FileInputStream("sprites/Node.png"));
             fi.close();
-            spriteLoaderStation = new Image(fi = new FileInputStream("sprites/loader_blue.png"));
+            spriteStations=new HashMap<>();
+            spriteStations.put("blue", new Image(fi = new FileInputStream("sprites/station_blue.png")));
+            fi.close();
+            spriteStations.put("red", new Image(fi = new FileInputStream("sprites/station_red.png")));
+            fi.close();
+            spriteStations.put("green", new Image(fi = new FileInputStream("sprites/station_green.png")));
+            fi.close();
+            spriteStations.put("orange", new Image(fi = new FileInputStream("sprites/station_orange.png")));
+            fi.close();
+            spriteLoaderStations=new HashMap<>();
+            spriteLoaderStations.put("blue", new Image(fi = new FileInputStream("sprites/loader_blue.png")));
+            fi.close();
+            spriteLoaderStations.put("red", new Image(fi = new FileInputStream("sprites/loader_red.png")));
+            fi.close();
+            spriteLoaderStations.put("green", new Image(fi = new FileInputStream("sprites/loader_green.png")));
+            fi.close();
+            spriteLoaderStations.put("orange", new Image(fi = new FileInputStream("sprites/loader_orange.png")));
             fi.close();
         } catch (IOException e) {
             System.err.println("ERROR LOADING NODE SPRITES. RESISTANCE IS FUTILE.");
@@ -67,7 +83,7 @@ public class NodeView extends View {
 
     @Override
     public void draw(Station station) {
-        drawSprite(station, spriteStation);
+        drawSprite(station, spriteStations.get(station.getColor().toString()));
     }
 
     @Override
@@ -98,7 +114,7 @@ public class NodeView extends View {
 
     @Override
     public void draw(LoaderStation loaderStation) {
-        drawSprite(loaderStation, spriteLoaderStation);
+        drawSprite(loaderStation, spriteLoaderStations.get(loaderStation.getColor().toString()));
     }
 
 

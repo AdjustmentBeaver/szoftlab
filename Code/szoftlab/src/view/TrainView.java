@@ -18,17 +18,29 @@ public class TrainView extends View {
     private GraphicsContext graphicsContext;
     private Image spriteTrainEngine;
     private Image spriteTrainCoalWagon;
-    private Image spriteTrainCart;
+    private Image spriteTrainCartBlue;
+    private Image spriteTrainCartGreen;
+    private Image spriteTrainCartOrange;
+    private Image spriteTrainCartRed;
+    private Image spriteTrainCartEmpty;
 
     public TrainView(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
         try {
             FileInputStream fi;
-            spriteTrainCart = new Image(fi=new FileInputStream("sprites/cart_blue.png"));
+            spriteTrainCartBlue = new Image(fi = new FileInputStream("sprites/cart_blue.png"));
             fi.close();
-            spriteTrainCoalWagon = new Image(fi=new FileInputStream("sprites/coal_wagon.png"));
+            spriteTrainCartGreen = new Image(fi = new FileInputStream("sprites/cart_green.png"));
             fi.close();
-            spriteTrainEngine = new Image(fi=new FileInputStream("sprites/dank_engine.png"));
+            spriteTrainCartOrange = new Image(fi = new FileInputStream("sprites/cart_orange.png"));
+            fi.close();
+            spriteTrainCartRed = new Image(fi = new FileInputStream("sprites/cart_red.png"));
+            fi.close();
+            spriteTrainCoalWagon = new Image(fi = new FileInputStream("sprites/coal_wagon.png"));
+            fi.close();
+            spriteTrainCartEmpty= new Image(fi = new FileInputStream("sprites/cart.png"));
+            fi.close();
+            spriteTrainEngine = new Image(fi = new FileInputStream("sprites/dank_engine.png"));
             fi.close();
         } catch (IOException e) {
             System.err.println("ERROR LOADING TRAIN SPRITES. RESISTANCE IS FUTILE.");
@@ -49,7 +61,24 @@ public class TrainView extends View {
 
     @Override
     public void draw(TrainCart trainCart) {
-        drawSprite(trainCart, spriteTrainCart);
+        Image sprite = null;
+        switch (trainCart.getColor().toString()) {
+            case "blue":
+                sprite = spriteTrainCartBlue;
+                break;
+            case "green":
+                sprite = spriteTrainCartGreen;
+                break;
+            case "orange":
+                sprite = spriteTrainCartOrange;
+                break;
+            case "red":
+                sprite = spriteTrainCartRed;
+                break;
+        }
+        if (trainCart.isEmpty())
+            sprite=spriteTrainCartEmpty;
+        drawSprite(trainCart, sprite);
     }
 
     private void drawSprite(TrainPart trainPart, Image sprite) {

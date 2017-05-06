@@ -53,4 +53,8 @@ public class Station extends Node {
     public void draw(View view) {
         view.draw(this);
     }
+
+    public Color getColor() {
+        return color;
+    }
 }
