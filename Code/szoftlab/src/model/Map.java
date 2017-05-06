@@ -30,7 +30,7 @@ public class Map implements Serializable, Notifiable {
     private java.util.Map<Node, ArrayList<Node>> neighborList;
     private List<Train> trainList;
     private List<Notifiable> notifiables;
-    private Game game;
+    private transient Game game;
 
     /**
      * Instantiates a new model.Map.
