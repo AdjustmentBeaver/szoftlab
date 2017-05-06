@@ -127,8 +127,8 @@
         <node type="switch" name="sw69">
             <position x="700" y="150"/>
             <neighbours>
-                <neighbour name="n70"/>
                 <neighbour name="sw68"/>
+                <neighbour name="n70"/>
                 <neighbour name="sw67"/>
             </neighbours>
         </node>
@@ -136,8 +136,8 @@
         <node type="switch" name="sw68">
             <position x="600" y="100"/>
             <neighbours>
-                <neighbour name="sp66"/>
                 <neighbour name="sw69"/>
+                <neighbour name="sp66"/>
                 <neighbour name="sw67"/>
             </neighbours>
         </node>
@@ -150,9 +150,9 @@
         <node type="switch" name="sw67">
             <position x="600" y="300"/>
             <neighbours>
+                <neighbour name="sw68"/>
                 <neighbour name="ld65"/>
                 <neighbour name="sw69"/>
-                <neighbour name="sw68"/>
             </neighbours>
         </node>
         <node type="loaderStation" name="ld65" color="blue">
