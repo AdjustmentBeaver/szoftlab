@@ -237,7 +237,7 @@
             <trainPart type="cart" color="blue"/>
             <trainPart type="cart" color="red"/>
         </train>
-        <train start_node="n70" start_time="0">
+        <train start_node="n50" start_time="0">
             <trainPart type="engine" speed="1"/>
             <trainPart type="cart" color="blue"/>
             <trainPart type="cart" color="green"/>
