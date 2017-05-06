@@ -30,8 +30,8 @@
 		<node type="switch" name="sw2">
             <position x="190" y="220"/>
             <neighbours>
-                <neighbour name="sw3"/>
                 <neighbour name="st1"/>
+                <neighbour name="sw3"/>
                 <neighbour name="n3"/>
             </neighbours>
         </node>
