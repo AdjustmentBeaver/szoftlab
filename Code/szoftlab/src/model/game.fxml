@@ -11,36 +11,30 @@
     </stylesheets>
     <top>
         <MenuBar id="mainMenuBar" BorderPane.alignment="CENTER">
-            <Menu styleClass="menuMenu" id="fileMenu" fx:id="newGameMenu" mnemonicParsing="false" text="File">
-                <Menu styleClass="menuMenu" mnemonicParsing="false" text="New Game">
-                    <MenuItem id="level_1" mnemonicParsing="false" onAction="#newGameEventHandler" text="Level 1"/>
-                    <MenuItem id="level_2" mnemonicParsing="false" onAction="#newGameEventHandler" text="Level 2"/>
-                    <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler" text="Level 3"/>
+            <Menu styleClass="menuMenu" id="fileMenu" mnemonicParsing="false" text="Fájl">
+                <Menu styleClass="menuMenu" mnemonicParsing="false" text="Új játék">
+                    <MenuItem id="level_1" mnemonicParsing="false" onAction="#newGameEventHandler" text="1. pálya"/>
+                    <MenuItem id="level_2" mnemonicParsing="false" onAction="#newGameEventHandler" text="2. pálya"/>
+                    <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler" text="3. pálya"/>
                     <SeparatorMenuItem mnemonicParsing="false"/>
-                    <MenuItem mnemonicParsing="false" onAction="#newCustomGameEventHandler" text="Custom"/>
+                    <MenuItem mnemonicParsing="false" onAction="#newCustomGameEventHandler" text="Egyéb.."/>
                 </Menu>
                 <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" onAction="#loadGameEventHandler" text="Load Game"/>
-                <MenuItem mnemonicParsing="false" onAction="#saveGameEventHandler" text="Save Game"/>
+                <MenuItem mnemonicParsing="false" onAction="#loadGameEventHandler" text="Betöltés.."/>
+                <MenuItem mnemonicParsing="false" onAction="#saveGameEventHandler" text="Mentés.."/>
                 <SeparatorMenuItem mnemonicParsing="false"/>
-                <MenuItem mnemonicParsing="false" onAction="#exitEventHandler" text="Exit"/>
-            </Menu>
-            <Menu styleClass="menuMenu" id="simulationMenu" fx:id="startMenu" mnemonicParsing="false" text="Simulation">
-                <MenuItem mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
-                <MenuItem mnemonicParsing="false" onAction="#step10EventHandler" text="Step 10"/>
+                <MenuItem mnemonicParsing="false" onAction="#exitEventHandler" text="Kilépés"/>
             </Menu>
         </MenuBar>
     </top>
     <center>
-        <Canvas styleClass="gameCanvas" fx:id="cvGame" height="600.0" onMouseClicked="#canvasClickHandler" width="800.0"
+        <Canvas fx:id="cvGame" height="600.0" onMouseClicked="#canvasClickHandler" width="800.0"
                 BorderPane.alignment="CENTER"/>
     </center>
     <bottom>
         <ToolBar id="mainToolBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#newEventHandler" text="new cvtest"/>
-            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
-            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#stepEventHandler" text="step 1"/>
-            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#step10EventHandler" text="step 10"/>
+            <Button styleClass="toolBtn" fx:id="btnStartStop" onAction="#startStopEventHandler" disable="true"
+                    text="Szünet"/>
         </ToolBar>
     </bottom>
 </BorderPane>

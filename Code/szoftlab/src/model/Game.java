@@ -10,6 +10,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import view.View;
 
 import java.io.File;
@@ -28,6 +29,9 @@ public class Game extends Application implements Serializable {
     private boolean wasRunning = false;
     private boolean simRunning = false;
     private View view;
+
+    private MediaPlayer winSound;
+    private MediaPlayer loseSound;
 
     /**
      * Instantiates a new model.Game.
@@ -51,6 +55,8 @@ public class Game extends Application implements Serializable {
         view = new View(mapManager, ctrl);
         view.setScene(new Scene(root));
         timer.setView(view);
+        winSound = new MediaPlayer(new Media(new File("sound/applause.mp3").toURI().toString()));
+        loseSound = new MediaPlayer(new Media(new File("sound/explosion.mp3").toURI().toString()));
     }
 
     /**
@@ -64,7 +70,7 @@ public class Game extends Application implements Serializable {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Szoftlab");
+        primaryStage.setTitle("Train Simulator 2017");
         primaryStage.setScene(view.getScene());
         primaryStage.show();
         view.reset();
@@ -142,7 +148,8 @@ public class Game extends Application implements Serializable {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
-        new MediaPlayer(new Media(new File("sound/applause.mp3").toURI().toString())).play();
+        winSound.seek(Duration.ZERO);
+        winSound.play();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Train Simulator 2017");
         alert.setHeaderText(null);
@@ -159,7 +166,8 @@ public class Game extends Application implements Serializable {
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-        new MediaPlayer(new Media(new File("sound/explosion.mp3").toURI().toString())).play();
+        loseSound.seek(Duration.ZERO);
+        loseSound.play();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Train Simulator 2017");
         alert.setHeaderText(null);

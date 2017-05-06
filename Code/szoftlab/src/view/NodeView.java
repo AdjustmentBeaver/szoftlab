@@ -4,8 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import model.*;
+import model.util.Coordinate;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +62,8 @@ public class NodeView extends View {
     }
 
     public void draw(Map map) {
-        graphicsContext.setStroke(Color.BLACK);
+        graphicsContext.setLineWidth(6);
+        graphicsContext.setStroke(Color.color(0.15, 0.15, 0.15));
         for (Node n : map.getNodeList()) {
             for (Node nb : map.getNeighborList().get(n)) {
                 graphicsContext.strokeLine(n.getPos().getX(), n.getPos().getY(), nb.getPos().getX(), nb.getPos().getY());
@@ -89,19 +90,15 @@ public class NodeView extends View {
 
     @Override
     public void draw(Switch sw) {
-        double x1 = sw.getRootNode().getPos().getX() - sw.getPos().getX();
-        double y1 = sw.getRootNode().getPos().getY() - sw.getPos().getY();
-        double len1 = Math.sqrt(x1*x1 + y1*y1);
-        double x2 = sw.getActiveNode().getPos().getX() - sw.getPos().getX();
-        double y2 = sw.getActiveNode().getPos().getY() - sw.getPos().getY();
-        double len2 = Math.sqrt(x2*x2 + y2*y2);
-        
+        Coordinate root = sw.getPos().add(sw.getPos().substract(sw.getRootNode().getPos()).normalize().scale(-16));
+        Coordinate active = sw.getPos().add(sw.getPos().substract(sw.getActiveNode().getPos()).normalize().scale(-16));
+
+        graphicsContext.setLineWidth(4);
         graphicsContext.setStroke(Color.RED);
-        graphicsContext.setLineWidth(6);
-        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), sw.getPos().getX() + 20*x1/len1, sw.getPos().getY() + 20*y1/len1);
-        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), sw.getPos().getX() + 20*x2/len2, sw.getPos().getY() + 20*y2/len2);
+        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), root.getX(), root.getY());
+        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), active.getX(), active.getY());
         graphicsContext.setFill(Color.RED);
-        graphicsContext.fillRect(sw.getPos().getX() + 20*x2/len2-6, sw.getPos().getY() + 20*y2/len2-6, 12, 12);
+        graphicsContext.fillOval(active.getX()-3, active.getY()-3, 6, 6);
         //drawSprite(sw,spriteSwitch);
     }
 
@@ -122,17 +119,18 @@ public class NodeView extends View {
 
 
     public void drawTunnel() {
-        graphicsContext.setLineWidth(26);
-        graphicsContext.setStroke(Color.DARKGREEN);
         if (tunnels.size() == 2) {
             SpecialPlace t1 = tunnels.get(0);
             SpecialPlace t2 = tunnels.get(1);
+
+            graphicsContext.setLineWidth(26);
+            graphicsContext.setStroke(Color.DARKGREEN);
             graphicsContext.strokeLine(t1.getPos().getX(), t1.getPos().getY(), t2.getPos().getX(), t2.getPos().getY());
+
             drawSprite(t1, spriteSpecialPlaceBuilt);
             drawSprite(t2, spriteSpecialPlaceBuilt);
         }
         tunnels.clear();
-        graphicsContext.setLineWidth(12);
     }
 
 }

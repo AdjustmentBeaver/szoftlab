@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
@@ -21,6 +22,9 @@ public class Controller {
     @FXML
     private Canvas cvGame;
 
+    @FXML
+    private Button btnStartStop;
+
     public void setModel(Game game) {
         this.game = game;
     }
@@ -30,29 +34,16 @@ public class Controller {
     }
 
     @FXML
-    public void stepEventHandler(ActionEvent actionEvent) {
-        game.step(1);
-    }
-
-    @FXML
-    public void newEventHandler(ActionEvent actionEvent) {
-        game.newGame("cvtest");
-    }
-
-    @FXML
-    public void step10EventHandler(ActionEvent actionEvent) {
-        game.step(10);
-    }
-
-    @FXML
     public void canvasClickHandler(MouseEvent mouseEvent) {
-        game.activate(mouseEvent.getX(), mouseEvent.getY());
+        if (game.isRunning())
+            game.activate(mouseEvent.getX(), mouseEvent.getY());
     }
 
     @FXML
     public void newGameEventHandler(ActionEvent actionEvent) {
         String level = ((MenuItem) actionEvent.getSource()).getId();
         game.newGame(level);
+        btnStartStop.setDisable(false);
     }
 
     @FXML
@@ -73,9 +64,11 @@ public class Controller {
         File f = createSaveLoadFileChooser("Load Saved Map").showOpenDialog(cvGame.getScene().getWindow());
         if (f != null) {
             game.loadGame(f.getPath());
-            // redraw
+            btnStartStop.setDisable(false);
             game.step(0);
-        } else if (wasRunning) game.startGame();
+        } else if (wasRunning) {
+            game.startGame();
+        }
     }
 
     private FileChooser createSaveLoadFileChooser(String title) {
@@ -99,10 +92,13 @@ public class Controller {
 
     @FXML
     public void startStopEventHandler(ActionEvent actionEvent) {
-        if (game.isRunning())
+        if (game.isRunning()) {
+            btnStartStop.setText("Folytatás");
             game.stopGame();
-        else
+        } else {
             game.startGame();
+            btnStartStop.setText("Szünet");
+        }
     }
 
     @FXML
@@ -120,6 +116,7 @@ public class Controller {
                 .showOpenDialog(cvGame.getScene().getWindow());
         if (f != null) {
             game.newGame(f.getName().split(".xml")[0]);
+            btnStartStop.setDisable(false);
         }
     }
 }

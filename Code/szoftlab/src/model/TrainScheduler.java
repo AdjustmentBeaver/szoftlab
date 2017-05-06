@@ -20,7 +20,7 @@ public class TrainScheduler implements Notifiable, Serializable {
 
     private int time;
 
-    private String hornSound = "sound/horn.mp3";
+    private MediaPlayer hornMedia;
 
     /**
      * Konstruktor, megkapja a vonatlistát.
@@ -30,6 +30,7 @@ public class TrainScheduler implements Notifiable, Serializable {
     public TrainScheduler(List<Train> trainList) {
         this.trainList = trainList;
         time = 0;
+        hornMedia = new MediaPlayer(new Media(new File("sound/horn.mp3").toURI().toString()));
     }
 
     /**
@@ -42,7 +43,8 @@ public class TrainScheduler implements Notifiable, Serializable {
                 if (!t.isRunning() && t.getStartTime() <= time) {
                     t.startTrain();
                     // Play horn sound
-                    new MediaPlayer(new Media(new File(hornSound).toURI().toString())).play();
+                    hornMedia.seek(Duration.ZERO);
+                    hornMedia.play();
                 }
             }
             time++;
