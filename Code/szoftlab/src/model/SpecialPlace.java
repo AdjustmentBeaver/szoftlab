@@ -56,7 +56,6 @@ public class SpecialPlace extends Node {
      */
     @Override
     public void activate() {
-        boolean trainIsOnMe = checkForTrain();
         boolean trainWasOnMe = checkWasLast();
 
         SpecialPlace nb = null;
@@ -88,14 +87,12 @@ public class SpecialPlace extends Node {
             }
         }
 
-        if (isConstructed && !trainInTunnel) {
-            isConstructed = false;
-        } else {
-            boolean canConstruct = canConstruct();
-            if (!trainIsOnMe && canConstruct) {
-                isConstructed = true;
-            }
+        // Nem modosithatjuk az allapotat, hogyha az alagutban van a vonat, vagy nincs felepitve, de a szomszedjaval akarjuk osszekotni.
+        if (trainInTunnel || !isConstructed && !canConstruct()) {
+            return;
         }
+
+        isConstructed = !isConstructed;
 
     }
 

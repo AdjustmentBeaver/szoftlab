@@ -16,6 +16,7 @@ public class NodeView extends View {
     private GraphicsContext graphicsContext;
     private Image spriteNode;
     private Image spriteSpecialPlace;
+    private Image spriteSpecialPlaceBuilt;
     private Image spriteSwitch;
     private Image spriteStation;
     private Image spriteLoaderStation;
@@ -26,10 +27,11 @@ public class NodeView extends View {
         graphicsContext.setLineWidth(12);
         try {
             spriteNode = new Image(new FileInputStream("sprites/Node.png"));
-            spriteSpecialPlace = new Image(new FileInputStream("sprites/Node.png"));
-            spriteStation = new Image(new FileInputStream("sprites/Node.png"));
+            spriteSpecialPlace = new Image(new FileInputStream("sprites/tunnel_closed.png"));
+            spriteSpecialPlaceBuilt = new Image(new FileInputStream("sprites/tunnel.png"));
+            spriteStation = new Image(new FileInputStream("sprites/station_blue.bmp"));
             spriteSwitch = new Image(new FileInputStream("sprites/Node.png"));
-            spriteLoaderStation = new Image(new FileInputStream("sprites/Node.png"));
+            spriteLoaderStation = new Image(new FileInputStream("sprites/loader_blue.bmp"));
         } catch (IOException e) {
             System.err.println("ERROR LOADING NODE SPRITES. RESISTANCE IS FUTILE.");
         }
@@ -53,7 +55,7 @@ public class NodeView extends View {
     }
 
     private void drawSprite(Node node, Image sprite) {
-        graphicsContext.drawImage(sprite, node.getPos().getX() - spriteNode.getWidth() / 2, node.getPos().getY() - spriteNode.getHeight() / 2);
+        graphicsContext.drawImage(sprite, node.getPos().getX() - sprite.getWidth() / 2, node.getPos().getY() - sprite.getHeight() / 2);
     }
 
     @Override
@@ -79,8 +81,12 @@ public class NodeView extends View {
 
     @Override
     public void draw(SpecialPlace tunnel) {
-        drawSprite(tunnel, spriteSpecialPlace);
-        if (tunnel.isConstructed) tunnels.add(tunnel);
+        if (tunnel.isConstructed) {
+            drawSprite(tunnel, spriteSpecialPlaceBuilt);
+            tunnels.add(tunnel);
+        } else {
+            drawSprite(tunnel, spriteSpecialPlace);
+        }
     }
 
     @Override
@@ -90,10 +96,17 @@ public class NodeView extends View {
 
 
     public void drawTunnel() {
-        graphicsContext.setStroke(Color.RED);
-        if (tunnels.size() == 2)
-            graphicsContext.strokeLine(tunnels.get(0).getPos().getX(), tunnels.get(0).getPos().getY(), tunnels.get(1).getPos().getX(), tunnels.get(1).getPos().getY());
+        graphicsContext.setLineWidth(26);
+        graphicsContext.setStroke(Color.DARKGREEN);
+        if (tunnels.size() == 2) {
+            SpecialPlace t1 = tunnels.get(0);
+            SpecialPlace t2 = tunnels.get(1);
+            graphicsContext.strokeLine(t1.getPos().getX(), t1.getPos().getY(), t2.getPos().getX(), t2.getPos().getY());
+            drawSprite(t1, spriteSpecialPlaceBuilt);
+            drawSprite(t2, spriteSpecialPlaceBuilt);
+        }
         tunnels.clear();
+        graphicsContext.setLineWidth(12);
     }
 
 }

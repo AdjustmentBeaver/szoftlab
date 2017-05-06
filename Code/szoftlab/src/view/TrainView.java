@@ -25,7 +25,7 @@ public class TrainView extends View {
         try {
             spriteTrainCart = new Image(new FileInputStream("sprites/TrainCart.png"));
             spriteTrainCoalWagon = new Image(new FileInputStream("sprites/TrainCart.png"));
-            spriteTrainEngine = new Image(new FileInputStream("sprites/TrainCart.png"));
+            spriteTrainEngine = new Image(new FileInputStream("sprites/dank_engine.png"));
         } catch (IOException e) {
             System.err.println("ERROR LOADING TRAIN SPRITES. RESISTANCE IS FUTILE.");
         }

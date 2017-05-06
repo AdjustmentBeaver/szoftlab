@@ -114,7 +114,7 @@ public class Train implements Notifiable, Serializable {
      */
     public void startTrain() {
         isRunning = true;
-        Coordinate direction = new Coordinate(1, 1).normalize();
+        Coordinate direction = new Coordinate(1, 0).normalize();
         Node nb = startNode.neighbourNodeList.get(0);
         if ((nb) != null) {
             direction = startNode.getPos().substract(nb.getPos()).normalize();
@@ -124,7 +124,7 @@ public class Train implements Notifiable, Serializable {
             tp.setNextNode(startNode);
             tp.setPos(startcord);
             tp.setActivateRadius(((TrainEngine)trainPartList.get(0)).getSpeed().toDouble());
-            startcord = startcord.substract(direction.scale(-70));
+            startcord = startcord.add(direction.scale(65));
         }
     }
 
