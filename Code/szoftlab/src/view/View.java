@@ -42,6 +42,7 @@ public class View {
     public void draw(Station station) {}
     public void draw(Switch sw) {}
     public void draw(SpecialPlace tunnel) {}
+    public void draw(LoaderStation loaderStation) {}
 
     public void setScene(Scene scene) {
         this.scene = scene;
