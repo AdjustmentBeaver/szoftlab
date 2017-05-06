@@ -230,7 +230,7 @@
         </node>
     </nodes>
     <trains>
-        <train start_node="n0" start_time="50">
+        <train start_node="n0" start_time="300">
             <trainPart type="engine" speed="1"/>
             <trainPart type="coalWagon"/>
             <trainPart type="cart" color="green"/>

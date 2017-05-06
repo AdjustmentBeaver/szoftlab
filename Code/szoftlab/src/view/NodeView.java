@@ -94,11 +94,12 @@ public class NodeView extends View {
         Coordinate active = sw.getPos().add(sw.getPos().substract(sw.getActiveNode().getPos()).normalize().scale(-16));
 
         graphicsContext.setLineWidth(4);
-        graphicsContext.setStroke(Color.RED);
+        graphicsContext.setStroke(Color.DARKRED);
         graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), root.getX(), root.getY());
+        graphicsContext.setStroke(Color.RED);
         graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), active.getX(), active.getY());
-        graphicsContext.setFill(Color.RED);
-        graphicsContext.fillOval(active.getX()-3, active.getY()-3, 6, 6);
+        //graphicsContext.setFill(Color.RED);
+        //graphicsContext.fillOval(active.getX()-3, active.getY()-3, 6, 6);
         //drawSprite(sw,spriteSwitch);
     }
 
