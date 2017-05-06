@@ -34,8 +34,11 @@ public class TrainView extends View {
     public void draw(Map map) {
         graphicsContext.setFill(Color.BLUE);
         for (Train t : map.getTrainList()) {
-            for (TrainPart tp : t.getPartList()) {
-                tp.draw(this);
+            Coordinate dir = t.getPartList().get(0).getDirection();
+            if (t.isRunning() &&  dir != null && dir.length() != 0) {
+                for (TrainPart tp : t.getPartList()) {
+                    tp.draw(this);
+                }
             }
         }
     }
@@ -47,8 +50,12 @@ public class TrainView extends View {
 
     private void drawSprite(TrainPart trainPart, Image sprite) {
         ImageView iv = new ImageView(sprite);
-        Coordinate dir = trainPart.getDirection() == null ? new Coordinate(1, 0) : trainPart.getDirection();
-        iv.setRotate(Math.toDegrees(Math.acos(Coordinate.dot(dir, new Coordinate(1, 0)))));
+        Coordinate dir = trainPart.getDirection();
+        double deg = Math.toDegrees(Math.acos(Coordinate.dot(dir, new Coordinate(1, 0))));
+        if (Coordinate.cross(dir, new Coordinate(1, 0)) > 0) {
+            deg = 360 - deg;
+        }
+        iv.setRotate(deg);
         SnapshotParameters param = new SnapshotParameters();
         param.setFill(Color.TRANSPARENT);
         Image rotatedImage = iv.snapshot(param, null);

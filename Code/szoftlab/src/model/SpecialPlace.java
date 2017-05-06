@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import model.util.Coordinate;
 import view.View;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,27 +40,59 @@ public class SpecialPlace extends Node {
         isConstructed = false;
     }
 
+    protected boolean checkWasLast() {
+        if (lastTrain != null){
+            for(TrainPart tp: lastTrain.getPartList()){
+                if (tp.getPrevNode() == this) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Elvégzi az alagútszáj építéséhez köthető logikát, ha az lehetséges. Egy privát statikus változóban tárolódik, hogy mely szájak vannak felépítve a pályán (maximum 2 lehetséges). Ez alapján eldönti, hogy lehetséges-e. Alagútszáj lerombolásánál gondoskodik róla, hogy csak akkor lehessen lerombolni, ha az alagútban nem tartózkodik vonat.
      */
     @Override
     public void activate() {
-        boolean trainOnMe = checkForTrain();
+        boolean trainIsOnMe = checkForTrain();
+        boolean trainWasOnMe = checkWasLast();
+
         SpecialPlace nb = null;
         for(SpecialPlace sp: spList){
             if (sp.isConstructed && sp != this)
                 nb = sp;
         }
-        boolean trainOnNb = false;
+
+        boolean trainWasOnNb = false;
+        Train lastNbTrain = null;
         if (nb != null) {
-            trainOnNb = nb.checkForTrain();
+            trainWasOnNb = nb.checkWasLast();
+            lastNbTrain = nb.lastTrain;
         }
 
-        if (isConstructed && !trainOnMe && !trainOnNb){
+        boolean trainInTunnel = false;
+        if (lastTrain != null) {
+            Node pnd = lastTrain.getPartList().get(0).getPrevNode();
+            Node nnd = lastTrain.getPartList().get(0).getNextNode();
+            if ((trainWasOnMe && (nnd == nb)) || (trainWasOnMe && (pnd == nb)) || (trainWasOnNb && (pnd == this))) {
+                trainInTunnel = true;
+            }
+        }
+        if (lastNbTrain != null) {
+            Node pnd = lastNbTrain.getPartList().get(0).getPrevNode();
+            Node nnd = lastNbTrain.getPartList().get(0).getNextNode();
+            if ((trainWasOnMe && (pnd == nb)) || (trainWasOnNb && (nnd == this))) {
+                trainInTunnel = true;
+            }
+        }
+
+        if (isConstructed && !trainInTunnel) {
             isConstructed = false;
         } else {
             boolean canConstruct = canConstruct();
-            if (!trainOnMe && canConstruct) {
+            if (!trainIsOnMe && canConstruct) {
                 isConstructed = true;
             }
         }
@@ -72,10 +105,14 @@ public class SpecialPlace extends Node {
      */
     @Override
     protected Node route() {
+        if (!isConstructed)
+             return null;
         Node nb = super.route();
+        if (nb != null)
+            return nb;
         for(SpecialPlace sp: spList){
             if (sp.isConstructed && sp != this)
-                return nb;
+                return sp;
         }
         return null;
     }
@@ -85,13 +122,24 @@ public class SpecialPlace extends Node {
      * @return Igaz, ha felépíthető
      */
     private boolean canConstruct(){
-        int numOfConstructed = 0;
-        for(SpecialPlace sp: spList)
-            if (sp.isConstructed) numOfConstructed++;
+        ArrayList<SpecialPlace> spListConstructed = new ArrayList<>();
+        for(SpecialPlace sp: spList) {
+            if (sp.isConstructed) {
+                spListConstructed.add(sp);
+            }
+        }
 
         // Ha fel van építve az összes lehetséges
-        if (numOfConstructed == SpecialPlace.MAX_NUM_SPECIALPLACE)
+        if (spListConstructed.size() == SpecialPlace.MAX_NUM_SPECIALPLACE) {
             return false;
+        }
+
+        // Ha a szomszed alaguttal akarjuk magunkat osszekotni
+        for (SpecialPlace sp: spListConstructed) {
+            if (sp.equals(neighbourNodeList.get(0))) {
+                return false;
+            }
+        }
 
         return true;
     }

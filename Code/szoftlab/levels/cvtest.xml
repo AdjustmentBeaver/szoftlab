@@ -3,74 +3,62 @@
 <!DOCTYPE level SYSTEM "level.dtd">
 <level>
     <nodes>
-        <node type="node" name="node1">
+        <node type="node" name="n1">
             <position x="20" y="20"/>
             <neighbours>
-                <neighbour name="switch1"/>
+                <neighbour name="sw"/>
             </neighbours>
         </node>
-        <node type="switch" name="switch1">
+        <node type="switch" name="sw">
             <position x="100" y="20"/>
             <neighbours>
-                <neighbour name="node1"/>
-                <neighbour name="node2"/>
-                <neighbour name="node3"/>
+                <neighbour name="n2"/>
+                <neighbour name="n1"/>
+                <neighbour name="n3"/>
             </neighbours>
         </node>
-        <node type="node" name="node2">
+        <node type="node" name="n2">
             <position x="200" y="20"/>
             <neighbours>
-                <neighbour name="switch1"/>
-                <neighbour name="node4"/>
+                <neighbour name="sw"/>
+                <neighbour name="s1"/>
             </neighbours>
         </node>
-        <node type="node" name="node3">
+        <node type="node" name="n3">
             <position x="100" y="100"/>
             <neighbours>
-                <neighbour name="switch1"/>
-                <neighbour name="nd5"/>
+                <neighbour name="sw"/>
+                <neighbour name="s3"/>
             </neighbours>
         </node>
-        <node type="specialPlace" name="node4">
+        <node type="specialPlace" name="s1">
             <position x="300" y="20"/>
             <neighbours>
-                <neighbour name="node2"/>
-                <neighbour name="nd8"/>
-
+                <neighbour name="n2"/>
             </neighbours>
         </node>
-        <node type="node" name="nd5">
-            <position x="100" y="200"/>
-            <neighbours>
-                <neighbour name="node3"/>
-                <neighbour name="nd6"/>
-            </neighbours>
-        </node>
-        <node type="station" name="nd6" color="green">
-            <position x="100" y="200"/>
-            <neighbours>
-                <neighbour name="nd5"/>
-                <neighbour name="nd7"/>
-            </neighbours>
-        </node>
-        <node type="loaderStation" name="nd7" color="green">
-            <position x="200" y="200"/>
-            <neighbours>
-                <neighbour name="nd6"/>
-                <neighbour name="nd8"/>
-            </neighbours>
-        </node>
-        <node type="specialPlace" name="nd8">
+        <node type="specialPlace" name="s2">
             <position x="300" y="300"/>
             <neighbours>
-                <neighbour name="nd7"/>
-                <neighbour name="node4"/>
+                <neighbour name="s4"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="s3">
+            <position x="100" y="200"/>
+            <neighbours>
+                <neighbour name="n3"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="s4">
+            <position x="200" y="200"/>
+            <neighbours>
+                <neighbour name="s2"/>
             </neighbours>
         </node>
     </nodes>
     <trains>
-        <train start_node="node1" start_time="0">
-            <trainPart type="engine" speed="1"/>
+        <train start_node="n1" start_time="0">
+            <trainPart type="engine" speed="4"/>
             <trainPart type="cart" color="green"/>
             <trainPart type="coalWagon"/>
         </train>

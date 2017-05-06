@@ -42,7 +42,7 @@ public class Coordinate implements Serializable{
      * Normalizálja a vektort
      */
     public Coordinate normalize(){
-        if (length() > 0.0001 || length() < -0.0001) {
+        if (length() > 0.00001 || length() < -0.00001) {
             return new Coordinate(x / length(), y / length());
         } else {
             return new Coordinate(0, 0);
@@ -80,6 +80,10 @@ public class Coordinate implements Serializable{
 
     public static double dot(Coordinate c1, Coordinate c2){
         return c1.getX()*c2.getX()+c1.getY()*c2.getY();
+    }
+
+    public static double cross(Coordinate c1, Coordinate c2){
+        return c1.getX()*c2.getY()-c1.getY()*c2.getX();
     }
 
     @Override

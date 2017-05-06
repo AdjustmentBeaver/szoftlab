@@ -67,6 +67,8 @@ public abstract class TrainPart implements Serializable, IDrawable {
     public TrainPart(Train t) {
         train = t;
         isEmpty = true;
+        pos = null;
+        direction = null;
     }
 
     /**

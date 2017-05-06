@@ -26,7 +26,7 @@ public class Node implements Serializable, IDrawable {
     /**
      * A csomóponttal utoljára kapcsolatba lépett vonat.
      */
-    private Train lastTrain;
+    protected Train lastTrain;
 
     /**
      * A csomópont helyzetét adja meg.

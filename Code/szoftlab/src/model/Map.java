@@ -76,7 +76,7 @@ public class Map implements Serializable, Notifiable {
      */
     public void activateNode(Coordinate c) {
         for (Node n : nodeList) {
-            if (n.getPos().getDistanceTo(c) < 10) {
+            if (n.getPos().getDistanceTo(c) < 16) {
                 n.activate();
                 break;
             }
