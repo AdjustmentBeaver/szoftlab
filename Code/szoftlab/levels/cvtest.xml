@@ -38,9 +38,9 @@
             </neighbours>
         </node>
         <node type="specialPlace" name="s2">
-            <position x="300" y="300"/>
+            <position x="400" y="300"/>
             <neighbours>
-                <neighbour name="s4"/>
+                <neighbour name="n4"/>
             </neighbours>
         </node>
         <node type="specialPlace" name="s3">
@@ -52,6 +52,13 @@
         <node type="specialPlace" name="s4">
             <position x="200" y="200"/>
             <neighbours>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n4">
+            <position x="300" y="300"/>
+            <neighbours>
+                <neighbour name="s4"/>
                 <neighbour name="s2"/>
             </neighbours>
         </node>
@@ -61,6 +68,9 @@
             <trainPart type="engine" speed="4"/>
             <trainPart type="cart" color="green"/>
             <trainPart type="coalWagon"/>
+        </train>
+        <train start_node="n4" start_time="1">
+            <trainPart type="engine" speed="4"/>
         </train>
     </trains>
 </level>
