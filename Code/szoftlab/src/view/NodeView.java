@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import model.*;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,17 +89,19 @@ public class NodeView extends View {
 
     @Override
     public void draw(Switch sw) {
-        double x1 = (sw.getPos().getX() + sw.getRootNode().getPos().getX()) / 2.0;
-        double y1 = (sw.getPos().getY() + sw.getRootNode().getPos().getY()) / 2.0;
-        double x2 = (sw.getPos().getX() + sw.getActiveNode().getPos().getX()) / 2.0;
-        double y2 = (sw.getPos().getY() + sw.getActiveNode().getPos().getY()) / 2.0;
-
+        double x1 = sw.getRootNode().getPos().getX() - sw.getPos().getX();
+        double y1 = sw.getRootNode().getPos().getY() - sw.getPos().getY();
+        double len1 = Math.sqrt(x1*x1 + y1*y1);
+        double x2 = sw.getActiveNode().getPos().getX() - sw.getPos().getX();
+        double y2 = sw.getActiveNode().getPos().getY() - sw.getPos().getY();
+        double len2 = Math.sqrt(x2*x2 + y2*y2);
+        
         graphicsContext.setStroke(Color.RED);
-        graphicsContext.setLineWidth(12);
-        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), x1, y1);
-        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), x2, y2);
+        graphicsContext.setLineWidth(6);
+        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), sw.getPos().getX() + 20*x1/len1, sw.getPos().getY() + 20*y1/len1);
+        graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), sw.getPos().getX() + 20*x2/len2, sw.getPos().getY() + 20*y2/len2);
         graphicsContext.setFill(Color.RED);
-        graphicsContext.fillRect(x2 - 8, y2 - 8, 16, 16);
+        graphicsContext.fillRect(sw.getPos().getX() + 20*x2/len2-6, sw.getPos().getY() + 20*y2/len2-6, 12, 12);
         //drawSprite(sw,spriteSwitch);
     }
 
