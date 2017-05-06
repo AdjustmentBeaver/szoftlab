@@ -26,12 +26,19 @@ public class NodeView extends View {
         this.graphicsContext = graphicsContext;
         graphicsContext.setLineWidth(12);
         try {
-            spriteNode = new Image(new FileInputStream("sprites/Node.png"));
-            spriteSpecialPlace = new Image(new FileInputStream("sprites/tunnel_closed.png"));
-            spriteSpecialPlaceBuilt = new Image(new FileInputStream("sprites/tunnel.png"));
-            spriteStation = new Image(new FileInputStream("sprites/station_blue.png"));
-            spriteSwitch = new Image(new FileInputStream("sprites/Node.png"));
-            spriteLoaderStation = new Image(new FileInputStream("sprites/loader_blue.png"));
+            FileInputStream fi;
+            spriteNode = new Image(fi = new FileInputStream("sprites/Node.png"));
+            fi.close();
+            spriteSpecialPlace = new Image(fi = new FileInputStream("sprites/tunnel_closed.png"));
+            fi.close();
+            spriteSpecialPlaceBuilt = new Image(fi = new FileInputStream("sprites/tunnel.png"));
+            fi.close();
+            spriteStation = new Image(fi = new FileInputStream("sprites/station_blue.png"));
+            fi.close();
+            spriteSwitch = new Image(fi = new FileInputStream("sprites/Node.png"));
+            fi.close();
+            spriteLoaderStation = new Image(fi = new FileInputStream("sprites/loader_blue.png"));
+            fi.close();
         } catch (IOException e) {
             System.err.println("ERROR LOADING NODE SPRITES. RESISTANCE IS FUTILE.");
         }

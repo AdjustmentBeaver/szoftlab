@@ -23,9 +23,13 @@ public class TrainView extends View {
     public TrainView(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
         try {
-            spriteTrainCart = new Image(new FileInputStream("sprites/cart_blue.png"));
-            spriteTrainCoalWagon = new Image(new FileInputStream("sprites/coal_wagon.png"));
-            spriteTrainEngine = new Image(new FileInputStream("sprites/dank_engine.png"));
+            FileInputStream fi;
+            spriteTrainCart = new Image(fi=new FileInputStream("sprites/cart_blue.png"));
+            fi.close();
+            spriteTrainCoalWagon = new Image(fi=new FileInputStream("sprites/coal_wagon.png"));
+            fi.close();
+            spriteTrainEngine = new Image(fi=new FileInputStream("sprites/dank_engine.png"));
+            fi.close();
         } catch (IOException e) {
             System.err.println("ERROR LOADING TRAIN SPRITES. RESISTANCE IS FUTILE.");
         }
