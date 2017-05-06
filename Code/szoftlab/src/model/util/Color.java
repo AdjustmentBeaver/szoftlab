@@ -16,4 +16,9 @@ public class Color implements Serializable {
     public String toString() {
         return color;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this == obj || obj instanceof Color && color.equals(obj.toString());
+    }
 }
