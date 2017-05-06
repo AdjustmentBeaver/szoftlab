@@ -41,8 +41,9 @@ public class MapManager {
     public void newMap(String mapName) {
         MapBuilder mapBuilder = new MapBuilder(mapName);
         mapBuilder.setGame(game);
-        map = mapBuilder.buildMap();
-        if (map != null) {
+        Map newMap = mapBuilder.buildMap();
+        if (newMap != null) {
+            map=newMap;
             map.subscribe(timer);
         }
     }

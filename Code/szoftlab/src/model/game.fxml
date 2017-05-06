@@ -18,6 +18,8 @@
                                           text="Level 2"/>
                                 <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler"
                                           text="Level 3"/>
+                                <SeparatorMenuItem mnemonicParsing="false"/>
+                                <MenuItem mnemonicParsing="false" text="Custom" onAction="#newCustomGameEventHandler"/>
                             </items>
                         </Menu>
                         <SeparatorMenuItem mnemonicParsing="false"/>

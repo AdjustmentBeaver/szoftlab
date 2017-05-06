@@ -78,11 +78,15 @@ public class Controller {
     }
 
     private FileChooser createSaveLoadFileChooser(String title) {
+        return createCustomFileChooser(title, "saves", "save1.save", "Saved Maps (*.save)", "*.save");
+    }
+
+    private FileChooser createCustomFileChooser(String title, String path, String initFileName, String extDescription, String... extensions) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
-        fileChooser.setInitialDirectory(new File("saves"));
-        fileChooser.setInitialFileName("save1.save");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Saved Maps (*.save)", "*.save"));
+        fileChooser.setInitialDirectory(new File(path));
+        fileChooser.setInitialFileName(initFileName);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(extDescription, extensions));
         return fileChooser;
     }
 
@@ -105,5 +109,16 @@ public class Controller {
         File saves = new File("saves");
         if (!saves.exists())
             saves.mkdir();
+    }
+
+    @FXML
+    public void newCustomGameEventHandler(ActionEvent actionEvent) {
+        game.stopGame();
+        File f = createCustomFileChooser("New Custom Game", "levels", "level_1.xml",
+                "Levels (*.xml)", "*.xml")
+                .showOpenDialog(cvGame.getScene().getWindow());
+        if (f != null) {
+            game.newGame(f.getName().split(".xml")[0]);
+        }
     }
 }
