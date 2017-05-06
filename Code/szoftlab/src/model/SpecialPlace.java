@@ -96,6 +96,21 @@ public class SpecialPlace extends Node {
 
     }
 
+    @Override
+    protected void accept(TrainPart tp) {
+        super.accept(tp);
+        if (!isConstructed) {
+            return;
+        }
+        for(SpecialPlace sp: spList) {
+            if (sp.isConstructed) {
+                if (sp.equals(tp.getNextNode())) {
+                    tp.setInTunnel();
+                }
+            }
+        }
+    }
+
     /**
      * Ha van másik felépített alagútszáj oda irányítja a vonatot, különben vakvágány
      * @return A következő csomópont
@@ -108,8 +123,9 @@ public class SpecialPlace extends Node {
         if (nb != null)
             return nb;
         for(SpecialPlace sp: spList){
-            if (sp.isConstructed && sp != this)
+            if (sp.isConstructed && sp != this) {
                 return sp;
+            }
         }
         return null;
     }

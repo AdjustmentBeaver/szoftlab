@@ -59,6 +59,8 @@ public abstract class TrainPart implements Serializable, IDrawable {
      */
     protected double activateRadius;
 
+    private boolean inTunnel;
+
     /**
      * Konstruktor. Paraméterül kapja, melyik vonatkoz tartozik.
      *
@@ -69,6 +71,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
         isEmpty = true;
         pos = null;
         direction = null;
+        inTunnel = false;
     }
 
     /**
@@ -114,6 +117,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
     public void setNextNode(Node n) {
         prevNode = nextNode;
         nextNode = n;
+        inTunnel = false;
     }
 
     /**
@@ -132,7 +136,8 @@ public abstract class TrainPart implements Serializable, IDrawable {
      * @return Igaz, ha történt ütközés.
      */
     public boolean checkCollision(TrainPart tp) {
-        return boundingBox.isCollided(tp.getBoundingBox());
+        // Ha nem egy sikon vagyunk akkor nem utkozhetunk, kulonben viszont ellenorizzuk
+        return !((tp.isInTunnel() && !inTunnel) || (inTunnel && !tp.isInTunnel())) && boundingBox.isCollided(tp.getBoundingBox());
     }
 
     /**
@@ -177,5 +182,13 @@ public abstract class TrainPart implements Serializable, IDrawable {
     @Override
     public void draw(View view) {
         view.draw(this);
+    }
+
+    public void setInTunnel() {
+        inTunnel = true;
+    }
+
+    public boolean isInTunnel() {
+        return inTunnel;
     }
 }

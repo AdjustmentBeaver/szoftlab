@@ -53,7 +53,6 @@ public class Switch extends Node {
     @Override
     public void activate() {
         boolean trainOnMe = checkForTrain();
-
         if (!trainOnMe){
             // Ha a kettes az aktív
             if (activeNode == neighbourNodeList.get(2))

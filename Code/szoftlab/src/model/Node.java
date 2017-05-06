@@ -54,7 +54,7 @@ public class Node implements Serializable, IDrawable {
         this.pos = pos;
     }
 
-    private void accept(TrainPart tp) {
+    protected void accept(TrainPart tp) {
         visitorComingFrom = tp.getPrevNode();
         lastTrain = tp.getTrain();
 
