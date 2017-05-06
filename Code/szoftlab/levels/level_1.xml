@@ -12,8 +12,8 @@
         <node type="switch" name="sw0">
             <position x="100" y="400"/>
             <neighbours>
-                <neighbour name="n0"/>
                 <neighbour name="sp0"/>
+                <neighbour name="n0"/>
                 <neighbour name="sw1"/>
             </neighbours>
         </node>
@@ -26,9 +26,9 @@
         <node type="switch" name="sw1">
             <position x="200" y="550"/>
             <neighbours>
+                <neighbour name="sw2"/>
                 <neighbour name="sw0"/>
                 <neighbour name="n1"/>
-                <neighbour name="sw2"/>
             </neighbours>
         </node>
         <node type="node" name="n1">
@@ -230,13 +230,19 @@
         </node>
     </nodes>
     <trains>
-        <train start_node="n1" start_time="0">
-            <trainPart type="engine" speed="3.42"/>
-            <trainPart type="cart" color="green"/>
+        <train start_node="n0" start_time="50">
+            <trainPart type="engine" speed="1"/>
             <trainPart type="coalWagon"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="cart" color="blue"/>
+            <trainPart type="cart" color="red"/>
         </train>
-        <train start_node="n4" start_time="1">
-            <trainPart type="engine" speed="4"/>
+        <train start_node="n70" start_time="0">
+            <trainPart type="engine" speed="1"/>
+            <trainPart type="cart" color="blue"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="cart" color="red"/>
+            <trainPart type="cart" color="green"/>
         </train>
     </trains>
 </level>
