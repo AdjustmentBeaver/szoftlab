@@ -63,8 +63,7 @@ public class SimulationTimer {
         simTask.cancel();
         try {
             th.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ignored) {
         }
         running = false;
     }

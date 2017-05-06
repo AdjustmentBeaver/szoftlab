@@ -157,8 +157,10 @@ public class Map implements Serializable, Notifiable {
                 }
             }
             if (trainExploded) {
+                game.stopGame();
                 Platform.runLater(() -> game.lost());
             } else if (cartsEmpty) {
+                game.stopGame();
                 Platform.runLater(() -> game.won());
             }
         } else {

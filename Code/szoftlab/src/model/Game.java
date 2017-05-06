@@ -142,7 +142,6 @@ public class Game extends Application implements Serializable {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
-        stopGame();
         new MediaPlayer(new Media(new File("sound/applause.mp3").toURI().toString())).play();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Train Simulator 2017");
@@ -160,7 +159,6 @@ public class Game extends Application implements Serializable {
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-        stopGame();
         new MediaPlayer(new Media(new File("sound/explosion.mp3").toURI().toString())).play();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Train Simulator 2017");
