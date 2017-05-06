@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import model.*;
 
 public class View {
@@ -13,6 +14,7 @@ public class View {
     private NodeView nodeView;
     private TrainView trainView;
     private Scene scene;
+    private GraphicsContext gc;
 
     protected View() {
     }
@@ -20,7 +22,7 @@ public class View {
     public View(MapManager mapManager, Controller ctrl) {
         this.mapManager = mapManager;
         this.ctrl = ctrl;
-        GraphicsContext gc = ctrl.getCanvasGC();
+        gc = ctrl.getCanvasGC();
         nodeView = new NodeView(gc);
         trainView = new TrainView(gc);
     }
@@ -52,11 +54,8 @@ public class View {
         return scene;
     }
 
-    public double getHeight() {
-        return 640;
-    }
-
-    public double getWidth() {
-        return 640;
+    public void reset() {
+        gc.setFill(Color.rgb(0x11, 0x22, 0x33));
+        gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
     }
 }

@@ -3,53 +3,44 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane prefHeight="480" prefWidth="640" xmlns="http://javafx.com/javafx/8.0.112"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<?import java.net.URL?>
+<BorderPane id="mainBorderPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.Controller">
+    <stylesheets>
+        <URL value="@../application.css" />
+    </stylesheets>
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu fx:id="newGameMenu" mnemonicParsing="false" text="File">
-                    <items>
-                        <Menu mnemonicParsing="false" text="New Game">
-                            <items>
-                                <MenuItem id="level_1" mnemonicParsing="false" onAction="#newGameEventHandler"
-                                          text="Level 1"/>
-                                <MenuItem id="level_2" mnemonicParsing="false" onAction="#newGameEventHandler"
-                                          text="Level 2"/>
-                                <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler"
-                                          text="Level 3"/>
-                                <SeparatorMenuItem mnemonicParsing="false"/>
-                                <MenuItem mnemonicParsing="false" text="Custom" onAction="#newCustomGameEventHandler"/>
-                            </items>
-                        </Menu>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#loadGameEventHandler" text="Load Game"/>
-                        <MenuItem mnemonicParsing="false" onAction="#saveGameEventHandler" text="Save Game"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#exitEventHandler" text="Exit"/>
-                    </items>
+        <MenuBar id="mainMenuBar" BorderPane.alignment="CENTER">
+            <Menu styleClass="menuMenu" id="fileMenu" fx:id="newGameMenu" mnemonicParsing="false" text="File">
+                <Menu styleClass="menuMenu" mnemonicParsing="false" text="New Game">
+                    <MenuItem id="level_1" mnemonicParsing="false" onAction="#newGameEventHandler" text="Level 1"/>
+                    <MenuItem id="level_2" mnemonicParsing="false" onAction="#newGameEventHandler" text="Level 2"/>
+                    <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler" text="Level 3"/>
+                    <SeparatorMenuItem mnemonicParsing="false"/>
+                    <MenuItem mnemonicParsing="false" onAction="#newCustomGameEventHandler" text="Custom"/>
                 </Menu>
-                <Menu fx:id="startMenu" mnemonicParsing="false" text="Simulation">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
-                        <MenuItem mnemonicParsing="false" onAction="#step10EventHandler" text="Step 10"/>
-                    </items>
-                </Menu>
-            </menus>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <MenuItem mnemonicParsing="false" onAction="#loadGameEventHandler" text="Load Game"/>
+                <MenuItem mnemonicParsing="false" onAction="#saveGameEventHandler" text="Save Game"/>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <MenuItem mnemonicParsing="false" onAction="#exitEventHandler" text="Exit"/>
+            </Menu>
+            <Menu styleClass="menuMenu" id="simulationMenu" fx:id="startMenu" mnemonicParsing="false" text="Simulation">
+                <MenuItem mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
+                <MenuItem mnemonicParsing="false" onAction="#step10EventHandler" text="Step 10"/>
+            </Menu>
         </MenuBar>
     </top>
     <center>
-        <Canvas fx:id="cvGame" height="480.0" onMouseClicked="#canvasClickHandler" width="640.0"
+        <Canvas styleClass="gameCanvas" fx:id="cvGame" height="480.0" onMouseClicked="#canvasClickHandler" width="640.0"
                 BorderPane.alignment="CENTER"/>
     </center>
     <bottom>
-        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <items>
-                <Button mnemonicParsing="false" onAction="#newEventHandler" text="new cvtest"/>
-                <Button mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
-                <Button mnemonicParsing="false" onAction="#stepEventHandler" text="step 1"/>
-                <Button mnemonicParsing="false" onAction="#step10EventHandler" text="step 10"/>
-            </items>
+        <ToolBar id="mainToolBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#newEventHandler" text="new cvtest"/>
+            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
+            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#stepEventHandler" text="step 1"/>
+            <Button styleClass="toolBtn" mnemonicParsing="false" onAction="#step10EventHandler" text="step 10"/>
         </ToolBar>
     </bottom>
 </BorderPane>

@@ -37,13 +37,14 @@ public class Game extends Application implements Serializable {
             root = fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
         Controller ctrl = fxmlLoader.getController();
         ctrl.setModel(this);
         timer = new SimulationTimer();
         mapManager = new MapManager(timer, this);
         view = new View(mapManager, ctrl);
-        view.setScene(new Scene(root, view.getWidth(), view.getHeight()));
+        view.setScene(new Scene(root));
         timer.setView(view);
     }
 
@@ -61,6 +62,7 @@ public class Game extends Application implements Serializable {
         primaryStage.setTitle("Szoftlab");
         primaryStage.setScene(view.getScene());
         primaryStage.show();
+        view.reset();
     }
 
     public void activate(double x, double y) {

@@ -188,7 +188,7 @@ public class MapBuilder {
                                         switch (partType) {
                                             case "engine":
                                                 String speed = getNodeAttribute(trainPart, "speed");
-                                                TrainEngine engine = new TrainEngine(tr, new model.util.Speed(Integer.parseInt(speed)));
+                                                TrainEngine engine = new TrainEngine(tr, new model.util.Speed(Double.parseDouble(speed)));
                                                 tr.addPart(engine);
                                                 break;
                                             case "cart":
