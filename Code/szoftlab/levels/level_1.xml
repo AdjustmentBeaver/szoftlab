@@ -72,12 +72,14 @@
             <position x="500" y="500"/>
             <neighbours>
                 <neighbour name="sp2"/>
+                <neighbour name="st1"/>
             </neighbours>
         </node>
         <node type="station" name="st1" color="red">
             <position x="600" y="450"/>
             <neighbours>
                 <neighbour name="n5"/>
+                <neighbour name="sp3"/>
             </neighbours>
         </node>
         <node type="specialPlace" name="sp3">
