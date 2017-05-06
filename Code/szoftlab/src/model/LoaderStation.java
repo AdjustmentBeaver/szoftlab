@@ -3,6 +3,7 @@ package model;
 import javafx.scene.canvas.GraphicsContext;
 import model.util.Color;
 import model.util.Coordinate;
+import view.View;
 
 /**
  * Created by András on 14/04/2017.
@@ -53,6 +54,11 @@ public class LoaderStation extends Node {
     @Override
     public String toString() {
         return "type=loaderStation pos=" + pos + " color=" + color + " hasPassengers=" + hasPassengers;
+    }
+
+    @Override
+    public void draw(View view) {
+        view.draw(this);
     }
 
 }

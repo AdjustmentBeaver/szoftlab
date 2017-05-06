@@ -29,16 +29,16 @@ public class NodeView extends View {
             spriteNode = new Image(new FileInputStream("sprites/Node.png"));
             spriteSpecialPlace = new Image(new FileInputStream("sprites/tunnel_closed.png"));
             spriteSpecialPlaceBuilt = new Image(new FileInputStream("sprites/tunnel.png"));
-            spriteStation = new Image(new FileInputStream("sprites/station_blue.bmp"));
+            spriteStation = new Image(new FileInputStream("sprites/station_blue.png"));
             spriteSwitch = new Image(new FileInputStream("sprites/Node.png"));
-            spriteLoaderStation = new Image(new FileInputStream("sprites/loader_blue.bmp"));
+            spriteLoaderStation = new Image(new FileInputStream("sprites/loader_blue.png"));
         } catch (IOException e) {
             System.err.println("ERROR LOADING NODE SPRITES. RESISTANCE IS FUTILE.");
         }
     }
 
     public void draw(Map map) {
-        graphicsContext.setStroke(Color.PINK);
+        graphicsContext.setStroke(Color.BLACK);
         for (Node n : map.getNodeList()) {
             for (Node nb : map.getNeighborList().get(n)) {
                 graphicsContext.strokeLine(n.getPos().getX(), n.getPos().getY(), nb.getPos().getX(), nb.getPos().getY());
