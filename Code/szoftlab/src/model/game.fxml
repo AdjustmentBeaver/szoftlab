@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
-
-<BorderPane prefHeight="480" prefWidth="640" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
+<BorderPane prefHeight="480" prefWidth="640" xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
-                <Menu fx:id="newGameMenu" mnemonicParsing="false" text="New game" />
-            <Menu fx:id="loadGameMenu" mnemonicParsing="false" text="Load game" />
-            <Menu mnemonicParsing="false" text="Save game">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Save">
-                     <graphic>
-                        <TextField fx:id="saveTextField" onAction="#saveMenuEventHandler" />
-                     </graphic>
-                  </MenuItem>
-              </items>
-            </Menu>
-            <Menu fx:id="startMenu" mnemonicParsing="false" text="Start/Stop">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
+                <Menu fx:id="newGameMenu" mnemonicParsing="false" text="File">
+                    <items>
+                        <Menu mnemonicParsing="false" text="New Game">
+                            <items>
+                                <MenuItem id="level_1" mnemonicParsing="false" onAction="#newGameEventHandler"
+                                          text="Level 1"/>
+                                <MenuItem id="level_2" mnemonicParsing="false" onAction="#newGameEventHandler"
+                                          text="Level 2"/>
+                                <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler"
+                                          text="Level 3"/>
+                            </items>
+                        </Menu>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#loadGameEventHandler" text="Load Game"/>
+                        <MenuItem mnemonicParsing="false" onAction="#saveGameEventHandler" text="Save Game"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" onAction="#exitEventHandler" text="Exit"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="startMenu" mnemonicParsing="false" text="Simulation">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
+                        <MenuItem mnemonicParsing="false" onAction="#step10EventHandler" text="Step 10"/>
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
     </top>
     <center>
-        <Canvas fx:id="cvGame" height="480.0" onMouseClicked="#canvasClickHandler" width="640.0" BorderPane.alignment="CENTER" />
+        <Canvas fx:id="cvGame" height="480.0" onMouseClicked="#canvasClickHandler" width="640.0"
+                BorderPane.alignment="CENTER"/>
     </center>
     <bottom>
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
-                <Button mnemonicParsing="false" onAction="#newEventHandler" text="new cvtest" />
-                <Button mnemonicParsing="false" onAction="#stepEventHandler" text="step 1" />
-                <Button mnemonicParsing="false" onAction="#step10EventHandler" text="step 10" />
+                <Button mnemonicParsing="false" onAction="#newEventHandler" text="new cvtest"/>
+                <Button mnemonicParsing="false" onAction="#startStopEventHandler" text="Start / Stop"/>
+                <Button mnemonicParsing="false" onAction="#stepEventHandler" text="step 1"/>
+                <Button mnemonicParsing="false" onAction="#step10EventHandler" text="step 10"/>
             </items>
         </ToolBar>
     </bottom>

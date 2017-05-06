@@ -70,13 +70,11 @@ public class Game extends Application implements Serializable {
     public void loadGame(String level) {
         stopGame();
         mapManager.loadMap(level);
-        startGame();
     }
 
     public void saveGame(String level) {
         stopGame();
         mapManager.saveMap(level);
-        resumeGame();
     }
 
     /**

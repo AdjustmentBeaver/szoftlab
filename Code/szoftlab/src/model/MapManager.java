@@ -56,7 +56,6 @@ public class MapManager {
         game.stopGame();
         // Serialization
         try {
-            mapName = mapName + ".save";
             ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(mapName));
             ser.writeObject(map);
             ser.close();
@@ -74,7 +73,6 @@ public class MapManager {
     public void loadMap(String mapName) {
         // Deserialization
         try {
-            mapName = mapName + ".save";
             ObjectInputStream ser = new ObjectInputStream(new FileInputStream(mapName));
             map = (Map) ser.readObject();
             if (map == null) {

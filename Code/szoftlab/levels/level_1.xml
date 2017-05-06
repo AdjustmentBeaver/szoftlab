@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
+<level>
+    <nodes>
+        <node type="node" name="n1">
+            <position x="20" y="20"/>
+            <neighbours>
+                <neighbour name="sw"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw">
+            <position x="100" y="20"/>
+            <neighbours>
+                <neighbour name="n2"/>
+                <neighbour name="n1"/>
+                <neighbour name="n3"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n2">
+            <position x="200" y="20"/>
+            <neighbours>
+                <neighbour name="sw"/>
+                <neighbour name="s1"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n3">
+            <position x="100" y="100"/>
+            <neighbours>
+                <neighbour name="sw"/>
+                <neighbour name="s3"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="s1">
+            <position x="300" y="20"/>
+            <neighbours>
+                <neighbour name="n2"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="s2">
+            <position x="400" y="300"/>
+            <neighbours>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="s3">
+            <position x="100" y="200"/>
+            <neighbours>
+                <neighbour name="n3"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="s4">
+            <position x="200" y="200"/>
+            <neighbours>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n4">
+            <position x="300" y="300"/>
+            <neighbours>
+                <neighbour name="s4"/>
+                <neighbour name="s2"/>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train start_node="n1" start_time="0">
+            <trainPart type="engine" speed="4"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="coalWagon"/>
+        </train>
+        <train start_node="n4" start_time="1">
+            <trainPart type="engine" speed="4"/>
+        </train>
+    </trains>
+</level>
