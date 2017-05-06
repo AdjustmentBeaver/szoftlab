@@ -10,7 +10,6 @@ import view.View;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.URL;
 
 /**
  * Inicializálja a játékhoz szükséges objektumokat.
@@ -24,7 +23,6 @@ public class Game extends Application implements Serializable {
     private boolean wasRunning = false;
     private boolean simRunning = false;
     private View view;
-    private String level;
 
     /**
      * Instantiates a new model.Game.
@@ -88,6 +86,7 @@ public class Game extends Application implements Serializable {
      * </p>
      */
     public void startGame() {
+        if (mapManager.getMap()==null) return;
         wasRunning = simRunning;
         timer.start();
         simRunning = true;
@@ -130,8 +129,7 @@ public class Game extends Application implements Serializable {
      */
     public void newGame(String nextLevel) {
         stopGame();
-        level="levels/" + nextLevel + ".xml";
-        mapManager.newMap(level);
+        mapManager.newMap(nextLevel);
         startGame();
     }
 
@@ -146,7 +144,7 @@ public class Game extends Application implements Serializable {
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-        mapManager.newMap(level);
+        mapManager.newMap(mapManager.getMap().getMapName());
     }
 
     public void step(int n) {

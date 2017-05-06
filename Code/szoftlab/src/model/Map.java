@@ -18,6 +18,30 @@ import java.util.List;
  */
 public class Map implements Serializable, Notifiable {
     private List<Node> nodeList;
+    private java.util.Map<Node, ArrayList<Node>> neighborList;
+    private List<Train> trainList;
+    private List<Notifiable> notifiables;
+    private String mapName;
+    private transient Game game;
+
+    /**
+     * Instantiates a new model.Map.
+     *
+     * @param game    A model.Game osztály, ami a játékot vezérli
+     * @param mapName
+     */
+    public Map(Game game, String mapName) {
+        this.mapName = mapName;
+        trainList = new ArrayList<>();
+        nodeList = new ArrayList<>();
+        neighborList = new HashMap<>();
+        notifiables = new ArrayList<>();
+        this.game = game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public java.util.Map<Node, ArrayList<Node>> getNeighborList() {
         return neighborList;
@@ -25,23 +49,6 @@ public class Map implements Serializable, Notifiable {
 
     public void setNeighborList(java.util.Map<Node, ArrayList<Node>> neighborList) {
         this.neighborList = neighborList;
-    }
-
-    private java.util.Map<Node, ArrayList<Node>> neighborList;
-    private List<Train> trainList;
-    private List<Notifiable> notifiables;
-    private transient Game game;
-
-    /**
-     * Instantiates a new model.Map.
-     * @param game A model.Game osztály, ami a játékot vezérli
-     */
-    public Map(Game game) {
-        trainList = new ArrayList<>();
-        nodeList = new ArrayList<>();
-        neighborList = new HashMap<>();
-        notifiables = new ArrayList<>();
-        this.game = game;
     }
 
     /**
@@ -135,7 +142,7 @@ public class Map implements Serializable, Notifiable {
         if (event == null) {
             boolean trainExploded = false;
             boolean cartsEmpty = true;
-            for (Train t: trainList) {
+            for (Train t : trainList) {
                 if (t.isExploded()) {
                     trainExploded = true;
                 }
@@ -144,7 +151,7 @@ public class Map implements Serializable, Notifiable {
                 }
 
                 // Ne nyerje meg a jatekot
-                if (t.getPartList().size() == 1){
+                if (t.getPartList().size() == 1) {
                     cartsEmpty = false;
                 }
             }
@@ -170,5 +177,9 @@ public class Map implements Serializable, Notifiable {
 
     public List<Node> getNodeList() {
         return nodeList;
+    }
+
+    public String getMapName() {
+        return mapName;
     }
 }

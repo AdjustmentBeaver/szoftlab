@@ -45,7 +45,7 @@ public class MapBuilder {
             factory.setValidating(true);
             factory.setNamespaceAware(true);
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.parse(mapName);
+            Document document = builder.parse("levels/"+mapName+".xml");
 
             // Normalizaljuk a dokumentumot
             // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
@@ -57,7 +57,7 @@ public class MapBuilder {
                 throw new XMLParseException("Wrong root node name: " + level.getNodeName());
             }
 
-            Map map = new Map(game);
+            Map map = new Map(game,mapName);
 
             List<Train> trainList = map.getTrainList();
 

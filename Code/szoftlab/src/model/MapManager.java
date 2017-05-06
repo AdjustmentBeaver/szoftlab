@@ -52,7 +52,6 @@ public class MapManager {
         // Serialization
         try {
             mapName = mapName + ".save";
-            System.out.println(mapName);
             ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(mapName));
             ser.writeObject(map);
             ser.close();
@@ -77,23 +76,20 @@ public class MapManager {
                 System.err.println("Unable to load level: model.Map is null.");
                 return;
             }
+            map.setGame(game);
             map.subscribe(timer);
         } catch (StreamCorruptedException e) {
             System.err.println("Unable to load level " + mapName + ": data file is corrupted.");
             System.err.println(e.getMessage());
-            return;
         } catch (ClassNotFoundException e) {
             System.err.println("Unable to load level " + mapName + ": class not found.");
             System.err.println(e.getMessage());
-            return;
-        }  catch (InvalidClassException e) {
+        } catch (InvalidClassException e) {
             System.err.println("Unable to load level " + mapName + ": class is invalid.");
             System.err.println(e.getMessage());
-            return;
         } catch (IOException e) {
             System.err.println("Unable to load level " + mapName + ": I/O error.");
             System.err.println(e.getMessage());
-            return;
         }
     }
 
