@@ -35,7 +35,7 @@ public class TrainView extends View {
         graphicsContext.setFill(Color.BLUE);
         for (Train t : map.getTrainList()) {
             Coordinate dir = t.getPartList().get(0).getDirection();
-            if (t.isRunning() &&  dir != null && dir.length() != 0) {
+            if (t.isRunning() && dir != null && dir.length() != 0) {
                 for (TrainPart tp : t.getPartList()) {
                     tp.draw(this);
                 }

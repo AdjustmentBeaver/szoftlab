@@ -95,7 +95,7 @@ public abstract class TrainPart implements Serializable, IDrawable {
         this.pos = pos;
         direction = nextNode.getPos().substract(pos).normalize();
         // BoundingBox frissítés
-        boundingBox = new BoundingBox(pos, direction);
+        boundingBox = new BoundingBox(pos, direction,60,22);
     }
 
     /**

@@ -4,25 +4,25 @@
 <level>
     <nodes>
         <node type="node" name="node1">
-            <position x="100" y="20"/>
+            <position x="200" y="20"/>
             <neighbours>
                 <neighbour name="node2"/>
             </neighbours>
         </node>
         <node type="node" name="node2">
-            <position x="100" y="120"/>
+            <position x="200" y="320"/>
             <neighbours>
                 <neighbour name="node1"/>
             </neighbours>
         </node>
         <node type="node" name="node3">
-            <position x="50" y="70"/>
+            <position x="50" y="170"/>
             <neighbours>
                 <neighbour name="node4"/>
             </neighbours>
         </node>
         <node type="node" name="node4">
-            <position x="150" y="70"/>
+            <position x="350" y="170"/>
             <neighbours>
                 <neighbour name="node3"/>
             </neighbours>
