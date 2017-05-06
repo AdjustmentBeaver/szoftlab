@@ -68,13 +68,14 @@ public class Controller {
 
     @FXML
     public void loadGameEventHandler(ActionEvent actionEvent) {
+        boolean wasRunning = game.isRunning();
         game.stopGame();
         File f = createSaveLoadFileChooser("Load Saved Map").showOpenDialog(cvGame.getScene().getWindow());
         if (f != null) {
             game.loadGame(f.getPath());
             // redraw
             game.step(0);
-        }
+        } else if (wasRunning) game.startGame();
     }
 
     private FileChooser createSaveLoadFileChooser(String title) {
