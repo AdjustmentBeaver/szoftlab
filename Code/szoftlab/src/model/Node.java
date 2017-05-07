@@ -133,8 +133,9 @@ public class Node implements Serializable, IDrawable {
     protected boolean checkForTrain() {
         // Ha volt már rajta vonat
         if (lastTrain != null){
+            TrainPart engine = lastTrain.getPartList().get(0);
             for(TrainPart tp: lastTrain.getPartList()){
-                if (tp.getNextNode() == this) {
+                if (tp.getNextNode() == this && tp!=engine && engine.getNextNode() != this) {
                     return true;
                 }
             }
