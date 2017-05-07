@@ -5,6 +5,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +22,9 @@ public class TrainScheduler implements Notifiable, Serializable {
 
     private int time;
 
-    private MediaPlayer hornMedia;
+    private transient MediaPlayer hornMedia = null;
+
+    private static final String hornSound =  "sound/horn.mp3";
 
     /**
      * Konstruktor, megkapja a vonatlistát.
@@ -30,7 +34,12 @@ public class TrainScheduler implements Notifiable, Serializable {
     public TrainScheduler(List<Train> trainList) {
         this.trainList = trainList;
         time = 0;
-        hornMedia = new MediaPlayer(new Media(new File("sound/horn.mp3").toURI().toString()));
+        hornMedia = new MediaPlayer(new Media(new File(hornSound).toURI().toString()));
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        hornMedia = new MediaPlayer(new Media(new File(hornSound).toURI().toString()));
     }
 
     /**
@@ -43,8 +52,10 @@ public class TrainScheduler implements Notifiable, Serializable {
                 if (!t.isRunning() && t.getStartTime() <= time) {
                     t.startTrain();
                     // Play horn sound
-                    hornMedia.seek(Duration.ZERO);
-                    hornMedia.play();
+                    if (hornMedia != null) {
+                        hornMedia.seek(Duration.ZERO);
+                        hornMedia.play();
+                    }
                 }
             }
             time++;
