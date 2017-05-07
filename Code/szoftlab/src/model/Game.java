@@ -15,7 +15,6 @@ import view.View;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * Inicializálja a játékhoz szükséges objektumokat.
@@ -23,15 +22,17 @@ import java.io.Serializable;
  * Létrehozza a model.SimulationTimer és a model.MapManager objektumokat.
  * Rajra keresztül állítható a játék állapota.
  */
-public class Game extends Application implements Serializable {
+public class Game extends Application {
     private SimulationTimer timer;
     private MapManager mapManager;
     private boolean wasRunning = false;
     private boolean simRunning = false;
     private View view;
 
-    private MediaPlayer winSound;
-    private MediaPlayer loseSound;
+    private MediaPlayer winMedia = null;
+    private MediaPlayer loseMedia = null;
+    private static final String winSound = "sound/applause.mp3";
+    private static final String loseSound = "sound/explosion.mp3";
 
     /**
      * Instantiates a new model.Game.
@@ -55,8 +56,8 @@ public class Game extends Application implements Serializable {
         view = new View(mapManager, ctrl);
         view.setScene(new Scene(root));
         timer.setView(view);
-        winSound = new MediaPlayer(new Media(new File("sound/applause.mp3").toURI().toString()));
-        loseSound = new MediaPlayer(new Media(new File("sound/explosion.mp3").toURI().toString()));
+        winMedia = new MediaPlayer(new Media(new File(winSound).toURI().toString()));
+        loseMedia = new MediaPlayer(new Media(new File(loseSound).toURI().toString()));
     }
 
     /**
@@ -148,8 +149,10 @@ public class Game extends Application implements Serializable {
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
      */
     public void won() {
-        winSound.seek(Duration.ZERO);
-        winSound.play();
+        if (winMedia != null) {
+            winMedia.seek(Duration.ZERO);
+            winMedia.play();
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Train Simulator 2017");
         alert.setHeaderText(null);
@@ -166,8 +169,10 @@ public class Game extends Application implements Serializable {
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
      */
     public void lost() {
-        loseSound.seek(Duration.ZERO);
-        loseSound.play();
+        if (loseMedia != null) {
+            loseMedia.seek(Duration.ZERO);
+            loseMedia.play();
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Train Simulator 2017");
         alert.setHeaderText(null);
