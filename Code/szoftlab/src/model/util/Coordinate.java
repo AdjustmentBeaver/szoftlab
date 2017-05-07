@@ -66,22 +66,50 @@ public class Coordinate implements Serializable{
         return Math.sqrt(Math.pow(x-p.getX(),2) + Math.pow(y-p.getY(),2));
     }
 
+    /**
+     * Paramétereket ad össze, akkor használható, mikor vektorokat jelentenek a paraméterek
+     * @param c a hozzáadandó koordináta
+     * @return a két koordináta összege, egy új koordinátában
+     */
     public Coordinate add(Coordinate c) {
         return new Coordinate(x + c.x, y + c.y);
     }
 
+    /**
+     * Két koordináta kivonása egymásból
+     * vektorokhoz használható
+     * @param c mit vonjunk ki
+     * @return két koordináta különbsége, egy új koordinátában
+     */
     public Coordinate substract(Coordinate c) {
         return new Coordinate(x - c.x, y - c.y);
     }
 
+    /**
+     * Nyújtani lehet vele
+     * @param d nyújtás nagysága
+     * @return egy megnyújtott koordináta
+     */
     public Coordinate scale(double d) {
         return new Coordinate(x * d, y * d);
     }
 
+    /**
+     * skalár szorzás vektorokhoz
+     * @param c1 vektor 1
+     * @param c2 vektor 2
+     * @return skalár szorzat
+     */
     public static double dot(Coordinate c1, Coordinate c2){
         return c1.getX()*c2.getX()+c1.getY()*c2.getY();
     }
 
+    /**
+     * Vektoriális szorzás vektorokhoz, az értéke egy skalár lesz
+     * @param c1 vektor 1
+     * @param c2 vektor 2
+     * @return vektor szorzat
+     */
     public static double cross(Coordinate c1, Coordinate c2){
         return c1.getX()*c2.getY()-c1.getY()*c2.getX();
     }

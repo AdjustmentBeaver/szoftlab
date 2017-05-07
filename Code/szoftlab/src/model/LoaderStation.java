@@ -61,6 +61,10 @@ public class LoaderStation extends Node {
         view.draw(this);
     }
 
+    /**
+     * Lekérhető milyen színnel rendelkezik az állomás
+     * @return állomás színe
+     */
     public Color getColor() {
         return color;
     }

@@ -110,6 +110,7 @@ public class SimulationTimer {
     }
 
     /**
+     * Esenényt lehet rögzíteni vele
      * @param event
      */
     public void addEvent(String event) {

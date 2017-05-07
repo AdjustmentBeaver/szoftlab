@@ -93,6 +93,9 @@ public class MapManager {
         return map;
     }
 
+    /**
+     * Átvált a következő pályára. Az előző pálya meghatározza a következőt
+     */
     public void nextMap() {
         String curr[] = map.getMapName().split("_");
         int next = 0;

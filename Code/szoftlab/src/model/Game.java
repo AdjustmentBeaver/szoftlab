@@ -86,6 +86,10 @@ public class Game extends Application {
         mapManager.loadMap(level);
     }
 
+    /**
+     * Játékállás mentésére szolgál
+     * @param level A mentés neve
+     */
     public void saveGame(String level) {
         stopGame();
         mapManager.saveMap(level);
@@ -147,6 +151,7 @@ public class Game extends Application {
 
     /**
      * A játék megnyerése esetén hívjuk a függvényt (ha kiürült minden kocsi)
+     * Üzenetet küld, hogy teljesítettük a pályát, a következő pályára lép
      */
     public void won() {
         if (winMedia != null) {
@@ -167,6 +172,7 @@ public class Game extends Application {
 
     /**
      * A játék elvesztése esetén hívjuk a függvényt (ha felrobbant egy kocsi)
+     * Figyelmeztett, hogy nem sikerült teljesíteni a pályát és újratölti azt
      */
     public void lost() {
         if (loseMedia != null) {
