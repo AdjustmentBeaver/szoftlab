@@ -10,43 +10,48 @@ import model.util.Coordinate;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
- * Created by szilard95 on 5/5/17.
+ * The type Train view.
  */
 public class TrainView extends View {
     private GraphicsContext graphicsContext;
-    private Image spriteTrainEngine;
-    private Image spriteTrainCoalWagon;
-    private Image spriteTrainCartBlue;
-    private Image spriteTrainCartGreen;
-    private Image spriteTrainCartOrange;
-    private Image spriteTrainCartRed;
-    private Image spriteTrainCartEmpty;
 
+    private HashMap<String, Image> trainCarts;
+    private HashMap<String, Image> trainParts;
+    private static final String trainPartTypes[] = {"cart", "coal_wagon", "engine"};
+
+    /**
+     * Instantiates a new Train view.
+     *
+     * @param graphicsContext the graphics context
+     */
     public TrainView(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
         try {
-            FileInputStream fi;
-            spriteTrainCartBlue = new Image(fi = new FileInputStream("sprites/cart_blue.png"));
-            fi.close();
-            spriteTrainCartGreen = new Image(fi = new FileInputStream("sprites/cart_green.png"));
-            fi.close();
-            spriteTrainCartOrange = new Image(fi = new FileInputStream("sprites/cart_orange.png"));
-            fi.close();
-            spriteTrainCartRed = new Image(fi = new FileInputStream("sprites/cart_red.png"));
-            fi.close();
-            spriteTrainCoalWagon = new Image(fi = new FileInputStream("sprites/coal_wagon.png"));
-            fi.close();
-            spriteTrainCartEmpty= new Image(fi = new FileInputStream("sprites/cart.png"));
-            fi.close();
-            spriteTrainEngine = new Image(fi = new FileInputStream("sprites/dank_engine.png"));
-            fi.close();
+            trainCarts = new HashMap<>();
+            for (String color: model.util.Color.getValidColors()) {
+                try (FileInputStream fi = new FileInputStream("sprites/cart_" + color + ".png")) {
+                    trainCarts.put(color, new Image(fi));
+                }
+            }
+            trainParts = new HashMap<>();
+            for (String type: trainPartTypes) {
+                try (FileInputStream fi = new FileInputStream("sprites/" + type + ".png")) {
+                    trainParts.put(type, new Image(fi));
+                }
+            }
         } catch (IOException e) {
-            System.err.println("ERROR LOADING TRAIN SPRITES. RESISTANCE IS FUTILE.");
+            System.err.println("TrainView.TrainView(): File error: " + e.getMessage());
         }
     }
 
+    /**
+     * Draw.
+     *
+     * @param map the map
+     */
     public void draw(Map map) {
         graphicsContext.setFill(Color.BLUE);
         for (Train t : map.getTrainList()) {
@@ -62,30 +67,29 @@ public class TrainView extends View {
     @Override
     public void draw(TrainCart trainCart) {
         Image sprite = null;
-        switch (trainCart.getColor().toString()) {
-            case "blue":
-                sprite = spriteTrainCartBlue;
-                break;
-            case "green":
-                sprite = spriteTrainCartGreen;
-                break;
-            case "orange":
-                sprite = spriteTrainCartOrange;
-                break;
-            case "red":
-                sprite = spriteTrainCartRed;
-                break;
+        if (trainCart.isEmpty()) {
+            sprite = trainParts.get("cart");
+        } else {
+            sprite = trainCarts.get(trainCart.getColor().toString());
         }
-        if (trainCart.isEmpty())
-            sprite=spriteTrainCartEmpty;
-        drawSprite(trainCart, sprite);
+        if (sprite != null) {
+            drawSprite(trainCart, sprite);
+        } else {
+            System.err.println("TrainView.Draw(TrainCart): Invalid cart color: " + trainCart.getColor().toString());
+        }
     }
 
+    /**
+     * Kirajzol egy TrainPartot a GraphicsContextre, elforgatva a sebessege iranyaba.
+     */
     private void drawSprite(TrainPart trainPart, Image sprite) {
         ImageView iv = new ImageView(sprite);
         Coordinate dir = trainPart.getDirection();
-        double deg = Math.toDegrees(Math.acos(Coordinate.dot(dir, new Coordinate(1, 0))));
-        if (Coordinate.cross(dir, new Coordinate(1, 0)) > 0) {
+        // Az elforgatas szoget az (1,0) vektorhoz viszonyitjuk, mert vizszintesen es jobbra allva taroljuk a spriteokat
+        Coordinate ref = new Coordinate(1, 0);
+        double deg = Math.toDegrees(Math.acos(Coordinate.dot(dir, ref)));
+        // Ha az elforgatas szoge > 180 fok, akkor is jo iranyba forgassuk
+        if (Coordinate.cross(dir, ref) > 0) {
             deg = 360 - deg;
         }
         iv.setRotate(deg);
@@ -97,11 +101,11 @@ public class TrainView extends View {
 
     @Override
     public void draw(TrainEngine trainEngine) {
-        drawSprite(trainEngine, spriteTrainEngine);
+        drawSprite(trainEngine, trainParts.get("engine"));
     }
 
     @Override
     public void draw(TrainCoalWagon trainCoalWagon) {
-        drawSprite(trainCoalWagon, spriteTrainCoalWagon);
+        drawSprite(trainCoalWagon, trainParts.get("coal_wagon"));
     }
 }

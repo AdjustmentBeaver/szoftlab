@@ -8,6 +8,8 @@ import java.io.Serializable;
 public class Color implements Serializable {
     private String color;
 
+    private static String validColors[] = {"blue", "red", "green", "orange"};
+
     public Color(String color) {
         this.color = color;
     }
@@ -20,5 +22,9 @@ public class Color implements Serializable {
     @Override
     public boolean equals(Object obj) {
         return this == obj || obj instanceof Color && color.equals(obj.toString());
+    }
+
+    public static String[] getValidColors() {
+        return validColors;
     }
 }

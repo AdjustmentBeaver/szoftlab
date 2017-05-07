@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import model.*;
 import model.util.Coordinate;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,48 +17,34 @@ import java.util.HashMap;
  */
 public class NodeView extends View {
     private GraphicsContext graphicsContext;
-    private Image spriteNode;
-    private Image spriteSpecialPlace;
-    private Image spriteSpecialPlaceBuilt;
-    private Image spriteSwitch;
     private HashMap<String, Image> spriteStations;
     private HashMap<String, Image> spriteLoaderStations;
+    private HashMap<String, Image> spriteNodes;
     private ArrayList<SpecialPlace> tunnels = new ArrayList<>();
+    private static final String nodeTypes[] = {"node", "tunnel_built", "tunnel_closed"};
 
     public NodeView(GraphicsContext graphicsContext) {
         this.graphicsContext = graphicsContext;
         graphicsContext.setLineWidth(12);
         try {
-            FileInputStream fi;
-
-            spriteNode = new Image(fi = new FileInputStream("sprites/Node.png"));
-            fi.close();
-            spriteSpecialPlace = new Image(fi = new FileInputStream("sprites/tunnel_closed.png"));
-            fi.close();
-            spriteSpecialPlaceBuilt = new Image(fi = new FileInputStream("sprites/tunnel.png"));
-            fi.close();
-            spriteSwitch = new Image(fi = new FileInputStream("sprites/Node.png"));
-            fi.close();
+            spriteNodes = new HashMap<>();
+            for (String type: nodeTypes) {
+                try (FileInputStream fi = new FileInputStream("sprites/" + type + ".png")) {
+                    spriteNodes.put(type, new Image(fi));
+                }
+            }
             spriteStations=new HashMap<>();
-            spriteStations.put("blue", new Image(fi = new FileInputStream("sprites/station_blue.png")));
-            fi.close();
-            spriteStations.put("red", new Image(fi = new FileInputStream("sprites/station_red.png")));
-            fi.close();
-            spriteStations.put("green", new Image(fi = new FileInputStream("sprites/station_green.png")));
-            fi.close();
-            spriteStations.put("orange", new Image(fi = new FileInputStream("sprites/station_orange.png")));
-            fi.close();
             spriteLoaderStations=new HashMap<>();
-            spriteLoaderStations.put("blue", new Image(fi = new FileInputStream("sprites/loader_blue.png")));
-            fi.close();
-            spriteLoaderStations.put("red", new Image(fi = new FileInputStream("sprites/loader_red.png")));
-            fi.close();
-            spriteLoaderStations.put("green", new Image(fi = new FileInputStream("sprites/loader_green.png")));
-            fi.close();
-            spriteLoaderStations.put("orange", new Image(fi = new FileInputStream("sprites/loader_orange.png")));
-            fi.close();
+            for (String color: model.util.Color.getValidColors()) {
+                try (FileInputStream fi = new FileInputStream("sprites/station_" + color + ".png")) {
+                    spriteStations.put(color, new Image(fi));
+                }
+                try (FileInputStream fi = new FileInputStream("sprites/loader_" + color + ".png")) {
+                    spriteLoaderStations.put(color, new Image(fi));
+                }
+            }
         } catch (IOException e) {
-            System.err.println("ERROR LOADING NODE SPRITES. RESISTANCE IS FUTILE.");
+            System.err.println("NodeView.NodeView: File error: " + e.getMessage());
         }
     }
 
@@ -76,7 +63,7 @@ public class NodeView extends View {
 
     @Override
     public void draw(Node node) {
-        drawSprite(node, spriteNode);
+        drawSprite(node, spriteNodes.get("node"));
     }
 
     private void drawSprite(Node node, Image sprite) {
@@ -98,18 +85,15 @@ public class NodeView extends View {
         graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), root.getX(), root.getY());
         graphicsContext.setStroke(Color.RED);
         graphicsContext.strokeLine(sw.getPos().getX(), sw.getPos().getY(), active.getX(), active.getY());
-        //graphicsContext.setFill(Color.RED);
-        //graphicsContext.fillOval(active.getX()-3, active.getY()-3, 6, 6);
-        //drawSprite(sw,spriteSwitch);
     }
 
     @Override
     public void draw(SpecialPlace tunnel) {
         if (tunnel.isConstructed) {
-            drawSprite(tunnel, spriteSpecialPlaceBuilt);
+            drawSprite(tunnel, spriteNodes.get("tunnel_built"));
             tunnels.add(tunnel);
         } else {
-            drawSprite(tunnel, spriteSpecialPlace);
+            drawSprite(tunnel, spriteNodes.get("tunnel_closed"));
         }
     }
 
@@ -128,8 +112,8 @@ public class NodeView extends View {
             graphicsContext.setStroke(Color.DARKGREEN);
             graphicsContext.strokeLine(t1.getPos().getX(), t1.getPos().getY(), t2.getPos().getX(), t2.getPos().getY());
 
-            drawSprite(t1, spriteSpecialPlaceBuilt);
-            drawSprite(t2, spriteSpecialPlaceBuilt);
+            drawSprite(t1, spriteNodes.get("tunnel_built"));
+            drawSprite(t2, spriteNodes.get("tunnel_built"));
         }
         tunnels.clear();
     }
