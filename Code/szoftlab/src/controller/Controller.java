@@ -66,8 +66,12 @@ public class Controller {
             game.loadGame(f.getPath());
             btnStartStop.setDisable(false);
             game.step(0);
-        } else if (wasRunning) {
+            btnStartStop.setText("Folytatás");
+        }
+
+        if (wasRunning) {
             game.startGame();
+            btnStartStop.setText("Szünet");
         }
     }
 
