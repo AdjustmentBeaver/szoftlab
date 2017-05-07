@@ -51,10 +51,8 @@ public class MapManager {
     public void saveMap(String mapName) {
         game.stopGame();
         // Serialization
-        try {
-            ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(mapName));
+        try (ObjectOutputStream ser = new ObjectOutputStream(new FileOutputStream(mapName))) {
             ser.writeObject(map);
-            ser.close();
         } catch (IOException e) {
             System.err.println("Unable to save level: " + e.getMessage());
         }
@@ -68,8 +66,7 @@ public class MapManager {
      */
     public void loadMap(String mapName) {
         // Deserialization
-        try {
-            ObjectInputStream ser = new ObjectInputStream(new FileInputStream(mapName));
+        try (ObjectInputStream ser = new ObjectInputStream(new FileInputStream(mapName))) {
             map = (Map) ser.readObject();
             if (map == null) {
                 System.err.println("Unable to load level: model.Map is null.");
