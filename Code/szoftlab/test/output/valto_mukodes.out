@@ -1,7 +1,0 @@
-MAP_CREATED
-activate switch1 activeNode:type=node pos=(3.0,1.0)
-Train0 | type=node pos=(1.0,0.0)
-Train0 | type=node pos=(2.0,0.0)
-Train0 | type=switch pos=(3.0,0.0) active=[type=node pos=(3.0,1.0)]
-Train0 | type=node pos=(3.0,1.0)
-activate switch1 activeNode:type=node pos=(4.0,0.0)

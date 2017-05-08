@@ -1,5 +1,0 @@
-MAP_CREATED
-Train0 | type=node pos=(1.0,0.0)
-Train0 | type=node pos=(2.0,0.0)
-Train0 | type=node pos=(3.0,0.0)
-Train1 | type=node pos=(1.0,0.0)

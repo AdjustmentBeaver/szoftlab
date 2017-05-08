@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
+<level>
+    <nodes>
+        <node type="node" name="n1">
+            <position x="20" y="20"/>
+            <neighbours>
+                <neighbour name="sw1"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw1">
+            <position x="120" y="20"/>
+            <neighbours>
+                <neighbour name="n1"/>
+                <neighbour name="n2"/>
+                <neighbour name="t1"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="t1">
+            <position x="120" y="120"/>
+            <neighbours>
+                <neighbour name="sw1"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n2">
+            <position x="220" y="20"/>
+            <neighbours>
+                <neighbour name="sw1"/>
+                <neighbour name="l1"/>
+            </neighbours>
+        </node>
+        <node type="loaderStation" name="l1" color="blue">
+            <position x="220" y="120"/>
+            <neighbours>
+                <neighbour name="n2"/>
+                <neighbour name="n3"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n3">
+            <position x="320" y="120"/>
+            <neighbours>
+                <neighbour name="l1"/>
+                <neighbour name="s1"/>
+            </neighbours>
+        </node>
+        <node type="station" name="s1" color="blue">
+            <position x="320" y="220"/>
+            <neighbours>
+                <neighbour name="n3"/>
+                <neighbour name="t2"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="t2">
+            <position x="220" y="220"/>
+            <neighbours>
+                <neighbour name="s1"/>
+            </neighbours>
+        </node>
+
+        <node type="specialPlace" name="t3">
+            <position x="20" y="120"/>
+            <neighbours>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n4">
+            <position x="20" y="220"/>
+            <neighbours>
+                <neighbour name="t3"/>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train start_node="n1" start_time="0">
+            <trainPart type="engine" speed="2"/>
+            <trainPart type="cart" color="blue"/>
+            <trainPart type="coalWagon"/>
+        </train>
+    </trains>
+</level>

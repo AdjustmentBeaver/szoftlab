@@ -9,4 +9,8 @@ MD out
 MD out\production
 MD out\production\szoftlab
 
-"%JAVA_HOME%\bin\javac" -encoding utf8 -d out\production\szoftlab -sourcepath src src\Game.java
+"%JAVA_HOME%\bin\javac" -encoding utf8 -d out\production\szoftlab -sourcepath src src\model\Game.java
+
+copy src\model\game.fxml out\production\szoftlab\model\game.fxml
+
+copy src\application.css out\production\szoftlab\application.css

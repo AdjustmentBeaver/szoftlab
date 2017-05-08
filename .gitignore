@@ -63,3 +63,7 @@ fabric.properties
 
 # Test output files
 *.test
+
+# Save game files
+**/save/
+*.save

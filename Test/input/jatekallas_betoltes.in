@@ -1,0 +1,9 @@
+new jatekallas_betoltes
+activate 2 0
+activate 3 0
+step 4
+save save1
+load save1
+listNodes
+listTrains
+step 1

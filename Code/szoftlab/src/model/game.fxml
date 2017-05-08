@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import java.net.URL?>
+<BorderPane id="mainBorderPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.Controller">
+    <stylesheets>
+        <URL value="@../application.css"/>
+    </stylesheets>
+    <top>
+        <MenuBar id="mainMenuBar" BorderPane.alignment="CENTER">
+            <Menu styleClass="menuMenu" id="fileMenu" mnemonicParsing="false" text="Fájl">
+                <Menu styleClass="menuMenu" mnemonicParsing="false" text="Új játék">
+                    <MenuItem id="level_1" mnemonicParsing="false" onAction="#newGameEventHandler" text="1. pálya"/>
+                    <MenuItem id="level_2" mnemonicParsing="false" onAction="#newGameEventHandler" text="2. pálya"/>
+                    <MenuItem id="level_3" mnemonicParsing="false" onAction="#newGameEventHandler" text="3. pálya"/>
+                    <SeparatorMenuItem mnemonicParsing="false"/>
+                    <MenuItem mnemonicParsing="false" onAction="#newCustomGameEventHandler" text="Egyéb.."/>
+                </Menu>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <MenuItem mnemonicParsing="false" onAction="#loadGameEventHandler" text="Betöltés.."/>
+                <MenuItem mnemonicParsing="false" onAction="#saveGameEventHandler" text="Mentés.."/>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <MenuItem mnemonicParsing="false" onAction="#exitEventHandler" text="Kilépés"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <Canvas fx:id="cvGame" height="600.0" onMouseClicked="#canvasClickHandler" width="800.0"
+                BorderPane.alignment="CENTER"/>
+    </center>
+    <bottom>
+        <ToolBar id="mainToolBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <Button styleClass="toolBtn" fx:id="btnStartStop" onAction="#startStopEventHandler" disable="true"
+                    text="Szünet"/>
+        </ToolBar>
+    </bottom>
+</BorderPane>

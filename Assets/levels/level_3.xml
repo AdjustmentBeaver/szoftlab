@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
+<level>
+    <nodes>
+        <node type="node" name="n0">
+            <position x="0" y="300"/>
+            <neighbours>
+                <neighbour name="sw0"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw0">
+            <position x="100" y="400"/>
+            <neighbours>
+                <neighbour name="sp0"/>
+                <neighbour name="n0"/>
+                <neighbour name="sw1"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="sp0">
+            <position x="130" y="400"/>
+            <neighbours>
+                <neighbour name="sw0"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw1">
+            <position x="200" y="550"/>
+            <neighbours>
+                <neighbour name="sw2"/>
+                <neighbour name="sw0"/>
+                <neighbour name="n1"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n1">
+            <position x="400" y="600"/>
+            <neighbours>
+                <neighbour name="sw1"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw2">
+            <position x="190" y="450"/>
+            <neighbours>
+                <neighbour name="sw1"/>
+                <neighbour name="ls0"/>
+                <neighbour name="st63"/>
+            </neighbours>
+        </node>
+        <node type="loaderStation" name="ls0" color="red">
+            <position x="170" y="350"/>
+            <neighbours>
+                <neighbour name="sw2"/>
+                <neighbour name="st0"/>
+            </neighbours>
+        </node>
+        <node type="station" name="st0" color="red">
+            <position x="200" y="175"/>
+            <neighbours>
+                <neighbour name="ls0"/>
+                <neighbour name="sw3"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw3">
+            <position x="300" y="125"/>
+            <neighbours>
+                <neighbour name="st51"/>
+                <neighbour name="st0"/>
+                <neighbour name="n50"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="sp1">
+            <position x="115" y="300"/>
+            <neighbours>
+                <neighbour name="sw4"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw4">
+            <position x="115" y="275"/>
+            <neighbours>
+                <neighbour name="sp1"/>
+                <neighbour name="sw5"/>
+                <neighbour name="sw6"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw5">
+            <position x="75" y="200"/>
+            <neighbours>
+                <neighbour name="n2"/>
+                <neighbour name="sw4"/>
+                <neighbour name="sw6"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw6">
+            <position x="130" y="200"/>
+            <neighbours>
+                <neighbour name="n3"/>
+                <neighbour name="sw5"/>
+                <neighbour name="sw4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n2">
+            <position x="25" y="150"/>
+            <neighbours>
+                <neighbour name="sw5"/>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n3">
+            <position x="140" y="150"/>
+            <neighbours>
+                <neighbour name="sw6"/>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n4">
+            <position x="115" y="25"/>
+            <neighbours>
+                <neighbour name="n3"/>
+                <neighbour name="n2"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n70">
+            <position x="800" y="300"/>
+            <neighbours>
+                <neighbour name="sw69"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw69">
+            <position x="700" y="150"/>
+            <neighbours>
+                <neighbour name="sw68"/>
+                <neighbour name="n70"/>
+                <neighbour name="sw67"/>
+            </neighbours>
+        </node>
+
+        <node type="switch" name="sw68">
+            <position x="600" y="100"/>
+            <neighbours>
+                <neighbour name="sw69"/>
+                <neighbour name="sp66"/>
+                <neighbour name="sw67"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="sp66">
+            <position x="550" y="25"/>
+            <neighbours>
+                <neighbour name="sw68"/>
+            </neighbours>
+        </node>
+        <node type="switch" name="sw67">
+            <position x="600" y="300"/>
+            <neighbours>
+                <neighbour name="sw68"/>
+                <neighbour name="ld65"/>
+                <neighbour name="sw69"/>
+            </neighbours>
+        </node>
+        <node type="loaderStation" name="ld65" color="blue">
+            <position x="550" y="400"/>
+            <neighbours>
+                <neighbour name="sw67"/>
+                <neighbour name="sw64"/>
+            </neighbours>
+        </node>
+
+        <node type="switch" name="sw64">
+            <position x="450" y="425"/>
+            <neighbours>
+                <neighbour name="st63"/>
+                <neighbour name="ld65"/>
+                <neighbour name="sp62"/>
+            </neighbours>
+        </node>
+        <node type="station" name="st63" color="green">
+            <position x="400" y="450"/>
+            <neighbours>
+                <neighbour name="sw64"/>
+                <neighbour name="sw2"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="sp62">
+            <position x="425" y="350"/>
+            <neighbours>
+                <neighbour name="sw64"/>
+            </neighbours>
+        </node>
+
+        <node type="specialPlace" name="sp61">
+            <position x="500" y="550"/>
+            <neighbours>
+                <neighbour name="st60"/>
+            </neighbours>
+        </node>
+        <node type="station" name="st60" color="red">
+            <position x="500" y="500"/>
+            <neighbours>
+                <neighbour name="sp61"/>
+                <neighbour name="sw59"/>
+            </neighbours>
+        </node>
+
+        <node type="switch" name="sw59">
+            <position x="450" y="290"/>
+            <neighbours>
+                <neighbour name="st51"/>
+                <neighbour name="st60"/>
+                <neighbour name="sp58"/>
+            </neighbours>
+        </node>
+
+        <node type="specialPlace" name="sp58">
+            <position x="300" y="290"/>
+            <neighbours>
+                <neighbour name="sw59"/>
+            </neighbours>
+        </node>
+        <node type="station" name="st51" color="blue">
+            <position x="500" y="275"/>
+            <neighbours>
+                <neighbour name="sw59"/>
+                <neighbour name="sw3"/>
+            </neighbours>
+        </node>
+
+        <node type="node" name="n50">
+            <position x="400" y="0"/>
+            <neighbours>
+                <neighbour name="sw3"/>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train start_node="n0" start_time="50">
+            <trainPart type="engine" speed="1"/>
+            <trainPart type="coalWagon"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="cart" color="blue"/>
+            <trainPart type="cart" color="red"/>
+        </train>
+        <train start_node="n50" start_time="0">
+            <trainPart type="engine" speed="1"/>
+            <trainPart type="cart" color="blue"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="cart" color="red"/>
+            <trainPart type="cart" color="green"/>
+        </train>
+    </trains>
+</level>

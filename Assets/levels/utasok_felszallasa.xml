@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
+<level>
+    <nodes>
+        <node type="node" name="node1">
+            <position x="20" y="20"/>
+            <neighbours>
+                <neighbour name="stationGreen"/>
+            </neighbours>
+        </node>
+        <node type="station" name="stationGreen" color="green">
+            <position x="90" y="20"/>
+            <neighbours>
+                <neighbour name="node1"/>
+                <neighbour name="loaderStationGreen"/>
+            </neighbours>
+        </node>
+        <node type="loaderStation" name="loaderStationGreen" color="green">
+            <position x="180" y="20"/>
+            <neighbours>
+                <neighbour name="stationGreen"/>
+                <neighbour name="node2"/>
+            </neighbours>
+        </node>
+        <node type="node" name="node2">
+            <position x="500" y="20"/>
+            <neighbours>
+                <neighbour name="loaderStationGreen"/>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train start_node="node1" start_time="0">
+            <trainPart type="engine" speed="1"/>
+            <trainPart type="cart" color="green"/>
+            <trainPart type="cart" color="blue"/>
+        </train>
+    </trains>
+</level>

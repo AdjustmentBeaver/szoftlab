@@ -1,0 +1,39 @@
+.toolBtn, #mainMenuBar {
+    -fx-font-family: "Papyrus", "Comic Sans MS", sans-serif;
+    -fx-font-size: 12pt;
+    -fx-text-fill: #DDDDAA;
+}
+
+.menu-button, .menu-button, .menu-item, #mainToolBar, #mainMenuBar, .menuMenu, .toolBtn {
+    -fx-background-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 0;
+}
+
+.toolBtn {
+    -fx-background-radius: 0;
+    -fx-border-width: 1;
+    -fx-border-color: #DDDDAA;
+}
+
+.menu-button:hover, .menu-button:hover, .menu-item:hover, .toolBtn:hover, #mainBorderPane {
+    -fx-background-color: #112233;
+}
+
+#mainMenuBar .label {
+    -fx-text-fill: #DDDDAA;
+}
+
+.separator *.line {
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #112233;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-color: black;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 4px;
+}

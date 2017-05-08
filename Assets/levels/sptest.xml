@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- A palya formatumat leiro DTD fajl -->
+<!DOCTYPE level SYSTEM "level.dtd">
+<level>
+    <nodes>
+        <node type="node" name="n1">
+            <position x="0" y="300"/>
+            <neighbours>
+                <neighbour name="n2"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n2">
+            <position x="600" y="300"/>
+            <neighbours>
+                <neighbour name="n1"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n3">
+            <position x="300" y="0"/>
+            <neighbours>
+                <neighbour name="sp1"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="sp1">
+            <position x="300" y="100"/>
+            <neighbours>
+                <neighbour name="n3"/>
+            </neighbours>
+        </node>
+        <node type="specialPlace" name="sp2">
+            <position x="300" y="450"/>
+            <neighbours>
+                <neighbour name="n4"/>
+            </neighbours>
+        </node>
+        <node type="node" name="n4">
+            <position x="300" y="600"/>
+            <neighbours>
+                <neighbour name="sp2"/>
+            </neighbours>
+        </node>
+    </nodes>
+    <trains>
+        <train start_node="n1" start_time="0">
+            <trainPart type="engine" speed="2"/>
+            <trainPart type="cart" color="red"/>
+            <trainPart type="coalWagon"/>
+        </train>
+        <train start_node="n3" start_time="0">
+            <trainPart type="engine" speed="2"/>
+            <trainPart type="coalWagon"/>
+        </train>
+    </trains>
+</level>
